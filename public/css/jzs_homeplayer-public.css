@@ -2,3 +2,87 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+ *[class^="jzs-"] {
+    color: black;
+}
+
+.jzs-title-font {
+    font-family: 'Roboto Bold', Helvetica, Arial, Lucida, sans-serif;
+    font-size: 18px;
+}
+
+.jzs-title-framed {
+    display: inline-block;
+    width: 10em;
+    text-align: center;
+    border: solid 2px black;
+  border-radius: 3px;
+  font-weight: 700;
+}
+
+.jzs-btn-framed {
+  display: inline-block;
+    border: solid 2px black;
+  margin: .5em;
+  padding: 4px 0;
+  padding-left: 8px;
+  border-radius: 3px;
+}
+
+.jzs-btn-framed-content {
+  color: white;
+    background-color: black;
+  margin-left: 8px;
+  padding: 4px 24px;
+}
+
+.jzs-header {
+    color: #eee;
+    position: absolute;
+    line-height: 1;
+}
+
+.jzs-header>* {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.jzs-header .header-logo {
+    font-size: 2em;
+    margin-right: .5em;
+}
+
+.jzs-header .header-product-infos {
+    border-left: solid 2px #eee;
+    padding-left: 1em;
+}
+
+#jzs-product-status:after,
+#jzs-product-status[data-islive]:after {
+    content: 'live';
+    color: #2ea3f2;
+}
+
+#jzs-product-status[data-islive=false]:after {
+    content: 'offline';
+    color: crimson;
+}
+
+@media only screen and (min-width: 981px) {
+    .jzs-header {
+        padding: 8px 0 0 0;
+        float: left;
+    }
+}
+
+@media (max-width: 980px) {
+    .jzs-header {
+        padding-top: 24px;
+    }
+}
+
+@media (max-width: 500px) {
+    .jzs-header .header-product-infos {
+        display: none !important;
+    }
+}
