@@ -22,6 +22,40 @@ $cleanup = $options['cleanup'];
 
 settings_fields($this->plugin_name);
 do_settings_sections($this->plugin_name);
+
+if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+    // Put your plugin code here
+    $products = wc_get_products(['status' => 'publish', 'limit' => -1]);
+    foreach ($products as $product) {
+        echo "<p>URL du produit <strong>" . $product->get_permalink() . "</strong></p>";
+        echo "<p>Nom du produit <strong>" . $product->get_name() . "</strong></p>";
+        echo "<p>Le produit est <strong>" . $product->get_stock_status() . "</strong></p>"; // instock | outofstock | inbackorder
+        // echo ($product->get_price()) . "€<br>";
+
+
+        $terms = get_terms([
+            'taxonomy' => 'pa_thecolor',
+            'hide_empty' => false,
+        ]);
+        echo "<p>Couleurs ";
+        foreach ($terms as $term) {
+            $color_hex = get_term_meta($term->term_id)["color"][0];
+            // echo $term->name;
+            echo "<span style='border-radius: 3em; height: 1em; width: 1em; display: inline-block; background: " . $color_hex . "'></span>&nbsp;";
+
+            // echo "<pre>";
+            // var_dump($term);
+            // echo "</pre>";
+        }
+        echo "</p>";
+        
+        echo "<pre>";
+        var_dump($product->get_variation_attributes());
+        var_dump($product);
+        echo "</pre>";
+    }
+}
+
 ?>
 
         <fieldset>
