@@ -132,13 +132,13 @@ class Jzs_homeplayer_Admin
         // $valid = [];
         // $valid['cleanup'] = (isset($input['cleanup']) && !empty($input['cleanup'])) ? 1 : 0;
         // return $valid;
-        
+
         // store options in file
         ob_start();
         var_dump($input);
         $result = ob_get_clean();
-        file_put_contents(realpath(__DIR__ . "/../public/js/plugin.html"), "<h2>Console log</h2><pre><code>" . $result . "</code></pre><script>let pluginData = " . json_encode($input) . ";</script>");
-        
+        file_put_contents(realpath(__DIR__ . "/../public/partials/public-display.html"), "<h2>Console log</h2><pre><code>" . $result . "</code></pre><script>let pluginData = " . json_encode($input) . ";</script>");
+
         return $input;
     }
 }
