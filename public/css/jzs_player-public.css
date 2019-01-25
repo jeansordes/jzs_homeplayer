@@ -1,0 +1,78 @@
+.jzs-player-txt {
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.jzs-player-txt>* {
+    color: white !important;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.jzs-player-action-btns {
+    display: inline-block;
+}
+
+.jzs-video-btn {
+    cursor: pointer;
+    height: 2em;
+    width: 2em;
+    vertical-align: middle;
+    display: inline-block;
+    border-radius: 3em;
+    border: solid 2px white;
+}
+
+.jzs-homeplayer-controls {
+    position: absolute;
+    top: 50%;
+    text-align: right;
+    overflow-wrap: break-word;
+    z-index: 10;
+    max-width: 80%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.jzs-homeplayer-videos {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+}
+
+/* player code below */
+
+.jzs-video-container,
+.jzs-video-container .jzs-video:first-child {
+    position: relative;
+}
+
+.jzs-video-container .jzs-video {
+    background-size: cover;
+    background-position: center center;
+    opacity: 0;
+    transition: opacity .3s;
+    min-width: 100%;
+    min-height: 100%;
+    max-height: unset;
+    max-width: unset;
+    width: auto;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.jzs-video-container .jzs-video.jzs-playing {
+    z-index: 10;
+    opacity: 1;
+}
+
+.jzs-video-container .jzs-video.jzs-playing.jzs-fade-out {
+    z-index: 5;
+}
