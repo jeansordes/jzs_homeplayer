@@ -30,8 +30,10 @@
     $(window).load(function () {
         console.log("jzs-plugin.js loaded");
 
-        let jzs_tmp = document.getElementById("main-header").getElementsByClassName("et_menu_container")[0];
-        jzs_tmp.innerHTML = "<div class='jzs-header'><a class='header-logo' href='/'>Sillage™</a><div class='header-product-infos'>Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'></span>\"</div></div>" + jzs_tmp.innerHTML;
+        if (document.getElementById("main-header")) {
+            let jzs_tmp = document.getElementById("main-header").getElementsByClassName("et_menu_container")[0];
+            jzs_tmp.innerHTML = "<div class='jzs-header'><a class='header-logo' href='/'>Sillage™</a><div class='header-product-infos'>Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'></span>\"</div></div>" + jzs_tmp.innerHTML;
+        }
 
         function transitionEndEventName() {
             let i, el = document.createElement('div'),
