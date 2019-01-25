@@ -2,7 +2,7 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
- *[class^="jzs-"] {
+*[class^="jzs-"] {
     color: black;
 }
 
@@ -11,29 +11,30 @@
     font-size: 18px;
 }
 
-.jzs-title-framed {
+.jzs-title-framed,
+.jzs-btn-framed {
     display: inline-block;
+    border: solid 2px black;
+    border-radius: 3px;
+}
+
+.jzs-title-framed {
     width: 10em;
     text-align: center;
-    border: solid 2px black;
-  border-radius: 3px;
-  font-weight: 700;
+    font-weight: 700;
 }
 
 .jzs-btn-framed {
-  display: inline-block;
-    border: solid 2px black;
-  margin: .5em;
-  padding: 4px 0;
-  padding-left: 8px;
-  border-radius: 3px;
+    margin: .5em;
+    padding: 4px 0;
+    padding-left: 8px;
 }
 
 .jzs-btn-framed-content {
-  color: white;
+    color: white;
     background-color: black;
-  margin-left: 8px;
-  padding: 4px 24px;
+    margin-left: 8px;
+    padding: 4px 24px;
 }
 
 .jzs-header {

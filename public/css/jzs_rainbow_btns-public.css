@@ -1,11 +1,10 @@
 .jzs-select-product {
     z-index: 10;
     position: absolute;
-    bottom: -2px;
+    bottom: -1px;
     white-space: nowrap;
     width: 100%;
-    /* max-width: 100%; */
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .jzs-rainbow-btns {
@@ -26,7 +25,7 @@
     vertical-align: middle;
 }
 
-.jzs-select-product:after {
+.jzs-video-container:after {
     content: '';
     z-index: 9;
     height: 10em;
@@ -52,7 +51,7 @@
         position: relative;
     }
 
-    .jzs-select-product:after {
+    .jzs-video-container:after {
         top: unset;
         bottom: 0;
         transform: translateY(100%);
