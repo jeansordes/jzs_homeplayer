@@ -129,21 +129,21 @@ class Jzs_homeplayer_Admin
 
     public function validate($input)
     {
-        $output = '<div class="jzs-homeplayer"><div class="sub-players">' . "\n\n" . '<!-- products loop -->' . "\n";
+        $output = '<div class="jzs-homeplayer" id="jzs-homeplayer"><div class="sub-players">' . "\n\n" . '<!-- products loop -->' . "\n";
 
         $productsLoopOutput = ["players" => '', "rainbow_btns" => ''];
         $i = 1;
         foreach ($input["products"] as $slug => $product) {
             if ($product["mustDisplay"] == 1) {
                 $productsLoopOutput["players"] .= '<div class="player' . ($i == 1 ? ' focused' : '') . '"><div class="videos">' . "\n\n" . '<!-- variations loop -->' . "\n";
-                $productsLoopOutput["rainbow_btns"] .= '<a class="rainbow-btn gr-' . $i . '" href="javascript:() => false"><span>' . $slug . '</span></a>';
+                $productsLoopOutput["rainbow_btns"] .= '<a class="rainbow-btn gr-' . $i . '" href="#jzs-homeplayer"><span>' . $slug . '</span></a>';
 
                 $variationsLoopOutput = ["videos" => '', "color_selectors" => ''];
-                foreach ($product["variations"] as $variation) {
-                    $variationsLoopOutput["videos"] .= '<video class="jzs-video jzs-playing" style="background-image: url(\'' . $variation["bgImgURL"] . '\')"
-                        loop="" autoplay="" muted="" src="' . $variation["videoURL"] . '"></video>';
-                    if (!empty($variation["color"]) && count($variation["color"]) > 1) {
-                        $variationsLoopOutput["color_selectors"] .= '<a class="jzs-video-btn" style="background:' . $variation["color"] . '"></a>';
+                foreach ($product["variations"] as $key => $variation) {
+                    $variationsLoopOutput["videos"] .= '<video class="jzs-video' . ($key == 0 ? ' jzs-playing' : '') . '" style="background-image: url(\'' . $variation["bgImgURL"] . '\')"
+                        loop="" autoplay="" muted="" src="' . $variation["videoURL"] . '" data-stockStatus="' . $variation["stockStatus"] . '"></video>';
+                    if (!empty($variation["color"]) && count($product["variations"]) > 1) {
+                        $variationsLoopOutput["color_selectors"] .= '<a class="jzs-video-btn" style="background:' . $variation["color"] . '"></a> ';
                     }
                 }
 

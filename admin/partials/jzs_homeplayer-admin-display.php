@@ -53,7 +53,9 @@ if (!empty($options["colorAttrName"])) {
                         <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_player-public.css">
                         <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_rainbow_btns-public.css">
                         <script src="/wp-content/plugins/jzs_homeplayer/public/js/jzs_homeplayer-public.js"></script>
-                        <style>.jzs-rainbow-btns { min-height: 3em }</style>
+                        <div id="main-header">
+                            <div class="et_menu_container"></div>
+                        </div>
                         <?=do_shortcode("[jzs_homeplayer]")?>
                     </div>
                 </div>
@@ -101,7 +103,8 @@ if (!empty($options["colorAttrName"])) {
                     - - - - - - [0] => [
                     - - - - - - - - [color] => #fff,
                     - - - - - - - - [bgImgURL] => .png,
-                    - - - - - - - - [videoURL] => .mp4
+                    - - - - - - - - [videoURL] => .mp4,
+                    - - - - - - - - [stockStatus] => instock|inbackorder|outofstock
                     - - - - - - ],
                     - - - - - - [1] => ...
                     - - - - ],
@@ -113,6 +116,8 @@ if (!empty($options["colorAttrName"])) {
 
                     // do things for each variation
                     $variation_prefix = $pluginName . '[products][' . $slug . '][variations]';
+
+                    $productVariations = (new WC_Product_Variable($product))->get_available_variations();
                     $i = 0;
                     for ($j = 0; $j < count($terms); $j++) {
                         $term = $terms[$j];
@@ -120,11 +125,14 @@ if (!empty($options["colorAttrName"])) {
                             echo "<p>";
                             if (empty($product_colors)) {
                                 echo "<em>Aucune variation</em>";
+                                ?><input type="hidden" name="<?=$variation_prefix?>[<?=$i?>][stockStatus]" value="<?=$product->get_stock_status() == "instock" ? "live" : "offline"?>"><?php
+
                                 $j = count($terms);
                             } else {
                                 $color_hex = get_term_meta($term->term_id)["color"][0];
 
                                 ?><span class='product-variation' style='background:<?=$color_hex?>'></span> Variation "<?=$term->name?>"
+                                <input type="hidden" name="<?=$variation_prefix?>[<?=$i?>][stockStatus]" value="<?= (!empty($productVariations[$i]["is_in_stock"]) && $productVariations[$i]["is_in_stock"]) || $product->get_stock_status() == "instock" ? "live" : "offline"?>">
 
                                 <input type="hidden" name="<?=$variation_prefix?>[<?=$i?>][color]" value="<?=$color_hex?>"></p><?php
 
@@ -176,9 +184,16 @@ if (!empty($options["colorAttrName"])) {
 }
 echo '<div class="notice notice-warning inline"><p><span class="dashicons dashicons-warning"></span> Pensez à revenir ici quand vous modifiez un produit pour synchroniser les informations WooCommerce avec ce plugin (en cliquant sur <code>Enregistrer</code>)</p></div>';
 submit_button("Enregistrer", 'primary', 'submit', true);?>
-    </form><?php
-// echo '<h1>Outils de debugging</h1><pre><code>';
-// var_dump($options);
-// echo '</code></pre>';
-?>
+    </form>
+    <div class="postbox">
+        <div class="hndle">
+            <label>
+                <input class="jzs-settings-checkbox" style="display: none" type='checkbox'/>
+                <span><span class="dashicons dashicons-arrow-down"></span> Outils de debugging</span>
+            </label>
+        </div>
+        <div class="inside hidden" style="background: whitesmoke; margin: 0; padding: 12px;">
+            <pre><code><?php var_dump($options)?></code></pre>
+        </div>
+    </div>
 </div>

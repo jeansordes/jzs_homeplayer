@@ -37,3 +37,23 @@ textarea {
 .dashicons-before:before {
     vertical-align: middle;
 }
+
+.jzs-rainbow-btns {
+    min-height: 3em !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.jzs-header {
+    position: relative !important;
+    padding-bottom: 24px;
+}
+
+.et_menu_container {
+    display: flex !important;
+    min-height: 46px;
+    background: black;
+    padding: 0 2em;
+}

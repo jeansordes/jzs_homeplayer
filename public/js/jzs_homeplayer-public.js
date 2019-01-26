@@ -30,9 +30,32 @@
     $(window).load(function () {
         console.log("jzs-plugin.js loaded");
 
+        // handle rainbow product click
+        let rainbowBtns = document.getElementsByClassName("rainbow-btn");
+        for (let i = 0; i < rainbowBtns.length; i++) {
+            rainbowBtns[i].addEventListener("click", evt => {
+                evt.preventDefault();
+                document.getElementById("jzs-homeplayer").getElementsByClassName("player focused")[0].classList.remove("focused");
+
+                let jzsPlayer = document.getElementById("jzs-homeplayer").getElementsByClassName("player")[i];
+                jzsPlayer.classList.add("focused");
+                updateHeaderProductStatus(jzsPlayer.getElementsByClassName("jzs-video jzs-playing")[0]);
+            });
+        }
+
+        let updateHeaderProductStatus = (videoEl) => {
+            if (document.getElementById("jzs-product-status") && document.getElementsByClassName("jzs-video jzs-playing").length > 0) {
+                let status = videoEl.getAttribute("data-stockStatus") == "offline" ? "false" : "true";
+                document.getElementById("jzs-product-status").setAttribute("data-islive", status);
+            } else {
+                console.error("Il manque l'entête et le code du player");
+            }
+        }
+
         if (document.getElementById("main-header")) {
             let jzs_tmp = document.getElementById("main-header").getElementsByClassName("et_menu_container")[0];
             jzs_tmp.innerHTML = "<div class='jzs-header'><a class='header-logo' href='/'>Sillage™</a><div class='header-product-infos'>Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'></span>\"</div></div>" + jzs_tmp.innerHTML;
+            updateHeaderProductStatus(document.getElementById("jzs-homeplayer").getElementsByClassName("jzs-video jzs-playing")[0]);
         }
 
         function transitionEndEventName() {
@@ -53,7 +76,7 @@
             throw 'TransitionEnd event is not supported in this browser';
         }
 
-        let containers = document.getElementsByClassName("jzs-video-container");
+        let containers = document.getElementById("jzs-homeplayer").getElementsByClassName("player");
         for (let j = 0; j < containers.length; j++) {
             const container = containers[j];
 
@@ -61,11 +84,13 @@
             for (let i = 0; i < btns.length; i++) {
                 const btn = btns[i];
                 btn.addEventListener("click", evt => {
+                    
                     let newVideo = container.getElementsByClassName("jzs-video")[i];
                     if (!newVideo.classList.contains("jzs-playing")) {
                         let currentVideo = container.getElementsByClassName("jzs-video jzs-playing")[0];
                         newVideo.classList.add("jzs-playing");
                         currentVideo.classList.add("jzs-fade-out");
+                        updateHeaderProductStatus(newVideo);
 
                         let onTransitionOver = transitionEndEventName();
                         let transitionListener = () => {
