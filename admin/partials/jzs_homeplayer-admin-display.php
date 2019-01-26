@@ -45,12 +45,12 @@ if (!empty($options["colorAttrName"])) {
                     <div class="postbox">
                         <div class="hndle">
                             <label>
-                                <input class="jzs-settings-checkbox" type='checkbox' name="<?=$pluginName . "[" . $slug . "][mustDisplay]"?>" value='1' <?php empty($options[$slug]["mustDisplay"]) ? null : checked($options[$slug]["mustDisplay"], 1)?> />
+                                <input class="jzs-settings-checkbox" type='checkbox' name="<?=$pluginName . "[products][" . $slug . "][mustDisplay]"?>" value='1' <?php empty($options["products"][$slug]["mustDisplay"]) ? null : checked($options["products"][$slug]["mustDisplay"], 1)?> />
                                 <span>Afficher "<strong><?=$product->get_name()?></strong>" sur le player</span>
                             </label>
                             <!-- <a href="<?=$product->get_permalink()?>">Voir le produit</a> -->
                         </div>
-                        <div class="inside<?=empty($options[$slug]["mustDisplay"]) ? ' hidden' : ''?>">
+                        <div class="inside<?=empty($options["products"][$slug]["mustDisplay"]) ? ' hidden' : ''?>">
                             <?php
 
                     /* <p>
@@ -59,7 +59,7 @@ if (!empty($options["colorAttrName"])) {
                     Etat des stocks <strong><?=$product->get_stock_status()?></strong><br />
                     <!-- instock | outofstock | inbackorder -->
                     <!-- <?=$product->get_price()?>€<br> -->
-                    </p><hr> */
+                    </p> */
 
                     // check if there is color(s)
                     if (array_key_exists('pa_' . $options["colorAttrName"], $product->get_attributes())) {
@@ -73,7 +73,7 @@ if (!empty($options["colorAttrName"])) {
                     }
 
                     /*
-                    [pluginName] => [
+                    [pluginName][products] => [
                     - - [slug1] => [
                     - - - - [variations] => [
                     - - - - - - [0] => [
@@ -90,7 +90,7 @@ if (!empty($options["colorAttrName"])) {
                      */
 
                     // do things for each variation
-                    $variation_prefix = $pluginName . '[' . $slug . '][variations]';
+                    $variation_prefix = $pluginName . '[products][' . $slug . '][variations]';
                     $i = 0;
                     for ($j = 0; $j < count($terms); $j++) {
                         $term = $terms[$j];
@@ -110,11 +110,11 @@ if (!empty($options["colorAttrName"])) {
                             echo "</p>";
                             ?>
                                 <p>
-                                    URL de la vidéo à afficher<br><input type="text" name="<?=$variation_prefix?>[<?=$i?>][videoURL]" value="<?=empty($options[$slug]["variations"][$i]["videoURL"]) ? '' : $options[$slug]["variations"][$i]["videoURL"]?>">
+                                    URL de la vidéo à afficher<br><input type="text" name="<?=$variation_prefix?>[<?=$i?>][videoURL]" value="<?=empty($options["products"][$slug]["variations"][$i]["videoURL"]) ? '' : $options["products"][$slug]["variations"][$i]["videoURL"]?>">
                                 </p><p>
 
-                                    URL de l'image de backup<br><input type="text" name="<?=$variation_prefix?>[<?=$i?>][bgImgURL]" value="<?=empty($options[$slug]["variations"][$i]["bgImgURL"]) ?
-                            wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] : $options[$slug]["variations"][$i]["bgImgURL"]?>" >
+                                    URL de l'image de backup<br><input type="text" name="<?=$variation_prefix?>[<?=$i?>][bgImgURL]" value="<?=empty($options["products"][$slug]["variations"][$i]["bgImgURL"]) ?
+                            wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] : $options["products"][$slug]["variations"][$i]["bgImgURL"]?>" >
                                 </p><hr><?php
 
                             echo "<pre>";
@@ -125,11 +125,11 @@ if (!empty($options["colorAttrName"])) {
                         }
                     }
 
-                    // [slug][permalink] => http
-                     ?><input type='hidden' name='<?=$pluginName?>[<?=$slug?>][permalink]' value='<?=$product->get_permalink()?>'><?php
+                    // [products][slug][permalink] => http
+                     ?><input type='hidden' name='<?=$pluginName?>[products][<?=$slug?>][permalink]' value='<?=$product->get_permalink()?>'><?php
 
-                    // [slug][htmlOverlay] => <p>yo</p>
-                    ?><p>HTML en overlay au dessus du produit<br><textarea name="<?=$pluginName?>[<?=$slug?>][htmlOverlay]" cols="30" rows="10"><?=empty($options[$slug]["htmlOverlay"]) ? '' : $options[$slug]["htmlOverlay"]?></textarea></p><?php
+                    // [products][slug][htmlOverlay] => <p>yo</p>
+                    ?><p>HTML en overlay au dessus du produit<br><textarea name="<?=$pluginName?>[products][<?=$slug?>][htmlOverlay]" cols="30" rows="10"><?=empty($options["products"][$slug]["htmlOverlay"]) ? '' : $options["products"][$slug]["htmlOverlay"]?></textarea></p><?php
 
                     echo "<pre>";
                     // var_dump($product->get_variation_attributes());
@@ -152,12 +152,14 @@ if (!empty($options["colorAttrName"])) {
         }
     }
 }
-echo "<hr />";
 submit_button('Enregistrer', 'primary', 'submit', true);?>
-    </form>
-    <h1>Outils de debugging</h1>
-    <pre><code><?php var_dump($options)?></code></pre>
-    <h1>Aperçu</h1>
+    </form><?php
+// if (false) {
+//     echo '<h1>Outils de debugging</h1><pre><code>';
+//     var_dump($options);
+//     echo '</code></pre>';
+// }
+?><h1>Aperçu</h1>
     <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_homeplayer-public.css">
     <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_player-public.css">
     <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_rainbow_btns-public.css">

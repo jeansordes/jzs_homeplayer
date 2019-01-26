@@ -136,12 +136,12 @@ class Jzs_homeplayer_Admin
         $output = '<div id="jzs-homeplayer" class="jzs-video-container">
         <div class="jzs-homeplayer-videos">';
 
-        foreach ($products as $product) {
+        foreach ($input["products"] as $slug => $product) {
             $output .= '<video class="jzs-video jzs-playing" style="background-image: url(\'' . $product["bg-image-url"] . '\')"
                 loop="" autoplay="" muted="" src="' . $product["video-url"] . '"></video>';
         }
 
-        file_put_contents(realpath(__DIR__ . "/../public/partials/public-display.html"), "<h2>Console log</h2><pre><code>" . $result . "</code></pre><script>let pluginData = " . json_encode($input) . ";</script>");
+        file_put_contents(realpath(__DIR__ . "/../public/partials/public-display.html"), $output);
 
         return $input;
     }
