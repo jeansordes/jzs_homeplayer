@@ -141,7 +141,7 @@ class Jzs_homeplayer_Admin
                 $variationsLoopOutput = ["videos" => '', "color_selectors" => ''];
                 foreach ($product["variations"] as $key => $variation) {
                     $variationsLoopOutput["videos"] .= '<video class="jzs-video' . ($key == 0 ? ' jzs-playing' : '') . '" style="background-image: url(\'' . $variation["bgImgURL"] . '\')"
-                        loop="" autoplay="" muted="" src="' . $variation["videoURL"] . '" data-stockStatus="' . $variation["stockStatus"] . '"></video>';
+                        loop autoplay muted src="' . $variation["videoURL"] . '" data-stockStatus="' . $variation["stockStatus"] . '"></video>';
                     if (!empty($variation["color"]) && count($product["variations"]) > 1) {
                         $variationsLoopOutput["color_selectors"] .= '<a class="jzs-video-btn" style="background:' . $variation["color"] . '"></a> ';
                     }

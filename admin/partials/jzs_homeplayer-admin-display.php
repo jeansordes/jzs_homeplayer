@@ -42,11 +42,11 @@ if (!empty($options["colorAttrName"])) {
                 <div class="postbox">
                     <div class="hndle">
                         <label>
-                            <input class="jzs-settings-checkbox" style="display: none" type='checkbox' checked/>
+                            <input class="jzs-settings-checkbox" style="display: none" type='checkbox'/>
                             <span><span class="dashicons dashicons-arrow-down"></span> Apercu</span>
                         </label>
                     </div>
-                    <div class="inside" style="background: whitesmoke; margin: 0; padding: 12px;">
+                    <div class="inside hidden" style="background: whitesmoke; margin: 0; padding: 12px;">
                         <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_global-public.css">
                         <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_player-public.css">
                         <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_rainbow_btns-public.css">
@@ -138,57 +138,55 @@ if (!empty($options["colorAttrName"])) {
                             echo "</p>";
                             ?>
                                 <p>
+                                    <label>
                                     URL de la vidéo à afficher<br>
                                     <select name="<?=$variation_prefix?>[<?=$i?>][videoURL]">
                                         <?php
 
-                            $query_images_args = array(
-                                'post_type' => 'attachment',
+                            $query_images = new WP_Query(['post_type' => 'attachment',
                                 'post_mime_type' => 'video',
                                 'post_status' => 'inherit',
                                 'posts_per_page' => -1,
-                            );
-
-                            $query_images = new WP_Query($query_images_args);
-
-                            $images = array();
-                            foreach ($query_images->posts as $image) {
+                            ]);
+                            $tmp = 0;
+                            foreach ($query_images->posts as $file_index => $image) {
                                 echo "<option value='" . wp_get_attachment_url($image->ID) . "'";
                                 if (!empty($options["products"][$slug]["variations"][$i]["videoURL"]) && $options["products"][$slug]["variations"][$i]["videoURL"] == wp_get_attachment_url($image->ID)) {
                                     echo " selected";
+                                    $tmp = $file_index;
                                 }
                                 echo ">" . basename(wp_get_attachment_url($image->ID)) . "</option>";
                             }
                             ?>
                                     </select>
+                                    </label>
+                                    <video controls muted src="<?=wp_get_attachment_url($query_images->posts[$tmp]->ID)?>" id="<?=$variation_prefix?>[<?=$i?>][videoURL]preview" alt="preview" class="jzs-preview">
                                 </p><p>
+                                    <label>
                                     URL de l'image de backup<br>
                                     <select name="<?=$variation_prefix?>[<?=$i?>][bgImgURL]">
                                         <?php
 
-                            $query_images_args = array(
-                                'post_type' => 'attachment',
+                            $query_images = new WP_Query(['post_type' => 'attachment',
                                 'post_mime_type' => 'image',
                                 'post_status' => 'inherit',
                                 'posts_per_page' => -1,
-                            );
-
-                            $query_images = new WP_Query($query_images_args);
-
-                            $images = array();
-                            foreach ($query_images->posts as $image) {
+                            ]);
+                            $tmp = 0;
+                            foreach ($query_images->posts as $file_index => $image) {
                                 echo "<option value='" . wp_get_attachment_url($image->ID) . "'";
                                 if ((!empty($options["products"][$slug]["variations"][$i]["bgImgURL"])
                                     && $options["products"][$slug]["variations"][$i]["bgImgURL"] == wp_get_attachment_url($image->ID))
-                                    || wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] == wp_get_attachment_url($image->ID)) {
+                                    || (empty($options["products"][$slug]["variations"][$i]["bgImgURL"]) && wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] == wp_get_attachment_url($image->ID))) {
                                     echo " selected";
+                                    $tmp = $file_index;
                                 }
                                 echo ">" . basename(wp_get_attachment_url($image->ID)) . "</option>";
                             }
                             ?>
                                     </select>
-
-
+                                    <img src="<?=wp_get_attachment_url($query_images->posts[$tmp]->ID)?>" id="<?=$variation_prefix?>[<?=$i?>][bgImgURL]preview" alt="preview" class="jzs-preview">
+                                    </label>
                                 </p><hr><?php
 
                             echo "<pre>";

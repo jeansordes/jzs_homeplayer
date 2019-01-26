@@ -40,5 +40,13 @@
                 }
             });
         }
+        
+        let allSelectDOM = document.getElementsByTagName("select");
+        for (let i = 0; i < allSelectDOM.length; i++) {
+            let slct = allSelectDOM[i];
+            slct.addEventListener("change", () => {
+                document.getElementById(slct.getAttribute("name") + "preview").setAttribute("src", slct.value);
+            });
+        }
     });
 })( jQuery );

@@ -58,3 +58,9 @@ a {
     background: black;
     padding: 0 2em;
 }
+
+.jzs-preview {
+    vertical-align: top;
+    max-height: 100px;
+    width: auto;
+}
