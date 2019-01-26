@@ -154,11 +154,9 @@ if (!empty($options["colorAttrName"])) {
 }
 submit_button('Enregistrer', 'primary', 'submit', true);?>
     </form><?php
-// if (false) {
-//     echo '<h1>Outils de debugging</h1><pre><code>';
-//     var_dump($options);
-//     echo '</code></pre>';
-// }
+echo '<h1>Outils de debugging</h1><pre><code>';
+var_dump($options);
+echo '</code></pre>';
 ?><h1>Aperçu</h1>
     <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_homeplayer-public.css">
     <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_player-public.css">
