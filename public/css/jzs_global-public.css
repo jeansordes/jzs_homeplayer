@@ -6,6 +6,10 @@
     color: black;
 }
 
+a[class^="jzs-"] {
+    text-decoration: none !important;
+}
+
 .jzs-title-font {
     font-family: 'Roboto Bold', Helvetica, Arial, Lucida, sans-serif;
     font-size: 18px;

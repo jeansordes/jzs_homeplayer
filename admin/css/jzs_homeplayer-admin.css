@@ -27,3 +27,13 @@
 .hidden {
     display: none;
 }
+
+input[type=text],
+textarea {
+    width: 100%;
+}
+
+.dashicons,
+.dashicons-before:before {
+    vertical-align: middle;
+}

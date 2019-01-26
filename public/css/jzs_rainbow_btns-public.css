@@ -2,6 +2,7 @@
     z-index: 10;
     position: absolute;
     bottom: -1px;
+    left: -1px;
     white-space: nowrap;
     width: 100%;
     overflow: hidden;
@@ -25,7 +26,7 @@
     vertical-align: middle;
 }
 
-.jzs-video-container:after {
+.jzs-homeplayer .videos:after {
     content: '';
     z-index: 9;
     height: 10em;
@@ -51,7 +52,15 @@
         position: relative;
     }
 
-    .jzs-video-container:after {
+    .jzs-select-product .jzs-rainbow-btns {
+        display: block;
+    }
+
+    .jzs-select-product .jzs-after-wave {
+        display: none;
+    }
+
+    .jzs-homeplayer .videos:after {
         top: unset;
         bottom: 0;
         transform: translateY(100%);
@@ -98,6 +107,14 @@
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
+}
+
+.rainbow-btn:not(.gr-1):not(.gr-2):not(.gr-3):not(.gr-4):not(.gr-5):not(.gr-6) {
+    border: solid 2px lightslategray;
+}
+
+.rainbow-btn:not(.gr-1):not(.gr-2):not(.gr-3):not(.gr-4):not(.gr-5):not(.gr-6)>span {
+    color: lightslategray;
 }
 
 .rainbow-btn {

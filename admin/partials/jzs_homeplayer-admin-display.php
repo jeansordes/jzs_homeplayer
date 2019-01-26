@@ -39,6 +39,26 @@ if (!empty($options["colorAttrName"])) {
         if ($is_taxonomy_real) {
             // if WooCommerce is installed
             if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+                ?><div class="notice notice-info inline"><p>Il est conseillé de ne pas selectionner trop de produits au risque de rendre le chargement de la page d'accueil très long, surtout si l'utilisateur est sur mobile</p></div>
+
+                <div class="postbox">
+                    <div class="hndle">
+                        <label>
+                            <input class="jzs-settings-checkbox" style="display: none" type='checkbox' checked/>
+                            <span><span class="dashicons dashicons-arrow-down"></span> Apercu</span>
+                        </label>
+                    </div>
+                    <div class="inside" style="background: whitesmoke; margin: 0; padding: 12px;">
+                        <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_global-public.css">
+                        <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_player-public.css">
+                        <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_rainbow_btns-public.css">
+                        <script src="/wp-content/plugins/jzs_homeplayer/public/js/jzs_homeplayer-public.js"></script>
+                        <style>.jzs-rainbow-btns { min-height: 3em }</style>
+                        <?=do_shortcode("[jzs_homeplayer]")?>
+                    </div>
+                </div>
+                <?php
+
                 foreach ($products as $product) {
                     $slug = $product->get_slug();
                     ?>
@@ -48,9 +68,12 @@ if (!empty($options["colorAttrName"])) {
                                 <input class="jzs-settings-checkbox" type='checkbox' name="<?=$pluginName . "[products][" . $slug . "][mustDisplay]"?>" value='1' <?php empty($options["products"][$slug]["mustDisplay"]) ? null : checked($options["products"][$slug]["mustDisplay"], 1)?> />
                                 <span>Afficher "<strong><?=$product->get_name()?></strong>" sur le player</span>
                             </label>
-                            <!-- <a href="<?=$product->get_permalink()?>">Voir le produit</a> -->
                         </div>
                         <div class="inside<?=empty($options["products"][$slug]["mustDisplay"]) ? ' hidden' : ''?>">
+                        <p>
+                            <a target="_blank" class="button-secondary" href="<?=get_edit_post_link($product->get_id())?>"><span class="dashicons dashicons-edit"></span> Modifier ce produit</a>
+                            <a target="_blank" class="button-secondary" href="<?=$product->get_permalink()?>"><span class="dashicons dashicons-visibility"></span> Visualiser ce produit</a>
+                        </p>
                             <?php
 
                     /* <p>
@@ -58,7 +81,6 @@ if (!empty($options["colorAttrName"])) {
                     Slug du produit <strong><?=$slug?></strong><br />
                     Etat des stocks <strong><?=$product->get_stock_status()?></strong><br />
                     <!-- instock | outofstock | inbackorder -->
-                    <!-- <?=$product->get_price()?>€<br> -->
                     </p> */
 
                     // check if there is color(s)
@@ -152,15 +174,11 @@ if (!empty($options["colorAttrName"])) {
         }
     }
 }
-submit_button('Enregistrer', 'primary', 'submit', true);?>
+echo '<div class="notice notice-warning inline"><p><span class="dashicons dashicons-warning"></span> Pensez à revenir ici quand vous modifiez un produit pour synchroniser les informations WooCommerce avec ce plugin (en cliquant sur <code>Enregistrer</code>)</p></div>';
+submit_button("Enregistrer", 'primary', 'submit', true);?>
     </form><?php
-echo '<h1>Outils de debugging</h1><pre><code>';
-var_dump($options);
-echo '</code></pre>';
-?><h1>Aperçu</h1>
-    <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_homeplayer-public.css">
-    <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_player-public.css">
-    <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs_rainbow_btns-public.css">
-    <script src="/wp-content/plugins/jzs_homeplayer/public/js/jzs_homeplayer-public.js"></script>
-    <?=do_shortcode("[jzs_homeplayer]")?>
+// echo '<h1>Outils de debugging</h1><pre><code>';
+// var_dump($options);
+// echo '</code></pre>';
+?>
 </div>
