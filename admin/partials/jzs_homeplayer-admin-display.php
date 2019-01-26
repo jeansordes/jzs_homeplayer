@@ -29,14 +29,12 @@ if (!empty($options["colorAttrName"])) {
         ?><div class="notice notice-error inline"><p>Il n'y a aucun produit à afficher</p></div><?php
 
     } else {
-        // check each product to see if the taxonomy is found
-        $is_taxonomy_real = false;
-        for ($i = 0;!$is_taxonomy_real && $i < count($products); $i++) {
-            if (array_key_exists('pa_' . $options["colorAttrName"], $products[$i]->get_attributes())) {
-                $is_taxonomy_real = true;
-            }
-        }
-        if ($is_taxonomy_real) {
+        // check if the taxonomy is found
+        $terms = get_terms([
+            'taxonomy' => 'pa_' . $options["colorAttrName"],
+            'hide_empty' => false,
+        ]);
+        if (is_array($terms) && $terms[0]->taxonomy == 'pa_' . $options["colorAttrName"]) {
             // if WooCommerce is installed
             if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
                 ?><div class="notice notice-info inline"><p>Il est conseillé de ne pas selectionner trop de produits au risque de rendre le chargement de la page d'accueil très long, surtout si l'utilisateur est sur mobile</p></div>
@@ -68,7 +66,7 @@ if (!empty($options["colorAttrName"])) {
                         <div class="hndle">
                             <label>
                                 <input class="jzs-settings-checkbox" type='checkbox' name="<?=$pluginName . "[products][" . $slug . "][mustDisplay]"?>" value='1' <?php empty($options["products"][$slug]["mustDisplay"]) ? null : checked($options["products"][$slug]["mustDisplay"], 1)?> />
-                                <span>Afficher "<strong><?=$product->get_name()?></strong>" sur le player</span>
+                                <span>Afficher <strong><?=$slug?></strong> sur le player (aka "<?=$product->get_name()?>")</span>
                             </label>
                         </div>
                         <div class="inside<?=empty($options["products"][$slug]["mustDisplay"]) ? ' hidden' : ''?>">
@@ -132,7 +130,7 @@ if (!empty($options["colorAttrName"])) {
                                 $color_hex = get_term_meta($term->term_id)["color"][0];
 
                                 ?><span class='product-variation' style='background:<?=$color_hex?>'></span> Variation "<?=$term->name?>"
-                                <input type="hidden" name="<?=$variation_prefix?>[<?=$i?>][stockStatus]" value="<?= (!empty($productVariations[$i]["is_in_stock"]) && $productVariations[$i]["is_in_stock"]) || $product->get_stock_status() == "instock" ? "live" : "offline"?>">
+                                <input type="hidden" name="<?=$variation_prefix?>[<?=$i?>][stockStatus]" value="<?=(!empty($productVariations[$i]["is_in_stock"]) && $productVariations[$i]["is_in_stock"]) || $product->get_stock_status() == "instock" ? "live" : "offline"?>">
 
                                 <input type="hidden" name="<?=$variation_prefix?>[<?=$i?>][color]" value="<?=$color_hex?>"></p><?php
 
@@ -140,11 +138,57 @@ if (!empty($options["colorAttrName"])) {
                             echo "</p>";
                             ?>
                                 <p>
-                                    URL de la vidéo à afficher<br><input type="text" name="<?=$variation_prefix?>[<?=$i?>][videoURL]" value="<?=empty($options["products"][$slug]["variations"][$i]["videoURL"]) ? '' : $options["products"][$slug]["variations"][$i]["videoURL"]?>">
-                                </p><p>
+                                    URL de la vidéo à afficher<br>
+                                    <select name="<?=$variation_prefix?>[<?=$i?>][videoURL]">
+                                        <?php
 
-                                    URL de l'image de backup<br><input type="text" name="<?=$variation_prefix?>[<?=$i?>][bgImgURL]" value="<?=empty($options["products"][$slug]["variations"][$i]["bgImgURL"]) ?
-                            wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] : $options["products"][$slug]["variations"][$i]["bgImgURL"]?>" >
+                            $query_images_args = array(
+                                'post_type' => 'attachment',
+                                'post_mime_type' => 'video',
+                                'post_status' => 'inherit',
+                                'posts_per_page' => -1,
+                            );
+
+                            $query_images = new WP_Query($query_images_args);
+
+                            $images = array();
+                            foreach ($query_images->posts as $image) {
+                                echo "<option value='" . wp_get_attachment_url($image->ID) . "'";
+                                if (!empty($options["products"][$slug]["variations"][$i]["videoURL"]) && $options["products"][$slug]["variations"][$i]["videoURL"] == wp_get_attachment_url($image->ID)) {
+                                    echo " selected";
+                                }
+                                echo ">" . basename(wp_get_attachment_url($image->ID)) . "</option>";
+                            }
+                            ?>
+                                    </select>
+                                </p><p>
+                                    URL de l'image de backup<br>
+                                    <select name="<?=$variation_prefix?>[<?=$i?>][bgImgURL]">
+                                        <?php
+
+                            $query_images_args = array(
+                                'post_type' => 'attachment',
+                                'post_mime_type' => 'image',
+                                'post_status' => 'inherit',
+                                'posts_per_page' => -1,
+                            );
+
+                            $query_images = new WP_Query($query_images_args);
+
+                            $images = array();
+                            foreach ($query_images->posts as $image) {
+                                echo "<option value='" . wp_get_attachment_url($image->ID) . "'";
+                                if ((!empty($options["products"][$slug]["variations"][$i]["bgImgURL"])
+                                    && $options["products"][$slug]["variations"][$i]["bgImgURL"] == wp_get_attachment_url($image->ID))
+                                    || wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] == wp_get_attachment_url($image->ID)) {
+                                    echo " selected";
+                                }
+                                echo ">" . basename(wp_get_attachment_url($image->ID)) . "</option>";
+                            }
+                            ?>
+                                    </select>
+
+
                                 </p><hr><?php
 
                             echo "<pre>";
@@ -172,17 +216,17 @@ if (!empty($options["colorAttrName"])) {
                     </div><?php
 
                 }
+                echo '<div class="notice notice-warning inline"><p><span class="dashicons dashicons-warning"></span> Pensez à revenir ici quand vous modifiez un produit pour synchroniser les informations WooCommerce avec ce plugin (en cliquant sur <code>Enregistrer</code>)</p></div>';
             } else {
                 ?><div class="notice notice-error inline"><p>Vous devez avoir installé et activé le plugin WooCommerce pour utiliser ce plugin</p></div><?php
 
             }
         } else {
-            ?><div class="notice notice-error inline"><p>Le nom de l'attribut que vous avez rentré ne correspond à aucun attribut. Assurez vous d'avoir créé l'attribut avec le plugin <a href="https://wordpress.org/plugins/variation-swatches-for-woocommerce/" target="_blank">WooCommerce Variation Swatches</a> et d'avoir assigné cet attribut à au moins 1 produit de la boutique</p></div><?php
+            ?><div class="notice notice-error inline"><p>Le nom de l'attribut que vous avez rentré ne correspond à aucun attribut. Assurez vous d'avoir créé l'attribut avec le plugin <a href="https://wordpress.org/plugins/variation-swatches-for-woocommerce/" target="_blank">WooCommerce Variation Swatches</a></p></div><?php
 
         }
     }
 }
-echo '<div class="notice notice-warning inline"><p><span class="dashicons dashicons-warning"></span> Pensez à revenir ici quand vous modifiez un produit pour synchroniser les informations WooCommerce avec ce plugin (en cliquant sur <code>Enregistrer</code>)</p></div>';
 submit_button("Enregistrer", 'primary', 'submit', true);?>
     </form>
     <div class="postbox">
