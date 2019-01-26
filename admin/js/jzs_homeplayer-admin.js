@@ -28,5 +28,17 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
-
+    $(window).load(function () {
+        let allCB = document.getElementsByClassName("jzs-settings-checkbox");
+        for (let i = 0; i < allCB.length; i++) {
+            let cb = allCB[i];
+            cb.addEventListener("change", () => {
+                if (cb.checked) {
+                    $(cb).closest(".postbox").find(".inside").removeClass("hidden");
+                } else {
+                    $(cb).closest(".postbox").find(".inside").addClass("hidden");
+                }
+            });
+        }
+    });
 })( jQuery );

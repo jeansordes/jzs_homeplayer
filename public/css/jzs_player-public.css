@@ -1,9 +1,11 @@
 .jzs-player-txt {
+    max-width: 100%;
+    /* display: inline-block; */
     text-align: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.jzs-player-txt>* {
+.jzs-player-txt>*:not(style) {
     color: white !important;
     display: inline-block;
     max-width: 100%;
@@ -26,6 +28,7 @@
 .jzs-homeplayer-controls {
     position: absolute;
     top: 50%;
+    transform: translateY(-50%);
     text-align: right;
     overflow-wrap: break-word;
     z-index: 10;

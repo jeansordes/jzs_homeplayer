@@ -2,3 +2,28 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+.postbox .hndle label,
+.wrap h3 {
+    display: block;
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.wrap h3 {
+    padding: 8px 0;
+}
+
+.product-variation {
+    border-radius: 3em;
+    height: 1em;
+    width: 1em;
+    display: inline-block;
+    border: solid 1px gray;
+}
+
+.hidden {
+    display: none;
+}
