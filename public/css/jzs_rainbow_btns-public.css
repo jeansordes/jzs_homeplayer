@@ -69,16 +69,35 @@
 
 /* rainbow rules */
 :root {
-    --johnsword-btn-border-width: 2px;
+    --jzs-btn-padding: 0 15px;
+    --jzs-btn-border-width: 2px;
     /* taille de la bordure du boutton */
-    --johnsword-bg-color: white;
+    --jzs-bg-color: white;
     /* couleur de fond */
-    --johnsword-gradient-1: linear, left top, right top, color-stop(0, #d18660), color-stop(1, #e0b532);
-    --johnsword-gradient-2: linear, left top, right top, color-stop(0, #e0b532), color-stop(1, #77ac3a);
-    --johnsword-gradient-3: linear, left top, right top, color-stop(0, #77ac3a), color-stop(1, #3fa180);
-    --johnsword-gradient-4: linear, left top, right top, color-stop(0, #3fa180), color-stop(1, #4c3dc4);
-    --johnsword-gradient-5: linear, left top, right top, color-stop(0, #4c3dc4), color-stop(1, #2e65a6);
-    --johnsword-gradient-6: linear, left top, right top, color-stop(0, #2e65a6), color-stop(1, #9d61d6);
+    --jzs-gradient-1: linear, left top, right top, color-stop(0, #d18660), color-stop(1, #e0b532);
+    --jzs-gradient-2: linear, left top, right top, color-stop(0, #e0b532), color-stop(1, #77ac3a);
+    --jzs-gradient-3: linear, left top, right top, color-stop(0, #77ac3a), color-stop(1, #3fa180);
+    --jzs-gradient-4: linear, left top, right top, color-stop(0, #3fa180), color-stop(1, #4c3dc4);
+    --jzs-gradient-5: linear, left top, right top, color-stop(0, #4c3dc4), color-stop(1, #2e65a6);
+    --jzs-gradient-6: linear, left top, right top, color-stop(0, #2e65a6), color-stop(1, #9d61d6);
+}
+
+.rainbow-btn.black {
+    padding: var(--jzs-btn-padding);
+    background: transparent;
+    border-radius: 3em;
+    color: black;
+    border: solid 2px black;
+    transition: all .3s;
+}
+
+.rainbow-btn.black::before {
+    display: none;
+}
+
+.rainbow-btn.black:hover {
+    background: black;
+    color: white;
 }
 
 .rainbow-btn::before {
@@ -86,9 +105,9 @@
     border-radius: 2em;
 
     content: "";
-    width: calc(100% - var(--johnsword-btn-border-width) - var(--johnsword-btn-border-width));
-    height: calc(100% - var(--johnsword-btn-border-width) - var(--johnsword-btn-border-width));
-    background-color: var(--johnsword-bg-color);
+    width: calc(100% - var(--jzs-btn-border-width) - var(--jzs-btn-border-width));
+    height: calc(100% - var(--jzs-btn-border-width) - var(--jzs-btn-border-width));
+    background-color: var(--jzs-bg-color);
     transition: background-color .3s;
 }
 
@@ -102,84 +121,78 @@
 
 .rainbow-btn>span {
     display: inline-block;
-    padding: 3px 1em;
+    padding: var(--jzs-btn-padding);
     position: relative;
     color: transparent;
+    background: black;
     -webkit-background-clip: text;
     background-clip: text;
 }
 
-.rainbow-btn:not(.gr-1):not(.gr-2):not(.gr-3):not(.gr-4):not(.gr-5):not(.gr-6) {
-    border: solid 2px lightslategray;
-}
-
-.rainbow-btn:not(.gr-1):not(.gr-2):not(.gr-3):not(.gr-4):not(.gr-5):not(.gr-6)>span {
-    color: lightslategray;
-}
-
 .rainbow-btn {
+    background: black;
     position: relative;
     display: inline-block;
-    padding: var(--johnsword-btn-border-width);
+    padding: var(--jzs-btn-border-width);
     border-radius: 2em;
 }
 
 .rainbow-btn.gr-1 {
-    background-image: gradient(var(--johnsword-gradient-1));
-    background-image: -webkit-gradient(var(--johnsword-gradient-1));
+    background-image: gradient(var(--jzs-gradient-1));
+    background-image: -webkit-gradient(var(--jzs-gradient-1));
 }
 
 .rainbow-btn.gr-1>span {
-    background-image: -webkit-gradient(var(--johnsword-gradient-1));
-    background-image: gradient(var(--johnsword-gradient-1));
+    background-image: -webkit-gradient(var(--jzs-gradient-1));
+    background-image: gradient(var(--jzs-gradient-1));
 }
 
 .rainbow-btn.gr-2 {
-    background-image: gradient(var(--johnsword-gradient-2));
-    background-image: -webkit-gradient(var(--johnsword-gradient-2));
+    background-image: gradient(var(--jzs-gradient-2));
+    background-image: -webkit-gradient(var(--jzs-gradient-2));
 }
 
 .rainbow-btn.gr-2>span {
-    background-image: -webkit-gradient(var(--johnsword-gradient-2));
-    background-image: gradient(var(--johnsword-gradient-2));
+    background-image: -webkit-gradient(var(--jzs-gradient-2));
+    background-image: gradient(var(--jzs-gradient-2));
 }
 
 .rainbow-btn.gr-3 {
-    background-image: gradient(var(--johnsword-gradient-3));
-    background-image: -webkit-gradient(var(--johnsword-gradient-3));
+    background-image: gradient(var(--jzs-gradient-3));
+    background-image: -webkit-gradient(var(--jzs-gradient-3));
 }
 
 .rainbow-btn.gr-3>span {
-    background-image: -webkit-gradient(var(--johnsword-gradient-3));
-    background-image: gradient(var(--johnsword-gradient-3));
+    background-image: -webkit-gradient(var(--jzs-gradient-3));
+    background-image: gradient(var(--jzs-gradient-3));
 }
 
 .rainbow-btn.gr-4 {
-    background-image: gradient(var(--johnsword-gradient-4));
-    background-image: -webkit-gradient(var(--johnsword-gradient-4));
+    background-image: gradient(var(--jzs-gradient-4));
+    background-image: -webkit-gradient(var(--jzs-gradient-4));
 }
 
 .rainbow-btn.gr-4>span {
-    background-image: -webkit-gradient(var(--johnsword-gradient-4));
-    background-image: gradient(var(--johnsword-gradient-4));
+    background-image: -webkit-gradient(var(--jzs-gradient-4));
+    background-image: gradient(var(--jzs-gradient-4));
 }
 
 .rainbow-btn.gr-5 {
-    background-image: gradient(var(--johnsword-gradient-5));
-    background-image: -webkit-gradient(var(--johnsword-gradient-5));
+    background-image: gradient(var(--jzs-gradient-5));
+    background-image: -webkit-gradient(var(--jzs-gradient-5));
 }
 
 .rainbow-btn.gr-5>span {
-    background-image: -webkit-gradient(var(--johnsword-gradient-5));
-    background-image: gradient(var(--johnsword-gradient-5));
+    background-image: -webkit-gradient(var(--jzs-gradient-5));
+    background-image: gradient(var(--jzs-gradient-5));
 }
 
 .rainbow-btn.gr-6 {
-    background-image: gradient(var(--johnsword-gradient-6));
-    background-image: -webkit-gradient(var(--johnsword-gradient-6));
+    background-image: gradient(var(--jzs-gradient-6));
+    background-image: -webkit-gradient(var(--jzs-gradient-6));
 }
 
 .rainbow-btn.gr-6>span {
-    background-image: -webkit-gradient(var(--johnsword-gradient-6));
-    background-image: gradient(var(--johnsword-gradient-6));
+    background-image: -webkit-gradient(var(--jzs-gradient-6));
+    background-image: gradient(var(--jzs-gradient-6));
 }

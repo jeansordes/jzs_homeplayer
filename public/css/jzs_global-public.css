@@ -6,11 +6,17 @@
     color: black;
 }
 
+.uppercase {
+    text-transform: uppercase;
+}
+
 a[class^="jzs-"] {
     text-decoration: none !important;
 }
 
 .jzs-title-font {
+    font-weight: 700;
+    letter-spacing: -1px;
     font-family: 'Roboto Bold', Helvetica, Arial, Lucida, sans-serif;
     font-size: 18px;
 }
@@ -32,6 +38,7 @@ a[class^="jzs-"] {
     margin: .5em;
     padding: 4px 0;
     padding-left: 8px;
+    transition: all .5s;
 }
 
 .jzs-btn-framed-content {
@@ -66,11 +73,11 @@ a[class^="jzs-"] {
 #jzs-product-status:after,
 #jzs-product-status[data-islive]:after {
     content: 'live';
-    color: #2ea3f2;
+    color: #03ffea;
 }
 
 #jzs-product-status[data-islive=false]:after {
-    content: 'offline';
+    content: 'off';
     color: crimson;
 }
 

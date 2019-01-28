@@ -39,6 +39,10 @@ if (!empty($options["colorAttrName"])) {
             if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
                 ?><div class="notice notice-info inline"><p>Il est conseillé de ne pas selectionner trop de produits au risque de rendre le chargement de la page d'accueil très long, surtout si l'utilisateur est sur mobile</p></div>
 
+                <p><label>Nom de la collection en cours<br />
+                    <input type="text" name="<?=$pluginName?>[collection]" value="<?=(empty($options["collection"]) ? "" : $options["collection"])?>">
+                </p>
+
                 <div class="postbox">
                     <div class="hndle">
                         <label>
