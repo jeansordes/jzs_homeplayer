@@ -1,32 +1,5 @@
 (function ($) {
     'use strict';
-    /**
-     * All of the code for your public-facing JavaScript source
-     * should reside in this file.
-     *
-     * Note: It has been assumed you will write jQuery code here, so the
-     * $ function reference has been prepared for usage within the scope
-     * of this function.
-     *
-     * This enables you to define handlers, for when the DOM is ready:
-     *
-     * $(function() {
-     *
-     * });
-     *
-     * When the window is loaded:
-     *
-     * $( window ).load(function() {
-     *
-     * });
-     *
-     * ...and/or other possibilities.
-     *
-     * Ideally, it is not considered best practise to attach more than a
-     * single DOM-ready or window-load handler for a particular page.
-     * Although scripts in the WordPress core, Plugins and Themes may be
-     * practising this, we should strive to set a better example in our own work.
-     */
     $(window).load(function () {
         console.log("jzs-plugin.js loaded");
 
@@ -40,8 +13,15 @@
         }
 
         if (document.getElementById("main-header")) {
+            let tmpOutput = "<div class='jzs-header'><a class='header-logo' href='/'>Sillage™</a>";
+            if (document.getElementById("jzs-homeplayer")) {
+                tmpOutput += "<div class='header-product-infos'>Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'>" + document.getElementById("jzs-homeplayer").getAttribute("data-collection") + "</span>\"</div>";
+            }
+            "</div>";
+
             let jzs_tmp = document.getElementById("main-header").getElementsByClassName("et_menu_container")[0];
-            jzs_tmp.innerHTML = "<div class='jzs-header'><a class='header-logo' href='/'>Sillage™</a><div class='header-product-infos'>Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'>" + document.getElementById("jzs-homeplayer").getAttribute("data-collection") + "</span>\"</div></div>" + jzs_tmp.innerHTML;
+            jzs_tmp.innerHTML = tmpOutput + jzs_tmp.innerHTML;
+            
             updateHeaderProductStatus(document.getElementById("jzs-homeplayer").getElementsByClassName("jzs-video jzs-playing")[0]);
         }
 
@@ -64,7 +44,7 @@
     
                 throw 'TransitionEnd event is not supported in this browser';
             }
-            
+
             let rainbowBtns = document.getElementsByClassName("jzs-select-product")[0].getElementsByClassName("rainbow-btn");
             for (let i = 0; i < rainbowBtns.length; i++) {
                 rainbowBtns[i].addEventListener("click", evt => {
