@@ -12,39 +12,43 @@
             }
         }
 
+        let transitionEndEventName = () => {
+            let i, el = document.createElement('div'),
+                transitions = {
+                    'transition': 'transitionend',
+                    'OTransition': 'otransitionend', // oTransitionEnd in very old Opera
+                    'MozTransition': 'transitionend',
+                    'WebkitTransition': 'webkitTransitionEnd'
+                };
+
+            for (i in transitions) {
+                if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
+                    return transitions[i];
+                }
+            }
+
+            throw 'TransitionEnd event is not supported in this browser';
+        }
+
         if (document.getElementById("main-header")) {
             let tmpOutput = "<div class='jzs-header'><a class='header-logo' href='/'>Sillage™</a>";
             if (document.getElementById("jzs-homeplayer")) {
                 tmpOutput += "<div class='header-product-infos'>Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'>" + document.getElementById("jzs-homeplayer").getAttribute("data-collection") + "</span>\"</div>";
             }
-            "</div>";
+            tmpOutput += "</div>";
 
+            console.log(tmpOutput);
+            
             let jzs_tmp = document.getElementById("main-header").getElementsByClassName("et_menu_container")[0];
             jzs_tmp.innerHTML = tmpOutput + jzs_tmp.innerHTML;
             
-            updateHeaderProductStatus(document.getElementById("jzs-homeplayer").getElementsByClassName("jzs-video jzs-playing")[0]);
+            if (document.getElementById("jzs-homeplayer")) {
+                updateHeaderProductStatus(document.getElementById("jzs-homeplayer").getElementsByClassName("jzs-video jzs-playing")[0]);
+            }
         }
 
         // handle rainbow product click
         if (document.getElementById("jzs-homeplayer")) {
-            let transitionEndEventName = () => {
-                let i, el = document.createElement('div'),
-                    transitions = {
-                        'transition': 'transitionend',
-                        'OTransition': 'otransitionend', // oTransitionEnd in very old Opera
-                        'MozTransition': 'transitionend',
-                        'WebkitTransition': 'webkitTransitionEnd'
-                    };
-    
-                for (i in transitions) {
-                    if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
-                        return transitions[i];
-                    }
-                }
-    
-                throw 'TransitionEnd event is not supported in this browser';
-            }
-
             let rainbowBtns = document.getElementsByClassName("jzs-select-product")[0].getElementsByClassName("rainbow-btn");
             for (let i = 0; i < rainbowBtns.length; i++) {
                 rainbowBtns[i].addEventListener("click", evt => {
@@ -87,5 +91,8 @@
                 }
             }
         }
+
+        // add custom CSS
+        document.body.innerHTML += "<link rel='stylesheet' href='/wp-content/plugins/jzs_homeplayer/public/css/jzs-product-public.css' />";
     });
 })(jQuery);
