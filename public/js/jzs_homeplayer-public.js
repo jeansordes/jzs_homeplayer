@@ -36,8 +36,6 @@
                 tmpOutput += "<div class='header-product-infos'>Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'>" + document.getElementById("jzs-homeplayer").getAttribute("data-collection") + "</span>\"</div>";
             }
             tmpOutput += "</div>";
-
-            console.log(tmpOutput);
             
             let jzs_tmp = document.getElementById("main-header").getElementsByClassName("et_menu_container")[0];
             jzs_tmp.innerHTML = tmpOutput + jzs_tmp.innerHTML;
@@ -93,6 +91,8 @@
         }
 
         // add custom CSS
-        document.body.innerHTML += "<link rel='stylesheet' href='/wp-content/plugins/jzs_homeplayer/public/css/jzs-product-public.css' />";
+		if (window.location.href.indexOf("?page=jzs_homeplayer") == -1) {
+			document.body.innerHTML += "<link rel='stylesheet' href='/wp-content/plugins/jzs_homeplayer/public/css/jzs-product-public.css' />";
+		}
     });
 })(jQuery);

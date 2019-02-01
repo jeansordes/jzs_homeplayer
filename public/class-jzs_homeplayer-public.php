@@ -84,6 +84,7 @@ class Jzs_homeplayer_Public
         wp_enqueue_style($this->plugin_name . "global", plugin_dir_url(__FILE__) . 'css/jzs_global-public.css', array(), $this->version, 'all');
         wp_enqueue_style($this->plugin_name . "player", plugin_dir_url(__FILE__) . 'css/jzs_player-public.css', array(), $this->version, 'all');
         wp_enqueue_style($this->plugin_name . "rainbow", plugin_dir_url(__FILE__) . 'css/jzs_rainbow_btns-public.css', array(), $this->version, 'all');
+        wp_enqueue_style($this->plugin_name . "product", plugin_dir_url(__FILE__) . 'css/jzs-product-public.css', array(), $this->version, 'all');
     }
 
     /**

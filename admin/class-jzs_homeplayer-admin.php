@@ -133,10 +133,10 @@ class Jzs_homeplayer_Admin
 
         $productsLoopOutput = ["players" => '', "rainbow_btns" => ''];
         $i = 1;
-        foreach ($input["products"] as $slug => $product) {
+        foreach ($input["products"] as $product) {
             if ($product["mustDisplay"] == 1) {
                 $productsLoopOutput["players"] .= '<div class="player' . ($i == 1 ? ' focused' : '') . '"><div class="videos">' . "\n\n" . '<!-- variations loop -->' . "\n";
-                $productsLoopOutput["rainbow_btns"] .= '<a class="rainbow-btn uppercase gr-' . $i . '" href="#jzs-homeplayer"><span>' . $slug . '</span></a>';
+                $productsLoopOutput["rainbow_btns"] .= '<a class="rainbow-btn uppercase gr-' . $i . '" href="#jzs-homeplayer"><span>' . $product["slug"] . '</span></a>';
 
                 $variationsLoopOutput = ["videos" => '', "color_selectors" => ''];
                 foreach ($product["variations"] as $key => $variation) {

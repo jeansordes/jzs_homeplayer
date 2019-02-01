@@ -64,16 +64,18 @@ if (!empty($options["colorAttrName"])) {
                 <?php
 
                 foreach ($products as $product) {
-                    $slug = $product->get_slug();
+                    $productID = "product_" . $product->get_ID();
+                    // $productID = $product->get_slug();
                     ?>
                     <div class="postbox">
                         <div class="hndle">
                             <label>
-                                <input class="jzs-settings-checkbox" type='checkbox' name="<?=$pluginName . "[products][" . $slug . "][mustDisplay]"?>" value='1' <?php empty($options["products"][$slug]["mustDisplay"]) ? null : checked($options["products"][$slug]["mustDisplay"], 1)?> />
-                                <span>Afficher <strong><?=$slug?></strong> sur le player (aka "<?=$product->get_name()?>")</span>
+                                <input type="hidden" name="<?=$pluginName . "[products][" . $productID . "][slug]"?>" value="<?=$product->get_slug()?>">
+                                <input class="jzs-settings-checkbox" type='checkbox' name="<?=$pluginName . "[products][" . $productID . "][mustDisplay]"?>" value='1' <?php empty($options["products"][$productID]["mustDisplay"]) ? null : checked($options["products"][$productID]["mustDisplay"], 1)?> />
+                                <span>Afficher <strong><?=$product->get_slug()?></strong> sur le player (aka "<?=$product->get_name()?>")</span>
                             </label>
                         </div>
-                        <div class="inside<?=empty($options["products"][$slug]["mustDisplay"]) ? ' hidden' : ''?>">
+                        <div class="inside<?=empty($options["products"][$productID]["mustDisplay"]) ? ' hidden' : ''?>">
                         <p>
                             <a target="_blank" class="button-secondary" href="<?=get_edit_post_link($product->get_id())?>"><span class="dashicons dashicons-edit"></span> Modifier ce produit</a>
                             <a target="_blank" class="button-secondary" href="<?=$product->get_permalink()?>"><span class="dashicons dashicons-visibility"></span> Visualiser ce produit</a>
@@ -82,7 +84,7 @@ if (!empty($options["colorAttrName"])) {
 
                     /* <p>
                     <h3>Infos produit</h3>
-                    Slug du produit <strong><?=$slug?></strong><br />
+                    Slug du produit <strong><?=$productID?></strong><br />
                     Etat des stocks <strong><?=$product->get_stock_status()?></strong><br />
                     <!-- instock | outofstock | inbackorder -->
                     </p> */
@@ -117,7 +119,7 @@ if (!empty($options["colorAttrName"])) {
                      */
 
                     // do things for each variation
-                    $variation_prefix = $pluginName . '[products][' . $slug . '][variations]';
+                    $variation_prefix = $pluginName . '[products][' . $productID . '][variations]';
 
                     $productVariations = (new WC_Product_Variable($product))->get_available_variations();
                     $i = 0;
@@ -155,7 +157,7 @@ if (!empty($options["colorAttrName"])) {
                             $tmp = 0;
                             foreach ($query_images->posts as $file_index => $image) {
                                 echo "<option value='" . wp_get_attachment_url($image->ID) . "'";
-                                if (!empty($options["products"][$slug]["variations"][$i]["videoURL"]) && $options["products"][$slug]["variations"][$i]["videoURL"] == wp_get_attachment_url($image->ID)) {
+                                if (!empty($options["products"][$productID]["variations"][$i]["videoURL"]) && $options["products"][$productID]["variations"][$i]["videoURL"] == wp_get_attachment_url($image->ID)) {
                                     echo " selected";
                                     $tmp = $file_index;
                                 }
@@ -179,9 +181,9 @@ if (!empty($options["colorAttrName"])) {
                             $tmp = 0;
                             foreach ($query_images->posts as $file_index => $image) {
                                 echo "<option value='" . wp_get_attachment_url($image->ID) . "'";
-                                if ((!empty($options["products"][$slug]["variations"][$i]["bgImgURL"])
-                                    && $options["products"][$slug]["variations"][$i]["bgImgURL"] == wp_get_attachment_url($image->ID))
-                                    || (empty($options["products"][$slug]["variations"][$i]["bgImgURL"]) && wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] == wp_get_attachment_url($image->ID))) {
+                                if ((!empty($options["products"][$productID]["variations"][$i]["bgImgURL"])
+                                    && $options["products"][$productID]["variations"][$i]["bgImgURL"] == wp_get_attachment_url($image->ID))
+                                    || (empty($options["products"][$productID]["variations"][$i]["bgImgURL"]) && wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] == wp_get_attachment_url($image->ID))) {
                                     echo " selected";
                                     $tmp = $file_index;
                                 }
@@ -202,10 +204,10 @@ if (!empty($options["colorAttrName"])) {
                     }
 
                     // [products][slug][permalink] => http
-                     ?><input type='hidden' name='<?=$pluginName?>[products][<?=$slug?>][permalink]' value='<?=$product->get_permalink()?>'><?php
+                     ?><input type='hidden' name='<?=$pluginName?>[products][<?=$productID?>][permalink]' value='<?=$product->get_permalink()?>'><?php
 
                     // [products][slug][htmlOverlay] => <p>yo</p>
-                    ?><p>HTML en overlay au dessus du produit<br><textarea name="<?=$pluginName?>[products][<?=$slug?>][htmlOverlay]" cols="30" rows="10"><?=empty($options["products"][$slug]["htmlOverlay"]) ? '' : $options["products"][$slug]["htmlOverlay"]?></textarea></p><?php
+                    ?><p>HTML en overlay au dessus du produit<br><textarea name="<?=$pluginName?>[products][<?=$productID?>][htmlOverlay]" cols="30" rows="10"><?=empty($options["products"][$productID]["htmlOverlay"]) ? '' : $options["products"][$productID]["htmlOverlay"]?></textarea></p><?php
 
                     echo "<pre>";
                     // var_dump($product->get_variation_attributes());
