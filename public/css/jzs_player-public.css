@@ -15,6 +15,7 @@
 }
 
 .jzs-player-txt>*:not(style) {
+    vertical-align: middle;
     color: white !important;
     display: inline-block;
     max-width: 100%;

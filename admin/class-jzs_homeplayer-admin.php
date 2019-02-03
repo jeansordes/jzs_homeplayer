@@ -106,7 +106,7 @@ class Jzs_homeplayer_Admin
     public function add_plugin_admin_menu()
     {
         // add_options_page('JZS Homeplayer Options and Setup', 'JZS Homeplayer', 'manage_options', $this->plugin_name, array($this, 'display_plugin_setup_page'));
-        add_menu_page('JZS Homeplayer Options and Setup', 'JZS Homeplayer', 'manage_options', $this->plugin_name, array($this, 'display_plugin_setup_page'), 'dashicons-format-video');
+        add_menu_page('JZS Manager Settings page', 'JZS Manager', 'manage_options', $this->plugin_name, array($this, 'display_plugin_setup_page'), 'dashicons-format-video');
     }
 
     public function add_action_links($links)
@@ -156,6 +156,11 @@ class Jzs_homeplayer_Admin
         $output .= $productsLoopOutput["players"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</div><div class="jzs-select-product"><div class="jzs-rainbow-btns"><span class="jzs-title-font">SELECT PRODUCT</span><span class="rainbow-btns">' . "\n\n" . '<!-- products loop -->' . "\n" . $productsLoopOutput["rainbow_btns"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.92891"><path d="M0 0c53.376895 0 42.471685 47.9536 87.170305 47.9289H0C.556356 13.26789 0 0 0 0z" fill="white" paint-order="stroke fill markers"></path></svg></div></div>';
 
         file_put_contents(realpath(__DIR__ . "/../public/partials/public-display.html"), $output);
+
+
+        /************** */
+        /* Product page */
+        /************** */
 
         return $input;
     }

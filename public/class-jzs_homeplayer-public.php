@@ -53,12 +53,22 @@ class Jzs_homeplayer_Public
         $this->plugin_name = $plugin_name;
         $this->version = $version;
         add_shortcode('jzs_homeplayer', ['Jzs_homeplayer_Public', 'pluginContent']);
+        add_shortcode('jzs_homeplayer', ['Jzs_homeplayer_Public', 'getProductPage']);
+        add_shortcode('jzs_homeplayer', ['Jzs_homeplayer_Public', 'getCheckoutPage']);
     }
 
     // https://codex.wordpress.org/Shortcode_API
     public static function pluginContent()
     {
         return file_get_contents(__DIR__ . "/partials/public-display.html");
+    }
+    public static function getProductPage()
+    {
+        return file_get_contents(__DIR__ . "/partials/product-page.html");
+    }
+    public static function getCheckoutPage()
+    {
+        return file_get_contents(__DIR__ . "/partials/checkout-page.html");
     }
 
     /**

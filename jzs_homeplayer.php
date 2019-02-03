@@ -13,10 +13,10 @@
  * @package           Jzs_homeplayer
  *
  * @wordpress-plugin
- * Plugin Name:       JZS Homeplayer
+ * Plugin Name:       JZS Manager
+ * Version:           custom build
  * Plugin URI:        https://github.com/jeansordes/jzs_homeplayer
- * Description:       Plugin qui gère le player sur la page d'accueil
- * Version:           1.0.0
+ * Description:       Plugin qui gère le player sur la page d'accueil et customise les pages produit et la page panier
  * Author:            Jean Z. SORDES
  * Author URI:        http://www.jzs.fr
  * License:           GPL-2.0+
