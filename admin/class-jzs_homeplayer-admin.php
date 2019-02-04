@@ -157,10 +157,50 @@ class Jzs_homeplayer_Admin
 
         file_put_contents(realpath(__DIR__ . "/../public/partials/public-display.html"), $output);
 
+        /************** */
+        /* Product pages */
+        /************** */
+        foreach ($input["products"] as $productID => $product) {
+            $slug = $product["slug"];
+            $output = '<div class="jzs-product" id="jzs-product"><div class="product-section"><div class="imgs">';
+            $default_size = $input["sizes"][0];
+            $default_color = $product["variations"][0];
+            $color_btns = '';
+            $tmp_i = 0;
+            $small_thumbnails = '';
 
-        /************** */
-        /* Product page */
-        /************** */
+            foreach ($default_color["product_thumbnails"] as $thumbnail_url) {
+                $small_thumbnails .= '<img class="btn' . ($tmp_i == 0 ? ' focused' : '') . '" src="' . $thumbnail_url . '" alt="">';
+
+                $output .= '<img ' . ($tmp_i == 0 ? 'class="focused"' : '') . ' src="' . $thumbnail_url . '" alt="">';
+                $tmp_i++;
+            }
+
+            $output .= '</div><div class="controls"><div class="left-ctrls"><div class="description"><p>MODEL: <strong id="jzs-model">' . $default_color["model"] . '</strong> <span class="separator"></span>HEIGHT: <strong id="jzs-height">' . $default_size["description"] . '</strong> <span class="separator"></span>
+            WEARING: <strong id="jzs-wearing">' . strtoupper($default_size["name"]) . '</strong></p>';
+            foreach ($product["variations"] as $k => $color_fields) {
+                $color_btns .= '<strong class="btn' . ($k == 0 ? ' hover' : '') . '" data-target="' . $color_fields["colorSlug"] . '"></strong>';
+            }
+            $output .= '<p id="jzs-description" class="details">' . $product["description"] . '</p></div><div class="thumbnails">' . $small_thumbnails . '</div></div><div class="gap"></div><div class="right-ctrls"><div class="product-slug"><img src="https://chlores.io/wp-content/uploads/2019/02/rainbow-btn.png" alt=""></div><div class="btns"><div id="jzs-color-btns"><span class="label">COLOR</span>' . $color_btns . '</div>';
+            $output .= '<div id="jzs-size-btns"><span class="label">SIZE</span>';
+            foreach ($input["sizes"] as $k => $size) {
+                $output .= '<strong class="btn' . ($k == 0 ? ' hover' : '') . '" data-target="' . $size["slug"] . '"></strong>';
+            }
+
+            $output .= '</div></div><div class="buy-section"><strong class="price"></strong><strong class="btn buy-btn">ADD TO CART</strong></div></div></div></div>';
+
+            // other products
+            $output .= '<div class="other-products"><div class="btns"><strong>SELECT PRODUCT</strong><span class="all-rainbow-btns">';
+            $tmp_i = 1;
+            foreach ($input["products"] as $productID => $product) {
+                $output .= '<a href="' . $product["permalink"] . '"class="btn rainbow-btn uppercase gr-' . $tmp_i . '"><span>' . $product["slug"] . '</span></a>';
+                $tmp_i++;
+            }
+            $output .= '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.92891"><path d="M0 0c53.376895 0 42.471685 47.9536 87.170305 47.9289H0C.556356 13.26789 0 0 0 0z" fill="white" paint-order="stroke fill markers"></path></svg></div></div>';
+            $output .= "<script>let jzs_product_data = " . json_encode(["collection" => $input["collection"], "sizes" => $input["sizes"], "product" => $product]) . "</script>";
+
+            file_put_contents(realpath(__DIR__ . "/../public/partials") . "/" . $productID . ".html", $output);
+        }
 
         return $input;
     }

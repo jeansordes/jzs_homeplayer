@@ -1,0 +1,53 @@
+// sass --watch style.scss ../jzs_product_checkout_page.css --style=compressed --no-source-map
+$mobile-width: 426px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+$margin-side: 10px;
+$frame-padding: 0 8px 1px 8px;
+$border-width: 2px;
+
+%display_block {
+    display: block;
+}
+
+%inline-block {
+    display: inline-block;
+}
+
+%flex {
+    display: flex;
+}
+
+%buy-btn {
+    @extend %inline-block;
+    $padding-side: 16px;
+    padding: $frame-padding;
+    padding-left: $padding-side;
+    padding-right: $padding-side;
+    background: black;
+    margin-left: 5px;
+    color: white;
+    border: solid $border-width black;
+    border-radius: 3em;
+    transition: color, background .3s;
+
+    &:hover {
+        color: black;
+        background: white;
+    }
+}
+
+.btn {
+    cursor: pointer;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+@import 'product/main.scss';
+
+@import 'checkout/main.scss';

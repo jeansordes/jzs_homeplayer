@@ -75,8 +75,7 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
         if ($size_is_good && $color_is_good) {
             // if WooCommerce is installed
             if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-                ?><div class="notice notice-info inline"><p>Il est conseillé de ne pas selectionner trop de produits au risque de rendre le chargement de la page d'accueil très long, surtout si l'utilisateur est sur mobile</p></div>
-
+                ?>
                 <p><label>Nom de la collection en cours<br />
                     <input type="text" name="<?=$pluginName?>[collection]" value="<?=(empty($options["collection"]) ? "" : $options["collection"])?>">
                 </p>
@@ -207,7 +206,8 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                                 ?><span class='product-variation' style='background:<?=$color_hex?>'></span> Variation "<?=$term->name?>"
                                 <input type="hidden" name="<?=$variation_prefix?>[<?=$i?>][stockStatus]" value="<?=(!empty($productVariations[$i]["is_in_stock"]) && $productVariations[$i]["is_in_stock"]) || $product->get_stock_status() == "instock" ? "live" : "offline"?>">
 
-                                <input type="hidden" name="<?=$variation_prefix?>[<?=$i?>][color]" value="<?=$color_hex?>"></p><?php
+                                <input type="hidden" name="<?=$variation_prefix?>[<?=$i?>][color]" value="<?=$color_hex?>"></p>
+                                <input type="hidden" name="<?=$variation_prefix?>[<?=$i?>][colorSlug]" value="<?=$term->slug?>"></p><?php
 
                             }
                             ?>
@@ -295,6 +295,7 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                     </div><?php
 
                 }
+                /*
                 ?><div class='notice notice-warning inline'><p><span class='dashicons dashicons-warning'></span> Pensez à revenir ici quand votre produit change pour enregistrer les nouvelles informations dans le plugin</p><p>Exemple de données qui peuvent changer : <ul style="margin-left: 2em; list-style: initial">
                 <li>état des stocks</li>
                 <li>slug du produit (qu'on retrouve dans l'url pour accéder au produit)</li>
@@ -303,6 +304,7 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                 </ul>
                 Pour synchroniser le tout, venez ici et cliquez sur "Enregistrer"
                 </p></div><?php
+                */
 
             } else {
                 // IMPORTANT : it saves everything even if something didn't work

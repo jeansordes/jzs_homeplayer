@@ -1,0 +1,186 @@
+.jzs-checkout {
+    margin: $margin-side;
+
+    %margin-bottom {
+        margin-bottom: $margin-side;
+    }
+
+    &>.header {
+        @extend %margin-bottom;
+        border-bottom: solid 2px gray;
+    }
+
+    %flex-col-tablet {
+        @extend %flex;
+        flex-direction: row;
+
+        @media (max-width: $tablet-width) {
+            flex-direction: column;
+        }
+    }
+
+    &>.content {
+        @extend %flex-col-tablet;
+        width: 100%;
+
+        .products {
+            flex: 3;
+            margin-right: $margin-side;
+            @extend %big-blocks;
+            overflow: auto;
+
+            .product-infos {
+
+                &>.header {
+                    @extend %margin-bottom;
+                    width: 100%;
+                    background: black;
+                    color: white;
+
+                    .badge {
+                        @extend %inline-block;
+                        border-radius: 1em;
+                        border: solid 2px currentColor;
+                        padding: $frame-padding;
+                        margin: $margin-side;
+                    }
+                }
+
+                .details {
+                    @extend %flex-col-tablet;
+                    padding: 2px;
+
+                    %align-top {
+                        vertical-align: top;
+                    }
+
+                    // big block last time seen
+
+                    .thumbnail {
+                        @extend %big-blocks;
+                        flex: 1;
+                        object-fit: contain;
+
+                        &>img {
+                            width: 100%;
+                            border-radius: 5px;
+                            border: solid 1px rgba(0, 0, 0, .1);
+                        }
+                    }
+
+                    .text-part {
+                        @extend %big-blocks;
+                        position: relative;
+                        flex: 3;
+
+                        %not-full-width {
+                            max-width: calc(100% - 25px);
+                        }
+
+                        .rm-btn {
+                            @extend %inline-block;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            color: white;
+                            background: black;
+                            height: 20px;
+                            width: 20px;
+                            border-radius: 1em;
+                            transition: background .3s;
+
+                            strong {
+                                position: absolute;
+                                bottom: -2px;
+                                left: 6px;
+                            }
+
+                            &:hover {
+                                background: red;
+                            }
+                        }
+
+                        .product-name {
+                            @extend %margin-bottom;
+                            @extend %not-full-width;
+                            font-size: 1.2em;
+                        }
+
+                        .specs {
+                            @extend %not-full-width;
+
+                            &>* {
+                                @extend %margin-bottom;
+                                @extend %inline-block;
+
+                                .label,
+                                .value {
+                                    font-size: .8em;
+                                    margin-right: $margin-side / 2;
+                                }
+                            }
+                        }
+
+                        .price {
+                            @extend %display_block;
+                            @extend %margin-bottom;
+
+                            text-align: right;
+                        }
+                    }
+                }
+            }
+        }
+
+        .total-price-box {
+            flex: 1;
+            @extend %flex;
+            min-height: 150px;
+            padding: $margin-side;
+            position: relative;
+            border: solid 2px #ff9800;
+            border-image: repeating-linear-gradient(90deg,
+                #d03317 0%, #ff9800 15%, #ffeb3b 30%, #27ca2e 50%, #03a9f4 65%,
+                #3f51b5 80%, #9c27b0 100%) 10;
+
+            .bottom-part {
+                flex: 1;
+                @extend %flex;
+                flex-direction: column;
+                text-align: right;
+
+                .gap {
+                    flex: 1;
+                }
+
+                .line {
+                    border-top: solid 1px lightgray;
+                    @extend %flex;
+
+                    .label {
+                        flex: 1;
+                        text-align: left;
+                    }
+                }
+
+                .order-btn-section {
+                    margin-top: $margin-side;
+
+                    .order-btn {
+                        @extend %buy-btn;
+                    }
+                }
+            }
+        }
+    }
+
+    %big-blocks {
+        @extend %align-top;
+        @extend %inline-block;
+        margin-right: $margin-side;
+
+        @media (max-width: $tablet-width) {
+            margin: 0;
+        }
+    }
+}

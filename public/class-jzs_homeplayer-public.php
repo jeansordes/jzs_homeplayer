@@ -53,8 +53,8 @@ class Jzs_homeplayer_Public
         $this->plugin_name = $plugin_name;
         $this->version = $version;
         add_shortcode('jzs_homeplayer', ['Jzs_homeplayer_Public', 'pluginContent']);
-        add_shortcode('jzs_homeplayer', ['Jzs_homeplayer_Public', 'getProductPage']);
-        add_shortcode('jzs_homeplayer', ['Jzs_homeplayer_Public', 'getCheckoutPage']);
+        add_shortcode('jzs_product', ['Jzs_homeplayer_Public', 'getProductPage']);
+        add_shortcode('jzs_checkout', ['Jzs_homeplayer_Public', 'getCheckoutPage']);
     }
 
     // https://codex.wordpress.org/Shortcode_API
@@ -62,9 +62,9 @@ class Jzs_homeplayer_Public
     {
         return file_get_contents(__DIR__ . "/partials/public-display.html");
     }
-    public static function getProductPage()
+    public static function getProductPage($args)
     {
-        return file_get_contents(__DIR__ . "/partials/product-page.html");
+        return file_get_contents(__DIR__ . "/partials/product_" . $args["id"] . ".html");
     }
     public static function getCheckoutPage()
     {
@@ -91,10 +91,10 @@ class Jzs_homeplayer_Public
          * class.
          */
 
+        wp_enqueue_style($this->plugin_name . "product_checkout_page", plugin_dir_url(__FILE__) . 'css/jzs_product_checkout_page.css', array(), $this->version, 'all');
         wp_enqueue_style($this->plugin_name . "global", plugin_dir_url(__FILE__) . 'css/jzs_global-public.css', array(), $this->version, 'all');
         wp_enqueue_style($this->plugin_name . "player", plugin_dir_url(__FILE__) . 'css/jzs_player-public.css', array(), $this->version, 'all');
         wp_enqueue_style($this->plugin_name . "rainbow", plugin_dir_url(__FILE__) . 'css/jzs_rainbow_btns-public.css', array(), $this->version, 'all');
-        wp_enqueue_style($this->plugin_name . "product", plugin_dir_url(__FILE__) . 'css/jzs-product-public.css', array(), $this->version, 'all');
     }
 
     /**

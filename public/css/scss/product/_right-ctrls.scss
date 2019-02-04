@@ -1,0 +1,114 @@
+.right-ctrls {
+    @extend %flex_side;
+    margin-right: $margin-side;
+    text-align: center;
+
+    @media (max-width: $mobile-width) {
+        margin: 0 $margin-side;
+        text-align: unset;
+    }
+
+    &>* {
+        @extend %inline-block;
+        vertical-align: middle;
+
+        @media (max-width: $desktop-width) {
+            display: block;
+        }
+
+        @media (max-width: $mobile-width) {
+            margin: 0;
+            margin-bottom: 1em;
+        }
+    }
+
+    .product-slug {
+        img {
+            height: 1.5em;
+            image-rendering: pixelated;
+
+        }
+
+        @media (max-width: $mobile-width) {
+            display: none;
+        }
+    }
+
+
+    .btns {
+        $btn-side-space: 10px;
+        padding-left: $btn-side-space;
+        margin: $btn-side-space;
+        border-left: solid 1px black;
+        text-align: right;
+
+        @media (max-width: $desktop-width) {
+            text-align: unset;
+            border-left: none;
+            margin: 2em 0;
+            padding-left: 0;
+        }
+
+        @media (max-width: $mobile-width) {
+            margin: 0;
+            margin-bottom: 1em;
+        }
+
+        .label {
+            margin-right: $margin-side / 2;
+        }
+
+        .btn {
+            text-transform: uppercase;
+            border: solid $border-width black;
+            border-radius: 3px;
+            padding: $frame-padding;
+            line-height: 2;
+            transition: color, background .3s;
+            margin-right: 5px;
+
+            &::after {
+                content: attr(data-target);
+            }
+
+            &:hover, &.hover {
+                color: white;
+                background-color: black;
+            }
+        }
+    }
+
+    .buy-section {
+        .buy-btn {
+            @extend %buy-btn;
+        }
+    }
+
+    // .full-rainbow-btn {
+    //     $rainbow: to right, #d03317, #ff9800, #ffeb3b, #27ca2e, #03a9f4,
+    //         #3f51b5, #9c27b0;
+    //     $decalage: 10px;
+    //     display: inline-block;
+    //     background-image: linear-gradient($rainbow);
+    //     background-image: -webkit-linear-gradient($rainbow);
+    //     -webkit-background-clip: text;
+    //     -webkit-text-fill-color: transparent;
+    //     background-clip: text;
+    //     position: relative;
+    //     margin: 0 $decalage;
+
+    //     &::before {
+    //         content: '';
+    //         position: absolute;
+    //         display: inline-block;
+    //         height: calc(1em + 3px);
+    //         width: calc(100% + 15px);
+    //         border-radius: 3em;
+    //         border: solid 2px red;
+    //         border-image: repeating-linear-gradient(90deg,
+    //             #d03317 0%, #ff9800 15%, #ffeb3b 30%, #27ca2e 50%, #03a9f4 65%,
+    //             #3f51b5 80%, #9c27b0 100%) 10;
+    //         left: -$decalage;
+    //     }
+    // }
+}
