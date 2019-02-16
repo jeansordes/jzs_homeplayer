@@ -110,6 +110,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.classList.add("hover");
                 currentColorBtn = document.getElementsByClassName("swatch-" + btn.getAttribute("data-target"))[0];
                 currentColorBtn.click();
+
+                for (let i = 0; i < jzs_product_data.product.variations.length; i++) {
+                    let colorData = jzs_product_data.product.variations[i];
+                    if (colorData.colorSlug == btn.getAttribute("data-target")) {
+                        document.getElementById("jzs-model").innerText = colorData.model.toUpperCase();
+                        colorData.product_thumbnails.forEach((thmbnl, th_i) => {
+                            container.getElementsByClassName("thumbnails")[0].getElementsByClassName("btn")[th_i].src = thmbnl;
+                            container.getElementsByClassName("product-section")[0].getElementsByTagName("img")[th_i].src = thmbnl;
+                        });
+
+                        i = jzs_product_data.product.variations.length;
+                    }
+                }
             });
         }
 
@@ -122,7 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.classList.add("hover");
                 let select = document.getElementById("pa_height");
 
-
                 /* BIG FAT HACK AHEAD : la raison c'est que si on se content de faire select.value = "xs", le JS qui met à jour le prix ne détecte pas le changement. Donc on contourne */
                 // on remet tout à zéro
                 document.getElementsByClassName("reset_variations")[0].click();
@@ -130,10 +142,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 select.value = btn.getAttribute("data-target");
                 // puis on reclick sur la couleur
                 currentColorBtn.click();
+
+                for (let j = 0; j < jzs_product_data.sizes.length; j++) {
+                    let sizeData = jzs_product_data.sizes[j];
+                    if (sizeData.slug == btn.getAttribute("data-target")) {
+                        document.getElementById("jzs-height").innerText = sizeData.description;
+                        document.getElementById("jzs-wearing").innerText = sizeData.name.toUpperCase();
+
+                        j = jzs_product_data.sizes.length;
+                    }
+                }
+
             });
         }
 
         // TODO: Rendre le tout vraiment intéractif
+        let thumbnails = container.getElementsByClassName("thumbnails")[0].getElementsByClassName("btn");
+        for (let i = 0; i < thumbnails.length; i++) {
+            let imgBtn = thumbnails[i];
+            imgBtn.addEventListener("click", () => {
+                let allBigImgs = container.getElementsByClassName("product-section")[0].getElementsByTagName("img");
+                for (let j = 0; j < allBigImgs.length; j++) {
+                    allBigImgs[j].classList.remove("focused");
+                }
+                allBigImgs[i].classList.add("focused");
+                imgBtn.classList.add("focused");
+            });
+        }
         console.log(jzs_product_data);
     }
 

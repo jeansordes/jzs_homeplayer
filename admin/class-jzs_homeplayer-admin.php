@@ -176,7 +176,7 @@ class Jzs_homeplayer_Admin
                 $tmp_i++;
             }
 
-            $output .= '</div><div class="controls"><div class="left-ctrls"><div class="description"><p>MODEL: <strong id="jzs-model">' . $default_color["model"] . '</strong> <span class="separator"></span>HEIGHT: <strong id="jzs-height">' . $default_size["description"] . '</strong> <span class="separator"></span>
+            $output .= '</div><div class="controls"><div class="left-ctrls"><div class="description"><p>MODEL: <strong id="jzs-model">' . strtoupper($default_color["model"]) . '</strong> <span class="separator"></span>HEIGHT: <strong id="jzs-height">' . $default_size["description"] . '</strong> <span class="separator"></span>
             WEARING: <strong id="jzs-wearing">' . strtoupper($default_size["name"]) . '</strong></p>';
             foreach ($product["variations"] as $k => $color_fields) {
                 $color_btns .= '<strong class="btn' . ($k == 0 ? ' hover' : '') . '" data-target="' . $color_fields["colorSlug"] . '"></strong>';
