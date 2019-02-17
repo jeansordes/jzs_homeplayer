@@ -22,7 +22,7 @@
         z-index: 1;
         // box-shadow: 35px 0 40px 0 rgba(0,0,0,.1);
 
-        &>strong {
+        &>*:first-child {
             margin-right: 1em;
         }
 
@@ -57,17 +57,17 @@
         @extend %tablet_hidden;
     }
 
-    &:after {
-        content: '';
-        z-index: 9;
-        height: 10em;
-        width: 100%;
-        background: linear-gradient(to bottom, white, transparent);
-        position: absolute;
-        bottom: 1px;
-        transform: translateY(100%);
-        left: 0;
+    // &:after {
+    //     content: '';
+    //     z-index: 9;
+    //     height: 10em;
+    //     width: 100%;
+    //     background: linear-gradient(to bottom, white, transparent);
+    //     position: absolute;
+    //     bottom: 1px;
+    //     transform: translateY(100%);
+    //     left: 0;
 
-        @extend %tablet_hidden;
-    }
+    //     @extend %tablet_hidden;
+    // }
 }

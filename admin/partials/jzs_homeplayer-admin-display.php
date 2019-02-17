@@ -88,7 +88,7 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                         </label>
                     </div>
                     <div class="inside hidden" style="background: whitesmoke; margin: 0; padding: 12px;">
-                        <link rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs-global.css">
+                        <link id="jzs-admin-css" rel="stylesheet" href="/wp-content/plugins/jzs_homeplayer/public/css/jzs-global.css?v">
                         <script src="/wp-content/plugins/jzs_homeplayer/public/js/jzs_homeplayer-public.js"></script>
                         <div id="main-header">
                             <div class="et_menu_container"></div>

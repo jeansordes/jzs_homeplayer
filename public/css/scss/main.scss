@@ -1,4 +1,4 @@
-// sass --watch main.scss ../jzs-global.css --style=compressed --no-source-map
+// sass --watch public/css/scss/main.scss public/css/jzs-global.css --style=compressed --no-source-map
 $mobile-width: 426px;
 $tablet-width: 768px;
 $desktop-width: 1024px;
@@ -61,7 +61,8 @@ body {
 
 %jzs-framed {
     display: inline-block;
-    border: solid 2px black;
+    border: solid black;
+    border-width: 1px 2px;
     color: black;
 }
 
@@ -69,7 +70,13 @@ body {
     @extend %jzs-framed;
     width: 10em;
     text-align: center;
-    font-weight: 700;
+    font-weight: 600;
+    transition: all .3s;
+}
+
+a.jzs-title-framed:hover {
+    color: white;
+    background-color: black;
 }
 
 .jzs-btn-framed {

@@ -147,7 +147,7 @@ class Jzs_homeplayer_Admin
                     }
                 }
 
-                $productsLoopOutput["players"] .= $variationsLoopOutput["videos"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '</div><div class="controls"><div class="jzs-player-txt">' . "\n\n" . '<!-- HTML overlay -->' . "\n" . $product["htmlOverlay"] . "\n" . '<!-- end HTML overlay -->' . "\n\n" . '</div><div class="jzs-player-action-btns">' . "\n\n" . '<!-- variations loop -->' . "\n" . $variationsLoopOutput["color_selectors"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '<a href="' . $product["permalink"] . '" class="jzs-title-framed jzs-title-font uppercase"><strong>BUY</strong></a></div></div></div>';
+                $productsLoopOutput["players"] .= $variationsLoopOutput["videos"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '</div><div class="controls"><div class="jzs-player-txt">' . "\n\n" . '<!-- HTML overlay -->' . "\n" . $product["htmlOverlay"] . "\n" . '<!-- end HTML overlay -->' . "\n\n" . '</div><div class="jzs-player-action-btns">' . "\n\n" . '<!-- variations loop -->' . "\n" . $variationsLoopOutput["color_selectors"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '<a href="' . $product["permalink"] . '" class="jzs-title-framed jzs-title-font uppercase">BUY</a></div></div></div>';
 
                 $i++;
             }
