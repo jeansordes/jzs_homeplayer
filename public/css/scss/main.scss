@@ -1,13 +1,55 @@
-*[class^="jzs-"] {
-    color: black;
+// sass --watch main.scss ../jzs-global.css --style=compressed --no-source-map
+$mobile-width: 426px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+$margin-side: 10px;
+$frame-padding: 0 8px 1px 8px;
+$border-width: 2px;
+
+%display_block {
+    display: block;
+}
+
+%inline-block {
+    display: inline-block;
+}
+
+%flex {
+    display: flex;
+}
+
+%buy-btn {
+    @extend %inline-block;
+    $padding-side: 16px;
+    padding: $frame-padding;
+    padding-left: $padding-side;
+    padding-right: $padding-side;
+    background: black;
+    margin-left: 5px;
+    color: white;
+    border: solid $border-width black;
+    border-radius: 3em;
+    transition: color, background .3s;
+
+    &:hover {
+        color: black;
+        background: white;
+    }
+}
+
+.btn {
+    cursor: pointer;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .uppercase {
     text-transform: uppercase;
-}
-
-a[class^="jzs-"] {
-    text-decoration: none !important;
 }
 
 .jzs-title-font {
@@ -17,20 +59,21 @@ a[class^="jzs-"] {
     font-size: 18px;
 }
 
-.jzs-title-framed,
-.jzs-btn-framed {
+%jzs-framed {
     display: inline-block;
     border: solid 2px black;
-    border-radius: 3px;
+    color: black;
 }
 
 .jzs-title-framed {
+    @extend %jzs-framed;
     width: 10em;
     text-align: center;
     font-weight: 700;
 }
 
 .jzs-btn-framed {
+    @extend %jzs-framed;
     margin: .5em;
     padding: 4px 0;
     padding-left: 8px;
@@ -95,3 +138,13 @@ a[class^="jzs-"] {
         display: none !important;
     }
 }
+
+@import 'rainbow-btns';
+
+@import 'homeplayer';
+
+@import 'other-products';
+
+@import 'product/main';
+
+@import 'checkout/main';

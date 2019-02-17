@@ -147,13 +147,13 @@ class Jzs_homeplayer_Admin
                     }
                 }
 
-                $productsLoopOutput["players"] .= $variationsLoopOutput["videos"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '</div><div class="controls"><div class="jzs-player-txt">' . "\n\n" . '<!-- HTML overlay -->' . "\n" . $product["htmlOverlay"] . "\n" . '<!-- end HTML overlay -->' . "\n\n" . '</div><br><div class="jzs-player-action-btns">' . "\n\n" . '<!-- variations loop -->' . "\n" . $variationsLoopOutput["color_selectors"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '<a href="' . $product["permalink"] . '" class="rainbow-btn black uppercase"><strong>BUY</strong></a></div></div></div>';
+                $productsLoopOutput["players"] .= $variationsLoopOutput["videos"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '</div><div class="controls"><div class="jzs-player-txt">' . "\n\n" . '<!-- HTML overlay -->' . "\n" . $product["htmlOverlay"] . "\n" . '<!-- end HTML overlay -->' . "\n\n" . '</div><div class="jzs-player-action-btns">' . "\n\n" . '<!-- variations loop -->' . "\n" . $variationsLoopOutput["color_selectors"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '<a href="' . $product["permalink"] . '" class="jzs-title-framed jzs-title-font uppercase"><strong>BUY</strong></a></div></div></div>';
 
                 $i++;
             }
         }
 
-        $output .= $productsLoopOutput["players"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</div><div class="jzs-select-product"><div class="jzs-rainbow-btns"><span class="jzs-title-font">SELECT PRODUCT</span><span class="rainbow-btns">' . "\n\n" . '<!-- products loop -->' . "\n" . $productsLoopOutput["rainbow_btns"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.92891"><path d="M0 0c53.376895 0 42.471685 47.9536 87.170305 47.9289H0C.556356 13.26789 0 0 0 0z" fill="white" paint-order="stroke fill markers"></path></svg></div></div>';
+        $output .= $productsLoopOutput["players"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</div><div class="jzs-other-products"><div class="btns"><span class="jzs-title-font">SELECT PRODUCT</span><span class="all-rainbow-btns">' . "\n\n" . '<!-- products loop -->' . "\n" . $productsLoopOutput["rainbow_btns"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.92891"><path d="M0 0c53.376895 0 42.471685 47.9536 87.170305 47.9289H0C.556356 13.26789 0 0 0 0z" fill="white" paint-order="stroke fill markers"></path></svg></div></div>';
 
         file_put_contents(realpath(__DIR__ . "/../public/partials/public-display.html"), $output);
 
@@ -190,7 +190,7 @@ class Jzs_homeplayer_Admin
             $output .= '</div></div><div class="buy-section"><strong class="price"></strong><strong class="btn buy-btn">ADD TO CART</strong></div></div></div></div>';
 
             // other products
-            $output .= '<div class="other-products"><div class="btns"><strong>SELECT PRODUCT</strong><span class="all-rainbow-btns">';
+            $output .= '<div class="jzs-other-products"><div class="btns"><span class="jzs-title-font">SELECT PRODUCT</span><span class="all-rainbow-btns">';
             $tmp_i = 1;
             foreach ($input["products"] as $productID => $product) {
                 $output .= '<a href="' . $product["permalink"] . '"class="btn rainbow-btn uppercase gr-' . $tmp_i . '"><span>' . $product["slug"] . '</span></a>';

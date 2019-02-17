@@ -1,0 +1,51 @@
+.jzs-product {
+    width: 100%;
+    @extend %display_block;
+    position: relative;
+
+    .product-section {
+        .imgs {
+            height: 80vh;
+            width: 100%;
+
+            img {
+                height: 100%;
+                max-width: 100%;
+                object-fit: cover;
+                margin: auto;
+                @extend %display_block;
+
+                &:not(.focused) {
+                    display: none;
+                }
+            }
+        }
+
+        .controls {
+            position: absolute;
+            display: flex;
+            flex-direction: row;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+
+            %flex_side {
+                flex: 3;
+            }
+
+            @media (max-width: $mobile-width) {
+                position: relative;
+                transform: unset;
+                flex-direction: column;
+            }
+
+            .gap {
+                flex: 1;
+            }
+
+            @import 'left-ctrls';
+
+            @import 'right-ctrls';
+        }
+    }
+}

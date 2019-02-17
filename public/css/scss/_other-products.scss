@@ -1,0 +1,73 @@
+.jzs-other-products {
+    z-index: 10;
+    position: absolute;
+    bottom: 0;
+    white-space: nowrap;
+    width: 100%;
+    $btns-height: 56px;
+
+    @media (max-width: $tablet-width) {
+        position: relative;
+    }
+
+    .btns {
+        @extend %inline-block;
+        position: relative;
+        background: white;
+        padding: 0 .5em;
+        padding-left: 2.5vw;
+        height: $btns-height;
+        vertical-align: middle;
+        white-space: initial;
+        z-index: 1;
+        // box-shadow: 35px 0 40px 0 rgba(0,0,0,.1);
+
+        &>strong {
+            margin-right: 1em;
+        }
+
+        @media (max-width: $tablet-width) {
+            display: block;
+            background: none;
+        }
+
+        .all-rainbow-btns {
+            @extend %inline-block;
+            margin: 5px 0;
+
+            .rainbow-btn {
+                margin: 5px 0;
+            }
+        }
+    }
+
+    %tablet_hidden {
+        @media (max-width: $tablet-width) {
+            display: none;
+        }
+    }
+
+    .jzs-after-wave {
+        margin-left: -.5em;
+        height: $btns-height;
+        vertical-align: middle;
+        position: relative;
+        z-index: 2;
+
+        @extend %tablet_hidden;
+    }
+
+    &:after {
+        content: '';
+        z-index: 9;
+        height: 10em;
+        width: 100%;
+        background: linear-gradient(to bottom, white, transparent);
+        position: absolute;
+        bottom: 1px;
+        transform: translateY(100%);
+        left: 0;
+
+        @extend %tablet_hidden;
+    }
+}

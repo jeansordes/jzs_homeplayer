@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // handle rainbow product click
     if (document.getElementById("jzs-homeplayer")) {
-        let rainbowBtns = document.getElementsByClassName("jzs-select-product")[0].getElementsByClassName("rainbow-btn");
+        let rainbowBtns = document.getElementsByClassName("jzs-other-products")[0].getElementsByClassName("rainbow-btn");
         for (let i = 0; i < rainbowBtns.length; i++) {
             rainbowBtns[i].addEventListener("click", evt => {
                 evt.preventDefault();
