@@ -1,1 +1,3 @@
-public/partials/product_6.html
+public/partials/*
+!public/partials/checkout-page.html
+!.gitignore
