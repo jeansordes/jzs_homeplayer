@@ -1,11 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let updateHeaderProductStatus = (videoEl) => {
-        if (document.getElementById("jzs-product-status") && document.getElementsByClassName("jzs-video jzs-playing").length > 0) {
-            let status = videoEl.getAttribute("data-stockStatus") == "offline" ? "false" : "true";
-            document.getElementById("jzs-product-status").setAttribute("data-islive", status);
-        } else {
-            console.error("Il manque l'entête et le code du player");
-        }
+    let updateHeaderProductStatus = (stocks, id) => {
+        let status = stocks[id] == "offline" ? "false" : "true";
+        document.getElementById("jzs-product-status").setAttribute("data-islive", status);
     }
 
     let transitionEndEventName = () => {
@@ -26,19 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
         throw 'TransitionEnd event is not supported in this browser';
     }
 
-    if (document.getElementById("main-header")) {
-        let tmpOutput = "<div class='jzs-header'><a class='header-logo' href='/'>Sillage™</a>";
-        if (document.getElementById("jzs-homeplayer")) {
-            tmpOutput += "<div class='header-product-infos'>Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'>" + document.getElementById("jzs-homeplayer").getAttribute("data-collection") + "</span>\"</div>";
-        }
-        tmpOutput += "</div>";
+    if (document.getElementById("main-header") && typeof jzs_collection_name != "undefined" && typeof jzs_shop_stock_status != "undefined") {
+        let tmpOutput = "<div class='jzs-header'><a class='header-logo' href='/'>Sillage™</a>" +
+            "<div class='header-product-infos'>Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'>" + jzs_collection_name + "</span>\"</div></div>";
 
         let jzs_tmp = document.getElementById("main-header").getElementsByClassName("et_menu_container")[0];
         jzs_tmp.innerHTML = tmpOutput + jzs_tmp.innerHTML;
 
-        if (document.getElementById("jzs-homeplayer")) {
-            updateHeaderProductStatus(document.getElementById("jzs-homeplayer").getElementsByClassName("jzs-video jzs-playing")[0]);
-        }
+        updateHeaderProductStatus(jzs_shop_stock_status, Object.keys(jzs_shop_stock_status)[0]);
     }
 
     // handle rainbow product click
@@ -51,7 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 let jzsPlayer = document.getElementById("jzs-homeplayer").getElementsByClassName("player")[i];
                 jzsPlayer.classList.add("focused");
-                updateHeaderProductStatus(jzsPlayer.getElementsByClassName("jzs-video jzs-playing")[0]);
+                // updateHeaderProductStatus(jzsPlayer.getElementsByClassName("jzs-video jzs-playing")[0]);
+                updateHeaderProductStatus(jzs_shop_stock_status, Object.keys(jzs_shop_stock_status)[i]);
             });
         }
 
@@ -68,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         let currentVideo = container.getElementsByClassName("jzs-video jzs-playing")[0];
                         newVideo.classList.add("jzs-playing");
                         currentVideo.classList.add("jzs-fade-out");
-                        updateHeaderProductStatus(newVideo);
+                        // updateHeaderProductStatus(newVideo);
 
                         let onTransitionOver = transitionEndEventName();
                         let transitionListener = () => {
@@ -169,7 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 imgBtn.classList.add("focused");
             });
         }
-        console.log(jzs_product_data);
     }
 
     // handle checkout / cart page
@@ -197,28 +188,48 @@ document.addEventListener("DOMContentLoaded", () => {
                     amount: realProduct.getElementsByClassName("input-text qty text")[0].value,
                     price: realProduct.getElementsByClassName("woocommerce-Price-amount amount")[1].innerText
                 });
-                products.getElementsByTagName("input")[i].addEventListener("change", evt => {
-                    realProduct.getElementsByClassName("input-text qty text")[0].value = evt.target.value;
-                    realProduct.getElementsByClassName("input-text qty text")[0].dispatchEvent(new Event('change', { 'bubbles': true }));
-                    document.getElementsByClassName("actions")[0].getElementsByClassName("button")[1].click();
-                    let currentProductPrice = realProduct.getElementsByClassName("woocommerce-Price-amount amount")[1].innerText;
-                    let interval = setInterval(() => {
-                        if (currentProductPrice != document.getElementsByClassName("woocommerce-cart-form__cart-item cart_item")[i].getElementsByClassName("woocommerce-Price-amount amount")[1].innerText) {
-                            clearInterval(interval);
-                            initProducts();
-                        }
-                    }, 500);
-                });
-                products.getElementsByClassName("rm-btn")[i].addEventListener("click", () => realRmBtn.click());
+                setTimeout(() => {
+                    products.getElementsByTagName("input")[i].addEventListener("change", evt => {
+                        realProduct.getElementsByClassName("input-text qty text")[0].value = evt.target.value;
+                        realProduct.getElementsByClassName("input-text qty text")[0].dispatchEvent(new Event('change', {
+                            'bubbles': true
+                        }));
+                        document.getElementsByClassName("actions")[0].getElementsByClassName("button")[1].click();
+                        let currentProductPrice = realProduct.getElementsByClassName("woocommerce-Price-amount amount")[1].innerText;
+                        let interval = setInterval(() => {
+                            if (currentProductPrice != document.getElementsByClassName("woocommerce-cart-form__cart-item cart_item")[i].getElementsByClassName("woocommerce-Price-amount amount")[1].innerText) {
+                                clearInterval(interval);
+                                initProducts();
+                            }
+                        }, 500);
+                    });
+                    products.getElementsByClassName("rm-btn")[i].addEventListener("click", () => {
+                        let currentProductAmount = document.getElementsByClassName("woocommerce-cart-form__cart-item cart_item").length;
+                        realRmBtn.click();
+                        let interval = setInterval(() => {
+                            if (document.getElementsByClassName("woocommerce-cart-form__cart-item cart_item").length != currentProductAmount) {
+                                clearInterval(interval);
+                                initProducts();
+                            }
+                        }, 500);
+                    });
+                }, 200);
             }
 
             if (realProducts.length == 0) {
                 products.innerHTML = "<em>No products</em>";
             }
 
-            document.getElementById("jzs-checkout-subtotal").innerText = document.getElementsByClassName("cart-subtotal")[0].getElementsByClassName("woocommerce-Price-amount amount")[0].innerText;
+            if (document.getElementsByClassName("cart-subtotal").length != 0) {
+                // if there is products
+                document.getElementById("jzs-checkout-subtotal").innerText = document.getElementsByClassName("cart-subtotal")[0].getElementsByClassName("woocommerce-Price-amount amount")[0].innerText;
 
-            document.getElementById("jzs-checkout-delivery").innerText = document.getElementById("shipping_method").getElementsByClassName("woocommerce-Price-amount amount")[0].innerText;
+                document.getElementById("jzs-checkout-delivery").innerText = document.getElementById("shipping_method").getElementsByClassName("woocommerce-Price-amount amount")[0].innerText;
+            } else {
+                // means there is no products
+                document.getElementById("jzs-checkout-subtotal").innerText = "€0.00";
+                document.getElementById("jzs-checkout-delivery").innerText = "€0.00";
+            }
         }
 
         initProducts();

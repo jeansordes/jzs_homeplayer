@@ -39,7 +39,7 @@
         $btn-side-space: 10px;
         padding-left: $btn-side-space;
         margin: $btn-side-space;
-        border-left: solid 1px black;
+        border-left: solid 1px $black;
         text-align: right;
 
         @media (max-width: $desktop-width) {
@@ -60,7 +60,7 @@
 
         .btn {
             text-transform: uppercase;
-            border: solid $border-width black;
+            border: solid $border-width $black;
             padding: $frame-padding;
             line-height: 2;
             transition: color, background .3s;
@@ -71,8 +71,8 @@
             }
 
             &:hover, &.hover {
-                color: white;
-                background-color: black;
+                color: $white;
+                background-color: $black;
             }
         }
     }

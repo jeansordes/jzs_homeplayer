@@ -27,6 +27,12 @@
         height: 80vh;
         overflow: hidden;
 
+        @media (max-width: $tablet-width) {
+            & {
+                height: calc(80vh - 80px);
+            }
+        }
+
         .jzs-video {
             /* background fall back fit */
             background-size: contain;
@@ -65,7 +71,7 @@
 
     &>*:not(style) {
         vertical-align: middle;
-        color: white !important;
+        color: $white !important;
         display: inline-block;
         max-width: 100%;
     }
@@ -89,5 +95,5 @@
 /* player code below */
 
 .jzs-player-txt {
-    color: white;
+    color: $white;
 }

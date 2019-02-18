@@ -4,7 +4,7 @@
     bottom: 0;
     white-space: nowrap;
     width: 100%;
-    $btns-height: 56px;
+    $btns-height: 46px;
 
     @media (max-width: $tablet-width) {
         position: relative;
@@ -13,7 +13,7 @@
     .btns {
         @extend %inline-block;
         position: relative;
-        background: white;
+        background: $white;
         padding: 0 .5em;
         padding-left: 2.5vw;
         height: $btns-height;
@@ -28,7 +28,7 @@
 
         @media (max-width: $tablet-width) {
             display: block;
-            background: none;
+            // background: none;
         }
 
         .all-rainbow-btns {
@@ -48,6 +48,7 @@
     }
 
     .jzs-after-wave {
+        color: $white;
         margin-left: -.5em;
         height: $btns-height;
         vertical-align: middle;
@@ -57,17 +58,17 @@
         @extend %tablet_hidden;
     }
 
-    // &:after {
-    //     content: '';
-    //     z-index: 9;
-    //     height: 10em;
-    //     width: 100%;
-    //     background: linear-gradient(to bottom, white, transparent);
-    //     position: absolute;
-    //     bottom: 1px;
-    //     transform: translateY(100%);
-    //     left: 0;
+    &:after {
+        content: '';
+        z-index: 9;
+        height: 10em;
+        width: 100%;
+        background: linear-gradient(to bottom, $white, transparent);
+        position: absolute;
+        bottom: 1px;
+        transform: translateY(100%);
+        left: 0;
 
-    //     @extend %tablet_hidden;
-    // }
+        @extend %tablet_hidden;
+    }
 }

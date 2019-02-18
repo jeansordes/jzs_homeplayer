@@ -52,23 +52,33 @@ class Jzs_homeplayer_Public
 
         $this->plugin_name = $plugin_name;
         $this->version = $version;
-        add_shortcode('jzs_homeplayer', ['Jzs_homeplayer_Public', 'pluginContent']);
+        add_shortcode('jzs_homeplayer', ['Jzs_homeplayer_Public', 'getHomePage']);
         add_shortcode('jzs_product', ['Jzs_homeplayer_Public', 'getProductPage']);
         add_shortcode('jzs_checkout', ['Jzs_homeplayer_Public', 'getCheckoutPage']);
     }
 
     // https://codex.wordpress.org/Shortcode_API
-    public static function pluginContent()
+    public static function getHomePage()
     {
-        return file_get_contents(__DIR__ . "/partials/public-display.html");
+        return file_get_contents(__DIR__ . "/partials/public-display.html") . self::getShopStocksJson();
     }
     public static function getProductPage($args)
     {
-        return file_get_contents(__DIR__ . "/partials/product_" . $args["id"] . ".html");
+        return file_get_contents(__DIR__ . "/partials/product_" . $args["id"] . ".html") . self::getShopStocksJson();
     }
     public static function getCheckoutPage()
     {
         return file_get_contents(__DIR__ . "/partials/checkout-page.html");
+    }
+
+    public static function getShopStocksJson()
+    {
+        $products = wc_get_products(['status' => 'publish', 'limit' => -1]);
+        $stocks = [];
+        foreach ($products as $product) {
+            $stocks[$product->get_id()] = $product->get_stock_status() == "instock" ? "live" : "offline";
+        }
+        return "<script>let jzs_shop_stock_status = " . json_encode($stocks) . "</script>";
     }
 
     /**

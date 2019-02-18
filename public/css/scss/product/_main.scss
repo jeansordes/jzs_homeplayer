@@ -2,6 +2,7 @@
     width: 100%;
     @extend %display_block;
     position: relative;
+    color: $black;
 
     .product-section {
         .imgs {
@@ -48,4 +49,35 @@
             @import 'right-ctrls';
         }
     }
+}
+
+// customization of woocommerce "added to cart" notification
+.woocommerce .woocommerce-error,
+.woocommerce .woocommerce-info,
+.woocommerce .woocommerce-message {
+    @extend %header-gradient;
+    margin: 0;
+    margin-top: .5em;
+    padding: 5px 2em !important;
+    font-size: 16px !important;
+}
+
+.woocommerce-message a.button.wc-forward {
+    border-radius: 0;
+    padding: 0 2em 0 1em !important;
+    font-size: 16px !important;
+    text-transform: uppercase;
+    color: $black !important;
+    background: $white;
+}
+
+.woocommerce-message a.button.wc-forward::after {
+    content: "";
+    opacity: 1;
+    height: 0;
+    width: 0;
+    border: solid 7px transparent;
+    border-left-color: $black;
+    top: 7px;
+    right: 5px;
 }

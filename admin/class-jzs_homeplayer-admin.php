@@ -153,7 +153,9 @@ class Jzs_homeplayer_Admin
             }
         }
 
-        $output .= $productsLoopOutput["players"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</div><div class="jzs-other-products"><div class="btns"><span class="jzs-title-font">SELECT PRODUCT</span><span class="all-rainbow-btns">' . "\n\n" . '<!-- products loop -->' . "\n" . $productsLoopOutput["rainbow_btns"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.92891"><path d="M0 0c53.376895 0 42.471685 47.9536 87.170305 47.9289H0C.556356 13.26789 0 0 0 0z" fill="white" paint-order="stroke fill markers"></path></svg></div></div>';
+        $output .= $productsLoopOutput["players"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</div><div class="jzs-other-products"><div class="btns"><span class="jzs-title-font">SELECT PRODUCT</span><span class="all-rainbow-btns">' . "\n\n" . '<!-- products loop -->' . "\n" . $productsLoopOutput["rainbow_btns"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.93187"><path d="M0 .00297063C47.881188-.43604815 7.0065567 47.931871 87.170305 47.931871H0z" fill="currentColor" paint-order="stroke fill markers"/></svg></div></div>';
+
+        $output .= "<script>let jzs_collection_name = '" . $input["collection"] . "'</script>";
 
         file_put_contents(realpath(__DIR__ . "/../public/partials/public-display.html"), $output);
 
@@ -196,8 +198,8 @@ class Jzs_homeplayer_Admin
                 $output .= '<a href="' . $product["permalink"] . '"class="btn rainbow-btn uppercase gr-' . $tmp_i . '"><span>' . $product["slug"] . '</span></a>';
                 $tmp_i++;
             }
-            $output .= '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.92891"><path d="M0 0c53.376895 0 42.471685 47.9536 87.170305 47.9289H0C.556356 13.26789 0 0 0 0z" fill="white" paint-order="stroke fill markers"></path></svg></div></div>';
-            $output .= "<script>let jzs_product_data = " . json_encode(["collection" => $input["collection"], "sizes" => $input["sizes"], "product" => $product]) . "</script>";
+            $output .= '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.93187"><path d="M0 .00297063C47.881188-.43604815 7.0065567 47.931871 87.170305 47.931871H0z" fill="currentColor" paint-order="stroke fill markers"/></svg></div></div>';
+            $output .= "<script>let jzs_product_data = " . json_encode(["sizes" => $input["sizes"], "product" => $product]) . "; let jzs_collection_name = '" . $input["collection"] . "'</script>";
 
             file_put_contents(realpath(__DIR__ . "/../public/partials") . "/" . $productID . ".html", $output);
         }

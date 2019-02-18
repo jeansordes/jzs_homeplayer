@@ -1,5 +1,6 @@
 .jzs-checkout {
     margin: $margin-side;
+    min-height: calc(100vh - 280px);
 
     %margin-bottom {
         margin-bottom: $margin-side;
@@ -34,8 +35,8 @@
                 &>.header {
                     @extend %margin-bottom;
                     width: 100%;
-                    background: black;
-                    color: white;
+                    background: $black;
+                    color: $white;
 
                     .badge {
                         @extend %inline-block;
@@ -48,7 +49,9 @@
 
                 .details {
                     @extend %flex-col-tablet;
-                    padding: 2px;
+                    padding: 10px;
+                    padding-right: 0;
+                    background: $white;
 
                     %align-top {
                         vertical-align: top;
@@ -81,8 +84,8 @@
                             position: absolute;
                             top: 0;
                             right: 0;
-                            color: white;
-                            background: black;
+                            color: $white;
+                            background: $black;
                             height: 20px;
                             width: 20px;
                             border-radius: 1em;
@@ -115,6 +118,8 @@
                                 .label,
                                 .value {
                                     font-size: .8em;
+                                    height: 1.2em;
+                                    line-height: 1;
                                     margin-right: $margin-side / 2;
                                 }
                             }

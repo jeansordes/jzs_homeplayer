@@ -7,6 +7,9 @@ $margin-side: 10px;
 $frame-padding: 0 8px 1px 8px;
 $border-width: 2px;
 
+$black: #242424;
+$white: #f2f2f2;
+
 %display_block {
     display: block;
 }
@@ -25,16 +28,16 @@ $border-width: 2px;
     padding: $frame-padding;
     padding-left: $padding-side;
     padding-right: $padding-side;
-    background: black;
+    background: $black;
     margin-left: 5px;
-    color: white;
-    border: solid $border-width black;
-    border-radius: 3em;
+    color: $white;
+    border: solid $border-width $black;
+    // border-radius: 3em;
     transition: color, background .3s;
 
     &:hover {
-        color: black;
-        background: white;
+        color: $black;
+        background: transparent;
     }
 }
 
@@ -48,22 +51,23 @@ body {
     padding: 0;
 }
 
+%header-gradient {
+    background: linear-gradient(to right, #1a1a1a, #323232) !important;
+}
+
+#main-header {
+    @extend %header-gradient;
+}
+
 .uppercase {
     text-transform: uppercase;
 }
 
-.jzs-title-font {
-    font-weight: 700;
-    letter-spacing: -1px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 18px;
-}
-
 %jzs-framed {
     display: inline-block;
-    border: solid black;
+    border: solid $black;
     border-width: 1px 2px;
-    color: black;
+    color: $black;
 }
 
 .jzs-title-framed {
@@ -75,8 +79,8 @@ body {
 }
 
 a.jzs-title-framed:hover {
-    color: white;
-    background-color: black;
+    color: $white;
+    background-color: $black;
 }
 
 .jzs-btn-framed {
@@ -88,14 +92,22 @@ a.jzs-title-framed:hover {
 }
 
 .jzs-btn-framed-content {
-    color: white;
-    background-color: black;
+    color: $white;
+    background-color: $black;
     margin-left: 8px;
     padding: 4px 24px;
 }
 
+.jzs-title-font,
+.jzs-title-framed {
+    font-weight: 700;
+    letter-spacing: -1px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px;
+}
+
 .jzs-header {
-    color: #eee;
+    color: $white;
     position: absolute;
     line-height: 1;
 }
@@ -106,13 +118,13 @@ a.jzs-title-framed:hover {
 }
 
 .jzs-header .header-logo {
-    color: white;
+    color: $white;
     font-size: 2em;
     margin-right: .5em;
 }
 
 .jzs-header .header-product-infos {
-    border-left: solid 2px #eee;
+    border-left: solid 2px $white;
     padding-left: 1em;
 }
 
