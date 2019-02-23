@@ -173,7 +173,9 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                                 /********************* */
                                 /* PARTIE PAGE PRODUIT */
                                 /********************* */
-                                $product_page_color_section .= "<p class='admin-title'><span class='product-variation' style='background:" . $color_hex . "'></span> Variation \"" . $term->name . "\"</p>" . "<p>Nom du modèle sur les photos<br><input type='text' name='" . $variation_prefix . "[" . $i . "][model]' placeholder='Ex: Romane' value='" . (empty($options["products"][$productID]["variations"][$i]["model"]) ? '' : $options["products"][$productID]["variations"][$i]["model"]) . "'/></p>";
+                                $product_page_color_section .= "<p class='admin-title'><span class='product-variation' style='background:" . $color_hex . "'></span> Variation \"" . $term->name . "\"</p>" . "<p>Nom du modèle sur les photos<br><input type='text' name='" . $variation_prefix . "[" . $i . "][model]' placeholder='Ex: Romane' value='" . (empty($options["products"][$productID]["variations"][$i]["model"]) ? '' : $options["products"][$productID]["variations"][$i]["model"]) . "'/></p>"
+                                . "<p>Taille du modèle sur les photos<br>" . '<input placeholder="Ex: 6\'1\'\' / 120cm"' . ' type="text" name="' . $variation_prefix . "[" . $i . '][modelsize]" value="' . (empty($options["products"][$productID]["variations"][$i]["modelsize"]) ? '' : $options["products"][$productID]["variations"][$i]["modelsize"]) . '"/></p>'
+                                . "<p>Nom de la taille du modèle sur les photos<br><input type='text' name='" . $variation_prefix . "[" . $i . "][modelsizelabel]' placeholder='Ex: EXTRA SMALL' value='" . (empty($options["products"][$productID]["variations"][$i]["modelsizelabel"]) ? '' : $options["products"][$productID]["variations"][$i]["modelsizelabel"]) . "'/></p>";
 
                                 $query_images = new WP_Query(['post_type' => 'attachment',
                                     'post_mime_type' => 'image',

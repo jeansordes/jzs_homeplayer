@@ -107,6 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     let colorData = jzs_product_data.product.variations[i];
                     if (colorData.colorSlug == btn.getAttribute("data-target")) {
                         document.getElementById("jzs-model").innerText = colorData.model.toUpperCase();
+                        document.getElementById("jzs-height").innerText = colorData.modelsize.toUpperCase();
+                        document.getElementById("jzs-wearing").innerText = colorData.modelsizelabel.toUpperCase();
                         colorData.product_thumbnails.forEach((thmbnl, th_i) => {
                             container.getElementsByClassName("thumbnails")[0].getElementsByClassName("btn")[th_i].src = thmbnl;
                             container.getElementsByClassName("product-section")[0].getElementsByTagName("img")[th_i].src = thmbnl;
@@ -135,6 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 // puis on reclick sur la couleur
                 currentColorBtn.click();
 
+                // !! deprecated !!
+                /*
                 for (let j = 0; j < jzs_product_data.sizes.length; j++) {
                     let sizeData = jzs_product_data.sizes[j];
                     if (sizeData.slug == btn.getAttribute("data-target")) {
@@ -144,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         j = jzs_product_data.sizes.length;
                     }
                 }
+                */
 
             });
         }
