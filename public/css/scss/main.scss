@@ -41,6 +41,13 @@ $white: #f2f2f2;
     }
 }
 
+%rainbow-box {
+    border: solid 2px #ff9800;
+    border-image: repeating-linear-gradient(90deg,
+        #d03317 0%, #ff9800 15%, #ffeb3b 30%, #27ca2e 50%, #03a9f4 65%,
+        #3f51b5 80%, #9c27b0 100%) 10;
+}
+
 .btn {
     cursor: pointer;
 }
@@ -66,13 +73,17 @@ body {
 %jzs-framed {
     display: inline-block;
     border: solid $black;
+    text-transform: uppercase;
     border-width: 1px 2px;
     color: $black;
 }
 
-.jzs-title-framed {
+.jzs-title-framed,
+.woocommerce-billing-fields h3,
+.woocommerce-checkout>h3 {
     @extend %jzs-framed;
-    width: 10em;
+    min-width: 10em;
+    padding: 0 42px;
     text-align: center;
     font-weight: 600;
     transition: all .3s;
@@ -119,6 +130,7 @@ a.jzs-title-framed:hover {
 
 .jzs-header .header-logo {
     color: $white;
+    font-weight: bold;
     font-size: 2em;
     margin-right: .5em;
 }
@@ -139,7 +151,7 @@ a.jzs-title-framed:hover {
     color: crimson;
 }
 
-@media only screen and (min-width: 981px) {
+@media (min-width: 981px) {
     .jzs-header {
         padding: 8px 0 0 0;
         float: left;
@@ -167,3 +179,5 @@ a.jzs-title-framed:hover {
 @import 'product/main';
 
 @import 'checkout/main';
+
+@import 'billing-page';

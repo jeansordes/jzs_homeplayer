@@ -142,10 +142,7 @@
             min-height: 150px;
             padding: $margin-side;
             position: relative;
-            border: solid 2px #ff9800;
-            border-image: repeating-linear-gradient(90deg,
-                #d03317 0%, #ff9800 15%, #ffeb3b 30%, #27ca2e 50%, #03a9f4 65%,
-                #3f51b5 80%, #9c27b0 100%) 10;
+            @extend %rainbow-box;
 
             .bottom-part {
                 flex: 1;

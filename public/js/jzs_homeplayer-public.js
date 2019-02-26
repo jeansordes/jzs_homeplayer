@@ -22,14 +22,16 @@ document.addEventListener("DOMContentLoaded", () => {
         throw 'TransitionEnd event is not supported in this browser';
     }
 
-    if (document.getElementById("main-header") && typeof jzs_collection_name != "undefined" && typeof jzs_shop_stock_status != "undefined") {
-        let tmpOutput = "<div class='jzs-header'><a class='header-logo' href='/'>Sillage™</a>" +
-            "<div class='header-product-infos'>Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'>" + jzs_collection_name + "</span>\"</div></div>";
-
+    // set header on everypage
+    if (document.getElementById("main-header")) {
         let jzs_tmp = document.getElementById("main-header").getElementsByClassName("et_menu_container")[0];
-        jzs_tmp.innerHTML = tmpOutput + jzs_tmp.innerHTML;
+        jzs_tmp.innerHTML = "<div class='jzs-header' id='jzs-header'><a class='header-logo' href='/'>Chlores</a><div class='header-product-infos'></div></div>" + jzs_tmp.innerHTML;
 
-        updateHeaderProductStatus(jzs_shop_stock_status, Object.keys(jzs_shop_stock_status)[0]);
+        if (typeof jzs_collection_name != "undefined" && typeof jzs_shop_stock_status != "undefined") {
+            document.getElementById("jzs-header").getElementsByClassName("header-product-infos")[0].innerHTML = "Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'>" + jzs_collection_name + "</span>\"";
+
+            updateHeaderProductStatus(jzs_shop_stock_status, Object.keys(jzs_shop_stock_status)[0]);
+        }
     }
 
     // handle rainbow product click

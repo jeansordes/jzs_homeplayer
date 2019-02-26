@@ -1,0 +1,62 @@
+.woocommerce-form-coupon-toggle {
+    margin-bottom: 1em;
+}
+
+form.woocommerce-checkout {
+
+    input,
+    .select2-selection {
+        border-radius: 0 !important;
+    }
+
+    .woocommerce-billing-fields label {
+        font-weight: bold;
+    }
+
+    @media (min-width: $desktop-width) {
+
+        .woocommerce-billing-fields__field-wrapper,
+        .woocommerce-checkout-review-order {
+            margin-left: 42px;
+        }
+    }
+
+    &>div {
+        margin-bottom: 42px;
+    }
+
+    &>h3 {
+        margin: 1em 0;
+    }
+
+    .woocommerce-checkout-review-order {
+        @extend %rainbow-box;
+        padding: 5px;
+
+        table, th, td {
+            border: none !important;
+        }
+    }
+
+    .woocommerce-checkout-payment {
+        background: none !important;
+
+        .payment_methods {
+            border: none !important;
+        }
+    }
+
+    #place_order {
+        border-radius: 2em;
+        text-transform: uppercase;
+        color: $white;
+        background: $black;
+        font-size: 16px;
+        padding: .3em 1em !important;
+        font-weight: bold;
+
+        &::after {
+            display: none;
+        }
+    }
+}
