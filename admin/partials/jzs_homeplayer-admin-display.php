@@ -174,8 +174,8 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                                 /* PARTIE PAGE PRODUIT */
                                 /********************* */
                                 $product_page_color_section .= "<p class='admin-title'><span class='product-variation' style='background:" . $color_hex . "'></span> Variation \"" . $term->name . "\"</p>" . "<p>Nom du modèle sur les photos<br><input type='text' name='" . $variation_prefix . "[" . $i . "][model]' placeholder='Ex: Romane' value='" . (empty($options["products"][$productID]["variations"][$i]["model"]) ? '' : $options["products"][$productID]["variations"][$i]["model"]) . "'/></p>"
-                                . "<p>Taille du modèle sur les photos<br>" . '<input placeholder="Ex: 6\'1\'\' / 120cm"' . ' type="text" name="' . $variation_prefix . "[" . $i . '][modelsize]" value="' . (empty($options["products"][$productID]["variations"][$i]["modelsize"]) ? '' : $options["products"][$productID]["variations"][$i]["modelsize"]) . '"/></p>'
-                                . "<p>Nom de la taille du modèle sur les photos<br><input type='text' name='" . $variation_prefix . "[" . $i . "][modelsizelabel]' placeholder='Ex: EXTRA SMALL' value='" . (empty($options["products"][$productID]["variations"][$i]["modelsizelabel"]) ? '' : $options["products"][$productID]["variations"][$i]["modelsizelabel"]) . "'/></p>";
+                                    . "<p>Taille du modèle sur les photos<br>" . '<input placeholder="Ex: 6\'1\'\' / 120cm"' . ' type="text" name="' . $variation_prefix . "[" . $i . '][modelsize]" value="' . (empty($options["products"][$productID]["variations"][$i]["modelsize"]) ? '' : $options["products"][$productID]["variations"][$i]["modelsize"]) . '"/></p>'
+                                    . "<p>Nom de la taille du modèle sur les photos<br><input type='text' name='" . $variation_prefix . "[" . $i . "][modelsizelabel]' placeholder='Ex: EXTRA SMALL' value='" . (empty($options["products"][$productID]["variations"][$i]["modelsizelabel"]) ? '' : $options["products"][$productID]["variations"][$i]["modelsizelabel"]) . "'/></p>";
 
                                 $query_images = new WP_Query(['post_type' => 'attachment',
                                     'post_mime_type' => 'image',
@@ -274,7 +274,15 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                      ?><input type='hidden' name='<?=$pluginName?>[products][<?=$productID?>][permalink]' value='<?=$product->get_permalink()?>'><?php
 
                     // [products][slug][htmlOverlay] => <p>yo</p>
-                    ?><p>HTML en overlay au dessus du produit<br><textarea name="<?=$pluginName?>[products][<?=$productID?>][htmlOverlay]" cols="30" rows="10"><?=empty($options["products"][$productID]["htmlOverlay"]) ? '' : $options["products"][$productID]["htmlOverlay"]?></textarea></p><?php
+                    ?><p>HTML en overlay au dessus du produit<br>(Exemple : <pre><code>&lt;span class="jzs-player-txt"&gt;True+False _ Black+White _Pure+Modified _ Chaos+Harmony&lt;/span&gt;
+&lt;img src="https://chlores.io/wp-content/uploads/2019/02/loading.gif" alt="spinning icon" width=""&gt;
+&lt;span&gt;Beggining+End _ Solid+Liquid _ Animal+Vegetal _ Life+Death&lt;/span&gt;
+&lt;style&gt;
+.jzs-player-txt img { margin: 0; width: 40px }
+@media (max-width: 1200px) {
+.jzs-player-txt { opacity: 0; display: block }
+}
+&lt;/style&gt;</code></pre>)<textarea name="<?=$pluginName?>[products][<?=$productID?>][htmlOverlay]" cols="30" rows="10"><?=empty($options["products"][$productID]["htmlOverlay"]) ? '' : $options["products"][$productID]["htmlOverlay"]?></textarea></p><?php
 
                     // echo "<pre>";
                     // var_dump($product->get_variation_attributes());
@@ -296,15 +304,15 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
 
                 }
                 /*
-                ?><div class='notice notice-warning inline'><p><span class='dashicons dashicons-warning'></span> Pensez à revenir ici quand votre produit change pour enregistrer les nouvelles informations dans le plugin</p><p>Exemple de données qui peuvent changer : <ul style="margin-left: 2em; list-style: initial">
-                <li>état des stocks</li>
-                <li>slug du produit (qu'on retrouve dans l'url pour accéder au produit)</li>
-                <li>nom d'un attribut</li>
-                <li>valeur d'un attribut</li>
-                </ul>
-                Pour synchroniser le tout, venez ici et cliquez sur "Enregistrer"
-                </p></div><?php
-                */
+            ?><div class='notice notice-warning inline'><p><span class='dashicons dashicons-warning'></span> Pensez à revenir ici quand votre produit change pour enregistrer les nouvelles informations dans le plugin</p><p>Exemple de données qui peuvent changer : <ul style="margin-left: 2em; list-style: initial">
+            <li>état des stocks</li>
+            <li>slug du produit (qu'on retrouve dans l'url pour accéder au produit)</li>
+            <li>nom d'un attribut</li>
+            <li>valeur d'un attribut</li>
+            </ul>
+            Pour synchroniser le tout, venez ici et cliquez sur "Enregistrer"
+            </p></div><?php
+             */
 
             } else {
                 // IMPORTANT : it saves everything even if something didn't work

@@ -30,7 +30,7 @@
 /* rainbow rules */
 :root {
     --jzs-btn-padding: 0 15px;
-    --jzs-btn-border-width: 2px;
+    --jzs-btn-border-width: #{$border-width * 2};
     /* couleur de fond */
     --jzs-gradient-1: to right, #1a1a1a, #323232;
     --jzs-gradient-1: to right, #d18660, #e0b532;
@@ -54,7 +54,7 @@
     display: none;
 }
 
-.rainbow-btn.black:hover {
+.rainbow-btn.black:hover, .rainbow-btn.black.hover {
     background: $black;
     color: $white;
 }
@@ -70,18 +70,18 @@
     transition: background-color .3s;
 }
 
-.rainbow-btn:hover::before {
+.rainbow-btn:hover::before, .rainbow-btn.hover::before {
     background-color: transparent;
 }
 
-.rainbow-btn:hover>span {
+.rainbow-btn:hover>span, .rainbow-btn.hover>span {
     color: $white;
 }
 
 .rainbow-btn>span {
     display: inline-block;
     padding: var(--jzs-btn-padding);
-    padding-bottom: 2px;
+    // padding-bottom: 2px;
     position: relative;
     color: transparent;
     background: $black;
@@ -90,6 +90,7 @@
 }
 
 .rainbow-btn {
+    font-family: $framed-font;
     background: $black;
     position: relative;
     display: inline-block;

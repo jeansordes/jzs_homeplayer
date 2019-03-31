@@ -36,10 +36,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // handle rainbow product click
     if (document.getElementById("jzs-homeplayer")) {
+        document.querySelector("#jzs-homeplayer .rainbow-btn").classList.add("hover");
         let rainbowBtns = document.getElementsByClassName("jzs-other-products")[0].getElementsByClassName("rainbow-btn");
         for (let i = 0; i < rainbowBtns.length; i++) {
             rainbowBtns[i].addEventListener("click", evt => {
                 evt.preventDefault();
+
+                // "hover" class
+                if (document.querySelector("#jzs-homeplayer .hover")) {
+                    document.querySelector("#jzs-homeplayer .hover").classList.remove("hover");
+                }
+                rainbowBtns[i].classList.add("hover");
+                
                 document.getElementById("jzs-homeplayer").getElementsByClassName("player focused")[0].classList.remove("focused");
 
                 let jzsPlayer = document.getElementById("jzs-homeplayer").getElementsByClassName("player")[i];

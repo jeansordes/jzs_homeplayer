@@ -1,4 +1,5 @@
 .jzs-checkout {
+    font-size: $default-font-size;
     margin: $margin-side;
     min-height: calc(100vh - 280px);
 
@@ -9,6 +10,9 @@
     &>.header {
         @extend %margin-bottom;
         border-bottom: solid 2px gray;
+        h3 {
+            font-size: $default-font-size;
+        }
     }
 
     %flex-col-tablet {
@@ -40,7 +44,8 @@
 
                     .badge {
                         @extend %inline-block;
-                        border-radius: 1em;
+                        font-family: $framed-font;
+                        border-radius: 2em;
                         border: solid 2px currentColor;
                         padding: $frame-padding;
                         margin: $margin-side;
@@ -51,7 +56,7 @@
                     @extend %flex-col-tablet;
                     padding: 10px;
                     padding-right: 0;
-                    background: $white;
+                    // background: $white;
 
                     %align-top {
                         vertical-align: top;
@@ -88,7 +93,7 @@
                             background: $black;
                             height: 20px;
                             width: 20px;
-                            border-radius: 1em;
+                            border-radius: 2em;
                             transition: background .3s;
 
                             strong {
@@ -105,6 +110,7 @@
                         .product-name {
                             @extend %margin-bottom;
                             @extend %not-full-width;
+                            font-family: $framed-font;
                             font-size: 1.2em;
                         }
 
@@ -112,7 +118,7 @@
                             @extend %not-full-width;
 
                             &>* {
-                                @extend %margin-bottom;
+                                // @extend %margin-bottom;
                                 @extend %inline-block;
 
                                 .label,

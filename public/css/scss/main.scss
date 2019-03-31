@@ -1,11 +1,16 @@
 // sass --watch public/css/scss/main.scss public/css/jzs-global.css --style=compressed --no-source-map
+@import url('https://fonts.googleapis.com/css?family=Krona+One');
+
+$framed-font: "Krona One", sans-serif;
+$default-font-size: 11px;
+
 $mobile-width: 426px;
 $tablet-width: 768px;
 $desktop-width: 1024px;
 
 $margin-side: 10px;
 $frame-padding: 0 8px 1px 8px;
-$border-width: 2px;
+$border-width: 1px;
 
 $black: #242424;
 $white: #f2f2f2;
@@ -25,6 +30,7 @@ $white: #f2f2f2;
 %buy-btn {
     @extend %inline-block;
     $padding-side: 16px;
+    font-family: $framed-font;
     padding: $frame-padding;
     padding-left: $padding-side;
     padding-right: $padding-side;
@@ -64,6 +70,7 @@ body {
 
 #main-header {
     @extend %header-gradient;
+    min-height: 48px;
 }
 
 .uppercase {
@@ -74,7 +81,7 @@ body {
     display: inline-block;
     border: solid $black;
     text-transform: uppercase;
-    border-width: 1px 2px;
+    border-width: $border-width;
     color: $black;
 }
 
@@ -82,10 +89,10 @@ body {
 .woocommerce-billing-fields h3,
 .woocommerce-checkout>h3 {
     @extend %jzs-framed;
+    font-family: $framed-font;
     min-width: 10em;
-    padding: 0 42px;
+    padding: 5px 42px;
     text-align: center;
-    font-weight: 600;
     transition: all .3s;
 }
 
@@ -96,6 +103,7 @@ a.jzs-title-framed:hover {
 
 .jzs-btn-framed {
     @extend %jzs-framed;
+    font-family: $framed-font;
     margin: .5em;
     padding: 4px 0;
     padding-left: 8px;
@@ -111,16 +119,17 @@ a.jzs-title-framed:hover {
 
 .jzs-title-font,
 .jzs-title-framed {
-    font-weight: 700;
     letter-spacing: -1px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: $framed-font;
     font-size: 18px;
+    color: black;
 }
 
 .jzs-header {
     color: $white;
     position: absolute;
     line-height: 1;
+    padding-top: 12px;
 }
 
 .jzs-header>* {
@@ -131,13 +140,14 @@ a.jzs-title-framed:hover {
 .jzs-header .header-logo {
     color: $white;
     font-weight: bold;
-    font-size: 2em;
+    font-size: 1.5em;
     margin-right: .5em;
 }
 
 .jzs-header .header-product-infos {
     border-left: solid 2px $white;
     padding-left: 1em;
+    font-size: $default-font-size;
 }
 
 #jzs-product-status:after,
@@ -153,21 +163,22 @@ a.jzs-title-framed:hover {
 
 @media (min-width: 981px) {
     .jzs-header {
-        padding: 8px 0 0 0;
         float: left;
     }
 }
 
 @media (max-width: 980px) {
-    .jzs-header {
-        padding-top: 24px;
+    .jzs-header .header-product-infos {
+        margin-top: 6px;
+        border: none;
+        padding: 0;
+        display: block;
     }
 }
 
-@media (max-width: 500px) {
-    .jzs-header .header-product-infos {
-        display: none !important;
-    }
+// conteneur principal page d'accueil
+#et-main-area {
+    margin-top: 5px;
 }
 
 @import 'rainbow-btns';

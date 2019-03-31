@@ -3,6 +3,7 @@
 }
 
 form.woocommerce-checkout {
+    font-size: $default-font-size;
 
     input,
     .select2-selection {
@@ -13,19 +14,20 @@ form.woocommerce-checkout {
         font-weight: bold;
     }
 
-    @media (min-width: $desktop-width) {
+    // @media (min-width: $desktop-width) {
 
-        .woocommerce-billing-fields__field-wrapper,
-        .woocommerce-checkout-review-order {
-            margin-left: 42px;
-        }
-    }
+    //     .woocommerce-billing-fields__field-wrapper,
+    //     .woocommerce-checkout-review-order {
+    //         margin-left: 42px;
+    //     }
+    // }
 
     &>div {
         margin-bottom: 42px;
     }
 
     &>h3 {
+        font-family: $framed-font;
         margin: 1em 0;
     }
 

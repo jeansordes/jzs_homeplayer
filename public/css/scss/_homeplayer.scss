@@ -26,6 +26,7 @@
         bottom: 0;
         height: 80vh;
         overflow: hidden;
+        background-color: #787878;
 
         @media (max-width: $tablet-width) {
             & {
@@ -67,7 +68,7 @@
     max-width: 100%;
     /* display: inline-block; */
     text-align: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Times New Roman', serif;
 
     &>*:not(style) {
         vertical-align: middle;
@@ -80,12 +81,17 @@
 
 .jzs-player-action-btns {
     display: inline-block;
+
+    .jzs-title-framed {
+        font-size: $default-font-size;
+    }
 }
 
 .jzs-video-btn {
+    margin-right: 5px;
     cursor: pointer;
-    height: 2em;
-    width: 2em;
+    height: 1.2em;
+    width: 1.2em;
     vertical-align: middle;
     display: inline-block;
     border-radius: 3em;

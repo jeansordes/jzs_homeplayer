@@ -127,7 +127,7 @@ class Jzs_homeplayer_Admin
         register_setting($this->plugin_name, $this->plugin_name, array($this, 'validate'));
     }
 
-    private function e($input) {
+    public function e($input) {
         return htmlspecialchars($input);
     }
 
@@ -166,10 +166,11 @@ class Jzs_homeplayer_Admin
         /************** */
         /* Product pages */
         /************** */
+        $truckoala = "";
         foreach ($input["products"] as $productID => $product) {
-            $slug = $product["slug"];
+            $truckoala .= $productID . " ";
+            
             $output = '<div class="jzs-product" id="jzs-product"><div class="product-section"><div class="imgs">';
-            $default_size = $input["sizes"][0];
             $default_color = $product["variations"][0];
             $color_btns = '';
             $tmp_i = 0;
@@ -182,12 +183,12 @@ class Jzs_homeplayer_Admin
                 $tmp_i++;
             }
 
-            $output .= '</div><div class="controls"><div class="left-ctrls"><div class="description"><p>MODEL: <strong id="jzs-model">' . strtoupper($default_color["model"]) . '</strong> <span class="separator"></span>HEIGHT: <strong id="jzs-height">' . e(strtoupper($default_color["modelsize"])) . '</strong> <span class="separator"></span>
-            WEARING: <strong id="jzs-wearing">' . e(strtoupper($default_color["modelsizelabel"])) . '</strong></p>';
+            $output .= '</div><div class="controls"><div class="left-ctrls"><div class="description"><p>MODEL: <strong id="jzs-model">' . strtoupper($default_color["model"]) . '</strong> <span class="separator"></span>HEIGHT: <strong id="jzs-height">' . $this->e(strtoupper($default_color["modelsize"])) . '</strong> <span class="separator"></span>
+            WEARING: <strong id="jzs-wearing">' . $this->e(strtoupper($default_color["modelsizelabel"])) . '</strong></p>';
             foreach ($product["variations"] as $k => $color_fields) {
                 $color_btns .= '<strong class="btn' . ($k == 0 ? ' hover' : '') . '" data-target="' . $color_fields["colorSlug"] . '"></strong>';
             }
-            $output .= '<p id="jzs-description" class="details">' . e($product["description"]) . '</p></div><div class="thumbnails">' . $small_thumbnails . '</div></div><div class="gap"></div><div class="right-ctrls"><div class="product-slug"><img src="https://chlores.io/wp-content/uploads/2019/02/rainbow-btn.png" alt=""></div><div class="btns"><div id="jzs-color-btns"><span class="label">COLOR</span>' . $color_btns . '</div>';
+            $output .= '<p id="jzs-description" class="details">' . $this->e($product["description"]) . '</p></div><div class="thumbnails">' . $small_thumbnails . '</div></div><div class="gap"></div><div class="right-ctrls"><div class="product-slug"><img src="https://chlores.io/wp-content/uploads/2019/02/rainbow-btn.png" alt=""></div><div class="btns"><div id="jzs-color-btns"><span class="label">COLOR</span>' . $color_btns . '</div>';
             $output .= '<div id="jzs-size-btns"><span class="label">SIZE</span>';
             foreach ($input["sizes"] as $k => $size) {
                 $output .= '<strong class="btn' . ($k == 0 ? ' hover' : '') . '" data-target="' . $size["slug"] . '"></strong>';
@@ -205,7 +206,12 @@ class Jzs_homeplayer_Admin
             $output .= '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.93187"><path d="M0 .00297063C47.881188-.43604815 7.0065567 47.931871 87.170305 47.931871H0z" fill="currentColor" paint-order="stroke fill markers"/></svg></div></div>';
             $output .= "<script>let jzs_product_data = " . json_encode(["sizes" => $input["sizes"], "product" => $product]) . "; let jzs_collection_name = '" . $input["collection"] . "'</script>";
 
-            file_put_contents(realpath(__DIR__ . "/../public/partials") . "/" . $productID . ".html", $output);
+            $fp = realpath(__DIR__ . "/../public/partials") . "/" . $productID . ".html";
+            file_put_contents($fp, $output);
+            clearstatcache();
+            if (file_exists($fp)) {
+                throw new Exception($truckoala);
+            }
         }
 
         return $input;

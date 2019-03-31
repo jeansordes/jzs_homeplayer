@@ -59,6 +59,7 @@
         }
 
         .btn {
+            font-family: $framed-font;
             text-transform: uppercase;
             border: solid $border-width $black;
             padding: $frame-padding;
@@ -80,6 +81,7 @@
     .buy-section {
         .buy-btn {
             @extend %buy-btn;
+            border-radius: 2em;
         }
     }
 

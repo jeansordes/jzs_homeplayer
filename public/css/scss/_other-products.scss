@@ -16,7 +16,7 @@
         background: $white;
         padding: 0 .5em;
         padding-left: 2.5vw;
-        height: $btns-height;
+        min-height: $btns-height;
         vertical-align: middle;
         white-space: initial;
         z-index: 1;
@@ -24,6 +24,8 @@
 
         &>*:first-child {
             margin-right: 1em;
+            font-size: 14px;
+            top: 2px;
         }
 
         @media (max-width: $tablet-width) {
@@ -36,7 +38,8 @@
             margin: 5px 0;
 
             .rainbow-btn {
-                margin: 5px 0;
+                font-size: $default-font-size;
+                margin: 5px 5px 0 0;
             }
         }
     }

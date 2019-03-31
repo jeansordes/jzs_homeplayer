@@ -62,9 +62,19 @@ class Jzs_homeplayer_Public
     {
         return file_get_contents(__DIR__ . "/partials/public-display.html") . self::getShopStocksJson();
     }
-    public static function getProductPage($args)
+    public static function getProductPage()
     {
-        return file_get_contents(__DIR__ . "/partials/product_" . $args["id"] . ".html") . self::getShopStocksJson();
+        global $product;
+        if (!empty($product)) {
+            $fp = __DIR__ . "/partials/product_" . $product->get_id() . ".html";
+            if (file_exists($fp)) {
+                return file_get_contents($fp) . self::getShopStocksJson();
+            } else {
+                return "Nope there is a problem (jzsPublicPHP:getProductPage:" . __LINE__ . ")";
+            }
+        } else {
+            return "Nope there is a problem (jzsPublicPHP:getProductPage:" . __LINE__ . ")";
+        }
     }
     public static function getCheckoutPage()
     {
