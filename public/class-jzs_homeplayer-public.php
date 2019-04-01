@@ -55,25 +55,53 @@ class Jzs_homeplayer_Public
         add_shortcode('jzs_homeplayer', ['Jzs_homeplayer_Public', 'getHomePage']);
         add_shortcode('jzs_product', ['Jzs_homeplayer_Public', 'getProductPage']);
         add_shortcode('jzs_checkout', ['Jzs_homeplayer_Public', 'getCheckoutPage']);
+        add_shortcode('jzs_cart_amount', ['Jzs_homeplayer_Public', 'getCartAmount']);
     }
 
     // https://codex.wordpress.org/Shortcode_API
+    public static function getCartAmount()
+    {
+        global $woocommerce;
+        if ($woocommerce) {
+            $pluginFolder = "/wp-content/plugins/jzs_homeplayer/public";
+            ?><script>const jzs_cart_amount = <?=$woocommerce->cart->cart_contents_count?></script>
+            <script type="text/javascript">
+    var MTUserId='a7d60c27-1034-499b-b1c0-8f4bdcf2cc8e';
+    var MTFontIds = new Array();
+
+    MTFontIds.push("5663858"); // Neue Helvetica® W05 73 Extended Bold
+    (function() {
+        var mtTracking = document.createElement('script');
+        mtTracking.type='text/javascript';
+        mtTracking.async='true';
+        mtTracking.src='<?=$pluginFolder?>/js/mtiFontTrackingCode.js';
+
+        (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(mtTracking);
+    })();
+</script>
+
+<style type="text/css">
+    @font-face{
+        font-family:"HelveticaNeue";
+        src:url("<?=$pluginFolder?>/Fonts/5663858/8b114d9e-dbed-4c3e-b509-6c1c4f84cbf2.eot?#iefix");
+        src:url("<?=$pluginFolder?>/Fonts/5663858/8b114d9e-dbed-4c3e-b509-6c1c4f84cbf2.eot?#iefix") format("eot"),url("<?=$pluginFolder?>/Fonts/5663858/3e37e0b1-8062-42c6-8664-4ea78aa2de25.woff2") format("woff2"),url("<?=$pluginFolder?>/Fonts/5663858/a25e22f2-80cf-4f21-a365-b77c87a3edf8.woff") format("woff"),url("<?=$pluginFolder?>/Fonts/5663858/32502e84-a824-43c8-9792-9aa597884d9f.ttf") format("truetype");
+    }
+</style><?php
+
+        }
+    }
     public static function getHomePage()
     {
         return file_get_contents(__DIR__ . "/partials/public-display.html") . self::getShopStocksJson();
     }
-    public static function getProductPage()
+    public static function getProductPage($args)
     {
         global $product;
-        if (!empty($product)) {
-            $fp = __DIR__ . "/partials/product_" . $product->get_id() . ".html";
-            if (file_exists($fp)) {
-                return file_get_contents($fp) . self::getShopStocksJson();
-            } else {
-                return "Nope there is a problem (jzsPublicPHP:getProductPage:" . __LINE__ . ")";
-            }
+        $fp = __DIR__ . "/partials/product_" . (empty($product) ? (empty($args["productid"]) ? "NO_PRODUCT_DETECTED_AND_NO_PRODUCTID_GIVEN" : $args["productid"]) : $product->get_id()) . ".html";
+        if (file_exists($fp)) {
+            return file_get_contents($fp) . self::getShopStocksJson();
         } else {
-            return "Nope there is a problem (jzsPublicPHP:getProductPage:" . __LINE__ . ")";
+            return "Nope there is a problem (jzsPublicPHP:" . $fp . ":" . __LINE__ . ")";
         }
     }
     public static function getCheckoutPage()

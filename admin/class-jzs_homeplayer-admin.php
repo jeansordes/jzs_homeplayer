@@ -183,12 +183,12 @@ class Jzs_homeplayer_Admin
                 $tmp_i++;
             }
 
-            $output .= '</div><div class="controls"><div class="left-ctrls"><div class="description"><p>MODEL: <strong id="jzs-model">' . strtoupper($default_color["model"]) . '</strong> <span class="separator"></span>HEIGHT: <strong id="jzs-height">' . $this->e(strtoupper($default_color["modelsize"])) . '</strong> <span class="separator"></span>
-            WEARING: <strong id="jzs-wearing">' . $this->e(strtoupper($default_color["modelsizelabel"])) . '</strong></p>';
+            $output .= '</div><div class="controls"><div class="left-ctrls"><div class="description"><p>MODEL: <strong id="jzs-model" class="uppercase">' . e($default_color["model"]) . '</strong> <span class="separator"></span>HEIGHT: <strong id="jzs-height" class="uppercase">' . e($default_color["modelsize"]) . '</strong> <span class="separator"></span>
+            WEARING: <strong id="jzs-wearing" class="uppercase">' . e($default_color["modelsizelabel"]) . '</strong></p>';
             foreach ($product["variations"] as $k => $color_fields) {
                 $color_btns .= '<strong class="btn' . ($k == 0 ? ' hover' : '') . '" data-target="' . $color_fields["colorSlug"] . '"></strong>';
             }
-            $output .= '<p id="jzs-description" class="details">' . $this->e($product["description"]) . '</p></div><div class="thumbnails">' . $small_thumbnails . '</div></div><div class="gap"></div><div class="right-ctrls"><div class="product-slug"><img src="https://chlores.io/wp-content/uploads/2019/02/rainbow-btn.png" alt=""></div><div class="btns"><div id="jzs-color-btns"><span class="label">COLOR</span>' . $color_btns . '</div>';
+            $output .= '<p id="jzs-description" class="details">' . e($product["description"]) . '</p></div><div class="thumbnails">' . $small_thumbnails . '</div></div><div class="gap"></div><div class="right-ctrls"><div class="product-slug"><img src="https://chlores.io/wp-content/uploads/2019/02/rainbow-btn.png" alt=""></div><div class="btns"><div id="jzs-color-btns"><span class="label">COLOR</span>' . $color_btns . '</div>';
             $output .= '<div id="jzs-size-btns"><span class="label">SIZE</span>';
             foreach ($input["sizes"] as $k => $size) {
                 $output .= '<strong class="btn' . ($k == 0 ? ' hover' : '') . '" data-target="' . $size["slug"] . '"></strong>';
@@ -199,8 +199,8 @@ class Jzs_homeplayer_Admin
             // other products
             $output .= '<div class="jzs-other-products"><div class="btns"><span class="jzs-title-font">SELECT PRODUCT</span><span class="all-rainbow-btns">';
             $tmp_i = 1;
-            foreach ($input["products"] as $productID => $product) {
-                $output .= '<a href="' . $product["permalink"] . '"class="btn rainbow-btn uppercase gr-' . $tmp_i . '"><span>' . $product["slug"] . '</span></a>';
+            foreach ($input["products"] as $otherProduct) {
+                $output .= '<a href="' . $otherProduct["permalink"] . '"class="btn rainbow-btn uppercase gr-' . $tmp_i . '"><span>' . $otherProduct["slug"] . '</span></a>';
                 $tmp_i++;
             }
             $output .= '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.93187"><path d="M0 .00297063C47.881188-.43604815 7.0065567 47.931871 87.170305 47.931871H0z" fill="currentColor" paint-order="stroke fill markers"/></svg></div></div>';
@@ -208,10 +208,6 @@ class Jzs_homeplayer_Admin
 
             $fp = realpath(__DIR__ . "/../public/partials") . "/" . $productID . ".html";
             file_put_contents($fp, $output);
-            clearstatcache();
-            if (file_exists($fp)) {
-                throw new Exception($truckoala);
-            }
         }
 
         return $input;

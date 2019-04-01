@@ -10,6 +10,7 @@
     &>.header {
         @extend %margin-bottom;
         border-bottom: solid 2px gray;
+
         h3 {
             font-size: $default-font-size;
         }
@@ -35,6 +36,7 @@
             overflow: auto;
 
             .product-infos {
+                transition: all .3s;
 
                 &>.header {
                     @extend %margin-bottom;
@@ -45,6 +47,7 @@
                     .badge {
                         @extend %inline-block;
                         font-family: $framed-font;
+                        font-weight: bold;
                         border-radius: 2em;
                         border: solid 2px currentColor;
                         padding: $frame-padding;
@@ -111,6 +114,7 @@
                             @extend %margin-bottom;
                             @extend %not-full-width;
                             font-family: $framed-font;
+                            font-weight: bold;
                             font-size: 1.2em;
                         }
 
@@ -125,8 +129,14 @@
                                 .value {
                                     font-size: .8em;
                                     height: 1.2em;
-                                    line-height: 1;
+                                    line-height: 0;
+                                    padding: 6px 0;
+                                    min-width: 10rem;
                                     margin-right: $margin-side / 2;
+                                }
+
+                                input[type=number]::-webkit-inner-spin-button {
+                                    opacity: 1;
                                 }
                             }
                         }

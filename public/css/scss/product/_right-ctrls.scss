@@ -60,6 +60,7 @@
 
         .btn {
             font-family: $framed-font;
+            font-weight: bold;
             text-transform: uppercase;
             border: solid $border-width $black;
             padding: $frame-padding;
@@ -71,7 +72,8 @@
                 content: attr(data-target);
             }
 
-            &:hover, &.hover {
+            &:hover,
+            &.hover {
                 color: $white;
                 background-color: $black;
             }
@@ -79,6 +81,8 @@
     }
 
     .buy-section {
+        font-family: $framed-font;
+
         .buy-btn {
             @extend %buy-btn;
             border-radius: 2em;

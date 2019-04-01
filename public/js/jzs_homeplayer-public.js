@@ -22,16 +22,25 @@ document.addEventListener("DOMContentLoaded", () => {
         throw 'TransitionEnd event is not supported in this browser';
     }
 
+    let updateCartAmount = newAmount => {
+        let cartDom = document.querySelector('#et-top-navigation .et-cart-info > span');
+        if (cartDom && newAmount) {
+            cartDom.innerHTML = newAmount + "&nbsp;";
+        }
+    }
+
     // set header on everypage
     if (document.getElementById("main-header")) {
         let jzs_tmp = document.getElementById("main-header").getElementsByClassName("et_menu_container")[0];
-        jzs_tmp.innerHTML = "<div class='jzs-header' id='jzs-header'><a class='header-logo' href='/'>Chlores</a><div class='header-product-infos'></div></div>" + jzs_tmp.innerHTML;
+        jzs_tmp.innerHTML = "<div class='jzs-header' id='jzs-header'><a class='header-logo' href='/'>Chlores™</a><div class='header-product-infos'></div></div>" + jzs_tmp.innerHTML;
 
         if (typeof jzs_collection_name != "undefined" && typeof jzs_shop_stock_status != "undefined") {
-            document.getElementById("jzs-header").getElementsByClassName("header-product-infos")[0].innerHTML = "Satus: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'>" + jzs_collection_name + "</span>\"";
+            document.getElementById("jzs-header").getElementsByClassName("header-product-infos")[0].innerHTML = "Status: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'>" + jzs_collection_name + "</span>\"";
 
             updateHeaderProductStatus(jzs_shop_stock_status, Object.keys(jzs_shop_stock_status)[0]);
         }
+
+        if (!document.getElementById("jzs-checkout")) updateCartAmount(jzs_cart_amount);
     }
 
     // handle rainbow product click
@@ -47,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.querySelector("#jzs-homeplayer .hover").classList.remove("hover");
                 }
                 rainbowBtns[i].classList.add("hover");
-                
+
                 document.getElementById("jzs-homeplayer").getElementsByClassName("player focused")[0].classList.remove("focused");
 
                 let jzsPlayer = document.getElementById("jzs-homeplayer").getElementsByClassName("player")[i];
@@ -93,7 +102,12 @@ document.addEventListener("DOMContentLoaded", () => {
         let container = document.getElementById("jzs-product");
         let currentColorBtn = document.getElementsByClassName("swatch-" + document.getElementById("jzs-color-btns").getElementsByClassName("btn hover")[0].getAttribute("data-target"))[0];
 
-        let getCurrentPrice = () => document.getElementsByClassName("woocommerce-Price-amount")[0].innerText;
+        // get the price
+        let getCurrentPrice = () => {
+            let price = document.querySelector(".woocommerce-Price-amount");
+            if (price) return price.innerText;
+        }
+        setTimeout(() => document.querySelector('#jzs-product .price').innerText = getCurrentPrice(), 200);
 
         // connect jzs-buy-btn with real-buy-btn
         container.getElementsByClassName("buy-btn")[0].addEventListener("click", () => document.getElementsByClassName("single_add_to_cart_button")[0].click());
@@ -146,6 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 select.value = btn.getAttribute("data-target");
                 // puis on reclick sur la couleur
                 currentColorBtn.click();
+
+                document.querySelector('#jzs-product .price').innerText = getCurrentPrice();
 
                 // !! deprecated !!
                 /*
@@ -205,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 setTimeout(() => {
                     products.getElementsByTagName("input")[i].addEventListener("change", evt => {
+                        document.querySelectorAll("#jzs-cart-products .product-infos")[i].style.opacity = 0.5;
                         realProduct.getElementsByClassName("input-text qty text")[0].value = evt.target.value;
                         realProduct.getElementsByClassName("input-text qty text")[0].dispatchEvent(new Event('change', {
                             'bubbles': true
@@ -214,19 +231,23 @@ document.addEventListener("DOMContentLoaded", () => {
                         let interval = setInterval(() => {
                             if (currentProductPrice != document.getElementsByClassName("woocommerce-cart-form__cart-item cart_item")[i].getElementsByClassName("woocommerce-Price-amount amount")[1].innerText) {
                                 clearInterval(interval);
+                                document.querySelectorAll("#jzs-cart-products .product-infos")[i].style.opacity = 1;
                                 initProducts();
                             }
-                        }, 500);
+                        }, 300);
                     });
                     products.getElementsByClassName("rm-btn")[i].addEventListener("click", () => {
                         let currentProductAmount = document.getElementsByClassName("woocommerce-cart-form__cart-item cart_item").length;
+
+                        document.querySelectorAll("#jzs-cart-products .product-infos")[i].style.opacity = 0.5;
+
                         realRmBtn.click();
                         let interval = setInterval(() => {
                             if (document.getElementsByClassName("woocommerce-cart-form__cart-item cart_item").length != currentProductAmount) {
                                 clearInterval(interval);
                                 initProducts();
                             }
-                        }, 500);
+                        }, 300);
                     });
                 }, 200);
             }

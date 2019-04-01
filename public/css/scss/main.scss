@@ -1,7 +1,9 @@
 // sass --watch public/css/scss/main.scss public/css/jzs-global.css --style=compressed --no-source-map
-@import url('https://fonts.googleapis.com/css?family=Krona+One');
-
-$framed-font: "Krona One", sans-serif;
+/*
+This CSS resource incorporates links to font software which is the valuable copyrighted property of Monotype and/or its suppliers. You may not attempt to copy, install, redistribute, convert, modify or reverse engineer this font software. Please contact Monotype with any questions regarding Web Fonts: https://www.linotype.com
+*/
+$framed-font: HelveticaNeue,
+sans-serif;
 $default-font-size: 11px;
 
 $mobile-width: 426px;
@@ -31,6 +33,7 @@ $white: #f2f2f2;
     @extend %inline-block;
     $padding-side: 16px;
     font-family: $framed-font;
+    font-weight: bold;
     padding: $frame-padding;
     padding-left: $padding-side;
     padding-right: $padding-side;
@@ -90,8 +93,9 @@ body {
 .woocommerce-checkout>h3 {
     @extend %jzs-framed;
     font-family: $framed-font;
+    font-weight: bold;
     min-width: 10em;
-    padding: 5px 42px;
+    padding: 0 42px;
     text-align: center;
     transition: all .3s;
 }
@@ -104,6 +108,7 @@ a.jzs-title-framed:hover {
 .jzs-btn-framed {
     @extend %jzs-framed;
     font-family: $framed-font;
+    font-weight: bold;
     margin: .5em;
     padding: 4px 0;
     padding-left: 8px;
@@ -121,6 +126,7 @@ a.jzs-title-framed:hover {
 .jzs-title-framed {
     letter-spacing: -1px;
     font-family: $framed-font;
+    font-weight: bold;
     font-size: 18px;
     color: black;
 }
@@ -128,8 +134,10 @@ a.jzs-title-framed:hover {
 .jzs-header {
     color: $white;
     position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     line-height: 1;
-    padding-top: 12px;
+    padding-top: 0;
 }
 
 .jzs-header>* {
@@ -164,6 +172,7 @@ a.jzs-title-framed:hover {
 @media (min-width: 981px) {
     .jzs-header {
         float: left;
+        padding-top: 12px;
     }
 }
 
@@ -174,6 +183,11 @@ a.jzs-title-framed:hover {
         padding: 0;
         display: block;
     }
+}
+
+// header, cart et nombre d'articles dans le cart
+#et-top-navigation>a>span {
+    color: $white;
 }
 
 // conteneur principal page d'accueil

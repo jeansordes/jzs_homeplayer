@@ -173,6 +173,8 @@ class Jzs_homeplayer
         $this->loader->add_action('admin_init', $plugin_admin, 'options_update');
     }
 
+
+
     /**
      * Register all of the hooks related to the public-facing functionality
      * of the plugin.
@@ -187,7 +189,8 @@ class Jzs_homeplayer
 
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
-
+        // Add cart amount in the header
+        $this->loader->add_action("wp_head", $plugin_public, "getCartAmount");
     }
 
     /**

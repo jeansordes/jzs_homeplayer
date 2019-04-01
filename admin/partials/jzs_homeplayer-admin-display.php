@@ -77,7 +77,7 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
             if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
                 ?>
                 <p><label>Nom de la collection en cours<br />
-                    <input type="text" name="<?=$pluginName?>[collection]" value="<?=(empty($options["collection"]) ? "" : $options["collection"])?>">
+                    <input type="text" name="<?=$pluginName?>[collection]" value="<?=htmlspecialchars(empty($options["collection"]) ? "" : $options["collection"], ENT_QUOTES)?>">
                 </p>
 
                 <div class="postbox">
@@ -173,9 +173,9 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                                 /********************* */
                                 /* PARTIE PAGE PRODUIT */
                                 /********************* */
-                                $product_page_color_section .= "<p class='admin-title'><span class='product-variation' style='background:" . $color_hex . "'></span> Variation \"" . $term->name . "\"</p>" . "<p>Nom du modèle sur les photos<br><input type='text' name='" . $variation_prefix . "[" . $i . "][model]' placeholder='Ex: Romane' value='" . (empty($options["products"][$productID]["variations"][$i]["model"]) ? '' : $options["products"][$productID]["variations"][$i]["model"]) . "'/></p>"
-                                    . "<p>Taille du modèle sur les photos<br>" . '<input placeholder="Ex: 6\'1\'\' / 120cm"' . ' type="text" name="' . $variation_prefix . "[" . $i . '][modelsize]" value="' . (empty($options["products"][$productID]["variations"][$i]["modelsize"]) ? '' : $options["products"][$productID]["variations"][$i]["modelsize"]) . '"/></p>'
-                                    . "<p>Nom de la taille du modèle sur les photos<br><input type='text' name='" . $variation_prefix . "[" . $i . "][modelsizelabel]' placeholder='Ex: EXTRA SMALL' value='" . (empty($options["products"][$productID]["variations"][$i]["modelsizelabel"]) ? '' : $options["products"][$productID]["variations"][$i]["modelsizelabel"]) . "'/></p>";
+                                $product_page_color_section .= "<p class='admin-title'><span class='product-variation' style='background:" . $color_hex . "'></span> Variation \"" . $term->name . "\"</p>" . "<p>Nom du modèle sur les photos<br><input type='text' name='" . $variation_prefix . "[" . $i . "][model]' placeholder='Ex: Romane' value='" . htmlspecialchars(empty($options["products"][$productID]["variations"][$i]["model"]) ? '' : $options["products"][$productID]["variations"][$i]["model"], ENT_QUOTES) . "'/></p>"
+                                    . "<p>Taille du modèle sur les photos<br>" . '<input placeholder="Ex: 6\'1\'\' / 120cm"' . ' type="text" name="' . $variation_prefix . "[" . $i . '][modelsize]" value="' . htmlspecialchars(empty($options["products"][$productID]["variations"][$i]["modelsize"]) ? '' : $options["products"][$productID]["variations"][$i]["modelsize"], ENT_QUOTES) . '"/></p>'
+                                    . "<p>Nom de la taille du modèle sur les photos<br><input type='text' name='" . $variation_prefix . "[" . $i . "][modelsizelabel]' placeholder='Ex: EXTRA SMALL' value='" . htmlspecialchars(empty($options["products"][$productID]["variations"][$i]["modelsizelabel"]) ? '' : $options["products"][$productID]["variations"][$i]["modelsizelabel"], ENT_QUOTES) . "'/></p>";
 
                                 $query_images = new WP_Query(['post_type' => 'attachment',
                                     'post_mime_type' => 'image',
@@ -275,7 +275,7 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
 
                     // [products][slug][htmlOverlay] => <p>yo</p>
                     ?><p>HTML en overlay au dessus du produit<br>(Exemple : <pre><code>&lt;span class="jzs-player-txt"&gt;True+False _ Black+White _Pure+Modified _ Chaos+Harmony&lt;/span&gt;
-&lt;img src="https://chlores.io/wp-content/uploads/2019/02/loading.gif" alt="spinning icon" width=""&gt;
+&lt;img src="/image/de/votre/choix" alt="spinning icon" width=""&gt;
 &lt;span&gt;Beggining+End _ Solid+Liquid _ Animal+Vegetal _ Life+Death&lt;/span&gt;
 &lt;style&gt;
 .jzs-player-txt img { margin: 0; width: 40px }
