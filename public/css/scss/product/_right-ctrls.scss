@@ -39,12 +39,10 @@
         $btn-side-space: 10px;
         padding-left: $btn-side-space;
         margin: $btn-side-space;
-        border-left: solid 1px $black;
         text-align: right;
 
         @media (max-width: $desktop-width) {
             text-align: unset;
-            border-left: none;
             margin: 2em 0;
             padding-left: 0;
         }

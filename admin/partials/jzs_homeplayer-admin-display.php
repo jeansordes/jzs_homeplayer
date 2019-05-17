@@ -96,6 +96,26 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                         <?=do_shortcode("[jzs_homeplayer]")?>
                     </div>
                 </div>
+
+                <!-- IMPORTANT : section qui allège l'affichage -->
+                <style>
+                .checkbox-that-show,
+                .checkbox-that-show~.postbox {
+                display: none !important;
+                }
+
+                .checkbox-that-show:checked~.postbox {
+                display: block !important;
+                }
+                </style>
+                <script>
+                function jzs_settings_btn_toggle (el) {
+                    let fresh = el.getAttribute("data-txt"),
+                        old = el.innerText;
+                    el.setAttribute("data-txt", old);
+                    el.innerText = fresh;
+                }
+                </script>
                 <?php
 
                 foreach ($products as $product) {
@@ -103,6 +123,8 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                     $productID = "product_" . $product->get_ID();
                     // $productID = $product->get_slug();
                     ?>
+                    <p><label for="jzs-article-<?= $product->get_ID() ?>" data-txt='Cacher les réglages du produit "<?= $product->get_slug() ?>"' onclick="jzs_settings_btn_toggle(this)" class="button">Afficher les réglages du produit "<?= $product->get_slug() ?>"</label></p>
+                    <input type="checkbox" class="checkbox-that-show" id="jzs-article-<?= $product->get_ID() ?>">
                     <div class="postbox">
                         <div class="hndle">
                             <label>

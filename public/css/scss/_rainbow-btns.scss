@@ -3,7 +3,7 @@
     z-index: 2;
 }
 
-.rainbow-btns>.rainbow-btn {
+.rainbow-btns > .rainbow-btn {
     margin: 2px;
 }
 
@@ -29,7 +29,7 @@
 
 /* rainbow rules */
 :root {
-    --jzs-btn-padding: 0 15px;
+    --jzs-btn-padding: 0 5px;
     --jzs-btn-border-width: #{$border-width * 2};
     /* couleur de fond */
     --jzs-gradient-1: to right, #1a1a1a, #323232;
@@ -47,14 +47,15 @@
     border-radius: 3em;
     color: $black;
     border: solid 2px $black;
-    transition: all .3s;
+    transition: all 0.3s;
 }
 
 .rainbow-btn.black::before {
     display: none;
 }
 
-.rainbow-btn.black:hover, .rainbow-btn.black.hover {
+.rainbow-btn.black:hover,
+.rainbow-btn.black.hover {
     background: $black;
     color: $white;
 }
@@ -64,21 +65,27 @@
     border-radius: 2em;
 
     content: "";
-    width: calc(100% - var(--jzs-btn-border-width) - var(--jzs-btn-border-width));
-    height: calc(100% - var(--jzs-btn-border-width) - var(--jzs-btn-border-width));
+    width: calc(
+        100% - var(--jzs-btn-border-width) - var(--jzs-btn-border-width)
+    );
+    height: calc(
+        100% - var(--jzs-btn-border-width) - var(--jzs-btn-border-width)
+    );
     background-color: $white;
-    transition: background-color .3s;
+    transition: background-color 0.3s;
 }
 
-.rainbow-btn:hover::before, .rainbow-btn.hover::before {
+.rainbow-btn:hover::before,
+.rainbow-btn.hover::before {
     background-color: transparent;
 }
 
-.rainbow-btn:hover>span, .rainbow-btn.hover>span {
+.rainbow-btn:hover > span,
+.rainbow-btn.hover > span {
     color: $white;
 }
 
-.rainbow-btn>span {
+.rainbow-btn > span {
     display: inline-block;
     padding: var(--jzs-btn-padding);
     // padding-bottom: 2px;
@@ -90,6 +97,7 @@
 }
 
 .rainbow-btn {
+    line-height: 1rem;
     font-family: $framed-font;
     font-weight: bold;
     background: $black;
@@ -101,9 +109,8 @@
 
 @for $i from 1 through 6 {
     .rainbow-btn.gr-#{$i} {
-
         &,
-        &>span {
+        & > span {
             background-image: linear-gradient(var(--jzs-gradient-#{$i}));
         }
     }

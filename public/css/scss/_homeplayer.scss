@@ -24,13 +24,13 @@
         position: relative;
         top: 0;
         bottom: 0;
-        height: 80vh;
+        height: $player-height;
         overflow: hidden;
-        background-color: #787878;
+        background-color: #d0cfd0;
 
         @media (max-width: $tablet-width) {
             & {
-                height: calc(80vh - 80px);
+                height: calc($player-height - 80px);
             }
         }
 

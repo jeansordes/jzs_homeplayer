@@ -151,7 +151,7 @@ class Jzs_homeplayer_Admin
                     }
                 }
 
-                $productsLoopOutput["players"] .= $variationsLoopOutput["videos"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '</div><div class="controls"><div class="jzs-player-txt">' . "\n\n" . '<!-- HTML overlay -->' . "\n" . $product["htmlOverlay"] . "\n" . '<!-- end HTML overlay -->' . "\n\n" . '</div><div class="jzs-player-action-btns">' . "\n\n" . '<!-- variations loop -->' . "\n" . $variationsLoopOutput["color_selectors"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '<a href="' . $product["permalink"] . '" class="jzs-title-framed jzs-title-font uppercase">BUY</a></div></div></div>';
+                $productsLoopOutput["players"] .= $variationsLoopOutput["videos"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '</div><div class="controls"><div class="jzs-player-txt">' . "\n\n" . '<!-- HTML overlay -->' . "\n" . $product["htmlOverlay"] . "\n" . '<!-- end HTML overlay -->' . "\n\n" . '</div><div class="jzs-player-action-btns">' . "\n\n" . '<!-- variations loop -->' . "\n" . $variationsLoopOutput["color_selectors"] . "\n" . '<!-- end variations loop -->' . "\n\n" . '<a href="' . $product["permalink"] . '" class="jzs-title-framed jzs-title-font uppercase">VIEW</a></div></div></div>';
 
                 $i++;
             }
@@ -188,7 +188,7 @@ class Jzs_homeplayer_Admin
             foreach ($product["variations"] as $k => $color_fields) {
                 $color_btns .= '<strong class="btn' . ($k == 0 ? ' hover' : '') . '" data-target="' . $color_fields["colorSlug"] . '"></strong>';
             }
-            $output .= '<p id="jzs-description" class="details">' . e($product["description"]) . '</p></div><div class="thumbnails">' . $small_thumbnails . '</div></div><div class="gap"></div><div class="right-ctrls"><div class="product-slug"><img src="https://chlores.io/wp-content/uploads/2019/02/rainbow-btn.png" alt=""></div><div class="btns"><div id="jzs-color-btns"><span class="label">COLOR</span>' . $color_btns . '</div>';
+            $output .= '<p id="jzs-description" class="details">' . e($product["description"]) . '</p></div><div class="thumbnails">' . $small_thumbnails . '</div></div><div class="gap"></div><div class="right-ctrls"><div class="btns"><div id="jzs-color-btns"><span class="label">COLOR</span>' . $color_btns . '</div>';
             $output .= '<div id="jzs-size-btns"><span class="label">SIZE</span>';
             foreach ($input["sizes"] as $k => $size) {
                 $output .= '<strong class="btn' . ($k == 0 ? ' hover' : '') . '" data-target="' . $size["slug"] . '"></strong>';

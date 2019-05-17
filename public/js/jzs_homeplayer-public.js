@@ -23,16 +23,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let updateCartAmount = newAmount => {
-        let cartDom = document.querySelector('#et-top-navigation .et-cart-info > span');
+        let cartDom = document.querySelector('#et-top-navigation .et-cart-info');
         if (cartDom && newAmount) {
-            cartDom.innerHTML = newAmount + "&nbsp;";
+            cartDom.innerHTML = "<div id='jzs-cart-icon'>CART &nbsp;<div>" + newAmount + "</div></div>";
         }
     }
 
     // set header on everypage
     if (document.getElementById("main-header")) {
         let jzs_tmp = document.getElementById("main-header").getElementsByClassName("et_menu_container")[0];
-        jzs_tmp.innerHTML = "<div class='jzs-header' id='jzs-header'><a class='header-logo' href='/'>Chlores™</a><div class='header-product-infos'></div></div>" + jzs_tmp.innerHTML;
+        jzs_tmp.innerHTML = "<div class='jzs-header' id='jzs-header'><a class='header-logo' href='/'></a><div class='header-product-infos'></div></div>" + jzs_tmp.innerHTML;
 
         if (typeof jzs_collection_name != "undefined" && typeof jzs_shop_stock_status != "undefined") {
             document.getElementById("jzs-header").getElementsByClassName("header-product-infos")[0].innerHTML = "Status: <span id='jzs-product-status'></span><br>Current edition: \"<span id='jzs-product-edition'>" + jzs_collection_name + "</span>\"";
@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let container = document.getElementById("jzs-checkout");
         let products = document.getElementById("jzs-cart-products");
         let addProduct2Cart = p => {
-            products.innerHTML += '<div class="product-infos"><div class="header"><span class="badge">' + p.slug.toUpperCase() + '</span></div><div class="details"><div class="thumbnail"><img src="' + p.imgSrc + '" alt="product thumbnail"></div><div class="text-part"><label class="rm-btn btn"><strong>&times;</strong></label><div class="product-name">' + p.name + '</div><div class="specs"><div><span class="label">COLOR</span><div class="value jzs-title-framed jzs-title-font">' + p.color.toUpperCase() + '</div></div><div><span class="label">SIZE</span><div class="value jzs-title-framed jzs-title-font">' + p.size.toUpperCase() + '</div></div><div><span class="label">QUANTITY</span><input type="number" step="1" min="0" value="' + p.amount + '" class="value jzs-title-framed jzs-title-font" /></div></div><strong class="price">' + p.price + '</strong></div></div></div>';
+            products.innerHTML += '<div class="product-infos"><div class="header"><span class="badge">' + p.slug.toUpperCase() + '</span></div><div class="details"><div class="thumbnail"><img src="' + p.imgSrc + '" alt="product thumbnail"></div><div class="text-part"><label class="rm-btn btn"><strong>&times;</strong></label><div class="specs"><div><span class="label">COLOR</span><div class="value jzs-title-framed jzs-title-font">' + p.color.toUpperCase() + '</div></div><div><span class="label">SIZE</span><div class="value jzs-title-framed jzs-title-font">' + p.size.toUpperCase() + '</div></div><div><span class="label">QUANTITY</span><input type="number" step="1" min="0" value="' + p.amount + '" class="value jzs-title-framed jzs-title-font" /></div></div><strong class="price">' + p.price + '</strong></div></div></div>';
         }
 
         let initProducts = () => {

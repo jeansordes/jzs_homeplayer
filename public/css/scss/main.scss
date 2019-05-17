@@ -1,9 +1,8 @@
-// sass --watch public/css/scss/main.scss public/css/jzs-global.css --style=compressed --no-source-map
 /*
-This CSS resource incorporates links to font software which is the valuable copyrighted property of Monotype and/or its suppliers. You may not attempt to copy, install, redistribute, convert, modify or reverse engineer this font software. Please contact Monotype with any questions regarding Web Fonts: https://www.linotype.com
+sass --watch public/css/scss/main.scss public/css/jzs-global.css --style=compressed --no-source-map
 */
-$framed-font: HelveticaNeue,
-sans-serif;
+/*! This CSS resource incorporates links to font software which is the valuable copyrighted property of Monotype and/or its suppliers. You may not attempt to copy, install, redistribute, convert, modify or reverse engineer this font software. Please contact Monotype with any questions regarding Web Fonts: https://www.linotype.com */
+$framed-font: HelveticaNeue, sans-serif;
 $default-font-size: 11px;
 
 $mobile-width: 426px;
@@ -13,9 +12,12 @@ $desktop-width: 1024px;
 $margin-side: 10px;
 $frame-padding: 0 8px 1px 8px;
 $border-width: 1px;
+$player-height: 90vh;
 
 $black: #242424;
 $white: #f2f2f2;
+
+$product-page-bg: #e9e6f0;
 
 %display_block {
     display: block;
@@ -42,7 +44,7 @@ $white: #f2f2f2;
     color: $white;
     border: solid $border-width $black;
     // border-radius: 3em;
-    transition: color, background .3s;
+    transition: color, background 0.3s;
 
     &:hover {
         color: $black;
@@ -52,9 +54,17 @@ $white: #f2f2f2;
 
 %rainbow-box {
     border: solid 2px #ff9800;
-    border-image: repeating-linear-gradient(90deg,
-        #d03317 0%, #ff9800 15%, #ffeb3b 30%, #27ca2e 50%, #03a9f4 65%,
-        #3f51b5 80%, #9c27b0 100%) 10;
+    border-image: repeating-linear-gradient(
+            90deg,
+            #d03317 0%,
+            #ff9800 15%,
+            #ffeb3b 30%,
+            #27ca2e 50%,
+            #03a9f4 65%,
+            #3f51b5 80%,
+            #9c27b0 100%
+        )
+        10;
 }
 
 .btn {
@@ -62,7 +72,7 @@ $white: #f2f2f2;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -90,14 +100,14 @@ body {
 
 .jzs-title-framed,
 .woocommerce-billing-fields h3,
-.woocommerce-checkout>h3 {
+.woocommerce-checkout > h3 {
     @extend %jzs-framed;
     font-family: $framed-font;
     font-weight: bold;
-    min-width: 10em;
+    min-width: 8rem;
     padding: 0 42px;
     text-align: center;
-    transition: all .3s;
+    transition: all 0.3s;
 }
 
 a.jzs-title-framed:hover {
@@ -107,19 +117,29 @@ a.jzs-title-framed:hover {
 
 .jzs-btn-framed {
     @extend %jzs-framed;
-    font-family: $framed-font;
-    font-weight: bold;
-    margin: .5em;
-    padding: 4px 0;
-    padding-left: 8px;
-    transition: all .5s;
-}
 
-.jzs-btn-framed-content {
-    color: $white;
-    background-color: $black;
-    margin-left: 8px;
-    padding: 4px 24px;
+    width: 8rem;
+    line-height: 1.5rem;
+    background: $black;
+    display: inline-flex;
+    margin-right: 1rem;
+    font-family: $framed-font;
+    font-size: $default-font-size;
+    font-weight: bold;
+
+    & > * {
+        text-align: center;
+
+        &:first-child {
+            background: $white;
+            width: 1.5rem;
+            // line-height: 1.5rem;
+        }
+        &:last-child {
+            color: $white;
+            flex: 1;
+        }
+    }
 }
 
 .jzs-title-font,
@@ -127,7 +147,7 @@ a.jzs-title-framed:hover {
     letter-spacing: -1px;
     font-family: $framed-font;
     font-weight: bold;
-    font-size: 18px;
+    font-size: $default-font-size;
     color: black;
 }
 
@@ -140,16 +160,13 @@ a.jzs-title-framed:hover {
     padding-top: 0;
 }
 
-.jzs-header>* {
+.jzs-header > * {
     display: inline-block;
     vertical-align: middle;
 }
 
 .jzs-header .header-logo {
-    color: $white;
-    font-weight: bold;
-    font-size: 1.5em;
-    margin-right: .5em;
+    margin-right: 0.5em;
 }
 
 .jzs-header .header-product-infos {
@@ -158,14 +175,19 @@ a.jzs-title-framed:hover {
     font-size: $default-font-size;
 }
 
+.jzs-header .header-logo {
+    content: url(https://chlores.io/wp-content/uploads/2019/05/logo_chlores__web_version.png);
+    height: 1.5rem;
+}
+
 #jzs-product-status:after,
 #jzs-product-status[data-islive]:after {
-    content: 'live';
+    content: "live";
     color: #03ffea;
 }
 
-#jzs-product-status[data-islive=false]:after {
-    content: 'off';
+#jzs-product-status[data-islive="false"]:after {
+    content: "over";
     color: crimson;
 }
 
@@ -179,14 +201,47 @@ a.jzs-title-framed:hover {
 @media (max-width: 980px) {
     .jzs-header .header-product-infos {
         margin-top: 6px;
-        border: none;
-        padding: 0;
-        display: block;
     }
 }
 
+// on mobile display the icon instead of the full logo
+@media (max-width: $mobile-width) {
+    .jzs-header .header-product-infos {
+        border: none;
+        padding: 0;
+    }
+
+    .jzs-header .header-logo {
+        content: url(https://chlores.io/wp-content/uploads/2019/05/icone_chlores__web_version.png);
+        height: 2rem;
+        margin-right: 2vw;
+    }
+}
+
+@import "rainbow-btns";
+
+@import "homeplayer";
+
+@import "other-products";
+
+@import "product/main";
+
+@import "checkout/main";
+
+@import "billing-page";
+
+// ------------------------------------------------ //
+// ZONE DE CUSTOMIZATION DU CSS D'ORIGINE DU THEME  //
+// ------------------------------------------------ //
+
+// hamburger btn inutile doit disparaitre
+.mobile_menu_bar {
+    opacity: 0;
+    width: 0;
+}
+
 // header, cart et nombre d'articles dans le cart
-#et-top-navigation>a>span {
+#et-top-navigation > a > span {
     color: $white;
 }
 
@@ -195,14 +250,43 @@ a.jzs-title-framed:hover {
     margin-top: 5px;
 }
 
-@import 'rainbow-btns';
+// Faire en sorte que la marge du header soit la même que "SELECT PRODUCT"
+.et_menu_container {
+    max-width: calc(100% - 5vw) !important;
+    width: calc(100% - 5vw) !important;
+}
+#main-header {
+    overflow: hidden;
+}
 
-@import 'homeplayer';
+// faire disparaitre la barre blanche entre le header et le player sur la homepage
 
-@import 'other-products';
+@media (min-width: 981px) {
+    #page-container {
+        padding-top: 42px !important;
+    }
+}
 
-@import 'product/main';
+@media (max-width: 980px) {
+    #page-container {
+        padding-top: 75px !important;
+    }
+}
 
-@import 'checkout/main';
+// in the top right corner
+#jzs-cart-icon {
+    $size-pastille: 1.5rem;
 
-@import 'billing-page';
+    color: $white;
+    line-height: $size-pastille;
+
+    & > * {
+        @extend %inline-block;
+        color: $black;
+        background: $white;
+        line-height: $size-pastille;
+        width: $size-pastille;
+        border-radius: 2rem;
+        text-align: center;
+    }
+}

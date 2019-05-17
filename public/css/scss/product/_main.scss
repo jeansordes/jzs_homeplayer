@@ -7,8 +7,9 @@
 
     .product-section {
         .imgs {
-            height: 80vh;
+            height: $player-height;
             width: 100%;
+            background: $product-page-bg;
 
             img {
                 height: 100%;
@@ -64,8 +65,9 @@
 }
 
 .woocommerce-message a.button.wc-forward {
-    border-radius: 0;
+    border-radius: 2rem;
     padding: 0 2em 0 1em !important;
+    font-family: $framed-font !important;
     font-size: $default-font-size !important;
     text-transform: uppercase;
     color: $black !important;
