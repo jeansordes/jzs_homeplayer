@@ -140,7 +140,7 @@ class Jzs_homeplayer_Admin
         foreach ($input["products"] as $product) {
             if ($product["mustDisplay"] == 1) {
                 $productsLoopOutput["players"] .= '<div class="player' . ($i == 1 ? ' focused' : '') . '"><div class="videos">' . "\n\n" . '<!-- variations loop -->' . "\n";
-                $productsLoopOutput["rainbow_btns"] .= '<a class="rainbow-btn uppercase gr-' . $i . '" href="#jzs-homeplayer"><span>' . $product["slug"] . '</span></a>';
+                $productsLoopOutput["rainbow_btns"] .= '<a class="rainbow-btn uppercase gr-' . $i . '" href="#jzs-homeplayer"><span>' . $product["name"] . '</span></a>';
 
                 $variationsLoopOutput = ["videos" => '', "color_selectors" => ''];
                 foreach ($product["variations"] as $key => $variation) {
@@ -203,6 +203,7 @@ class Jzs_homeplayer_Admin
                 $output .= '<a href="' . $otherProduct["permalink"] . '"class="btn rainbow-btn uppercase gr-' . $tmp_i . '"><span>' . $otherProduct["slug"] . '</span></a>';
                 $tmp_i++;
             }
+            $product["productID"] = $productID;
             $output .= '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.93187"><path d="M0 .00297063C47.881188-.43604815 7.0065567 47.931871 87.170305 47.931871H0z" fill="currentColor" paint-order="stroke fill markers"/></svg></div></div>';
             $output .= "<script>let jzs_product_data = " . json_encode(["sizes" => $input["sizes"], "product" => $product]) . "; let jzs_collection_name = '" . $input["collection"] . "'</script>";
 

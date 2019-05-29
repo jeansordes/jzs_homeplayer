@@ -32,12 +32,6 @@ function array2inputs($arr, $parent_name = '', $exceptions = [])
     <form method="post" action="options.php">
         <?php settings_fields($pluginName)?>
         <!-- taxonomy color name -->
-        <p><label>Nom de l'attribut pour la couleur<br />
-            <input type='text' name='<?=$pluginName?>[colorAttrName]' placeholder='color' value='<?=(empty($options["colorAttrName"]) ? "" : $options["colorAttrName"])?>'/></label>
-        </p>
-        <p><label>Nom de l'attribut pour la taille<br />
-            <input type='text' name='<?=$pluginName?>[sizeAttrName]' placeholder='size' value='<?=(empty($options["sizeAttrName"]) ? "" : $options["sizeAttrName"])?>'/></label>
-        </p>
         <?php
 if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
     $products = wc_get_products(['status' => 'publish', 'limit' => -1]);
@@ -84,7 +78,7 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                     <div class="hndle">
                         <label>
                             <input class="jzs-settings-checkbox" style="display: none" type='checkbox'/>
-                            <span><span class="dashicons dashicons-arrow-down"></span> Apercu</span>
+                            <span><span class="dashicons dashicons-arrow-down"></span> Aperçu de la page d'accueil</span>
                         </label>
                     </div>
                     <div class="inside hidden" style="background: whitesmoke; margin: 0; padding: 12px;">
@@ -100,12 +94,12 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                 <!-- IMPORTANT : section qui allège l'affichage -->
                 <style>
                 .checkbox-that-show,
-                .checkbox-that-show~.postbox {
-                display: none !important;
+                .checkbox-that-show+.postbox {
+                    display: none !important;
                 }
 
-                .checkbox-that-show:checked~.postbox {
-                display: block !important;
+                .checkbox-that-show:checked+.postbox {
+                    display: block !important;
                 }
                 </style>
                 <script>
@@ -123,20 +117,19 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                     $productID = "product_" . $product->get_ID();
                     // $productID = $product->get_slug();
                     ?>
-                    <p><label for="jzs-article-<?= $product->get_ID() ?>" data-txt='Cacher les réglages du produit "<?= $product->get_slug() ?>"' onclick="jzs_settings_btn_toggle(this)" class="button">Afficher les réglages du produit "<?= $product->get_slug() ?>"</label></p>
+                    <p><label for="jzs-article-<?= $product->get_ID() ?>" data-txt='Cacher les réglages du produit "<?= $product->get_slug() ?>"' onclick="jzs_settings_btn_toggle(this)" class="button">Afficher les réglages du produit "<?= $product->get_name() ?>"</label></p>
                     <input type="checkbox" class="checkbox-that-show" id="jzs-article-<?= $product->get_ID() ?>">
                     <div class="postbox">
                         <div class="hndle">
                             <label>
+                                <input type="hidden" name="<?=$pluginName . "[products][" . $productID . "][name]"?>" value="<?=$product->get_name()?>">
                                 <input type="hidden" name="<?=$pluginName . "[products][" . $productID . "][slug]"?>" value="<?=$product->get_slug()?>">
                                 <input type='checkbox' name="<?=$pluginName . "[products][" . $productID . "][mustDisplay]"?>" value='1' <?php empty($options["products"][$productID]["mustDisplay"]) ? null : checked($options["products"][$productID]["mustDisplay"], 1)?> />
-                                <span>Afficher <strong><?=$product->get_slug()?></strong> sur le player (aka "<?=$product->get_name()?>")</span>
+                                <span>Afficher <strong><?=$product->get_name()?></strong> sur le player</span>
                             </label>
                         </div>
                         <div class="inside">
-                        <p>
-                            <a target="_blank" class="button-secondary" href="<?=get_edit_post_link($product->get_id())?>"><span class="dashicons dashicons-edit"></span> Modifier les autres paramètres de ce produit</a>
-                        </p>
+                        <p class='admin-title-big'>Partie page d'accueil</p>
                             <?php
 
                     /* <p>
@@ -296,15 +289,10 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
                      ?><input type='hidden' name='<?=$pluginName?>[products][<?=$productID?>][permalink]' value='<?=$product->get_permalink()?>'><?php
 
                     // [products][slug][htmlOverlay] => <p>yo</p>
-                    ?><p>HTML en overlay au dessus du produit<br>(Exemple : <pre><code>&lt;span class="jzs-player-txt"&gt;True+False _ Black+White _Pure+Modified _ Chaos+Harmony&lt;/span&gt;
-&lt;img src="/image/de/votre/choix" alt="spinning icon" width=""&gt;
+                    ?><p class='admin-title'>HTML en overlay au dessus du produit</p>Exemple : <pre><code>&lt;span class="jzs-player-txt"&gt;True+False _ Black+White _Pure+Modified _ Chaos+Harmony&lt;/span&gt;
+&lt;img src="/wp-content/uploads/2019/04/LogoChlores.png"&gt;
 &lt;span&gt;Beggining+End _ Solid+Liquid _ Animal+Vegetal _ Life+Death&lt;/span&gt;
-&lt;style&gt;
-.jzs-player-txt img { margin: 0; width: 40px }
-@media (max-width: 1200px) {
-.jzs-player-txt { opacity: 0; display: block }
-}
-&lt;/style&gt;</code></pre>)<textarea name="<?=$pluginName?>[products][<?=$productID?>][htmlOverlay]" cols="30" rows="10"><?=empty($options["products"][$productID]["htmlOverlay"]) ? '' : $options["products"][$productID]["htmlOverlay"]?></textarea></p><?php
+</code></pre><textarea name="<?=$pluginName?>[products][<?=$productID?>][htmlOverlay]" cols="30" rows="10"><?=empty($options["products"][$productID]["htmlOverlay"]) ? '' : $options["products"][$productID]["htmlOverlay"]?></textarea><?php
 
                     // echo "<pre>";
                     // var_dump($product->get_variation_attributes());
@@ -354,7 +342,6 @@ if (!empty($options["colorAttrName"]) && !empty($options["sizeAttrName"])) {
 }
 
 submit_button("Enregistrer", 'primary', 'submit', true);?>
-    </form>
     <div class="postbox">
         <div class="hndle">
             <label>
@@ -363,7 +350,14 @@ submit_button("Enregistrer", 'primary', 'submit', true);?>
             </label>
         </div>
         <div class="inside hidden" style="background: whitesmoke; margin: 0; padding: 12px;">
+            <p><label>Nom de l'attribut pour la couleur<br />
+                <input type='text' name='<?=$pluginName?>[colorAttrName]' placeholder='color' value='<?=(empty($options["colorAttrName"]) ? "" : $options["colorAttrName"])?>'/></label>
+            </p>
+            <p><label>Nom de l'attribut pour la taille<br />
+                <input type='text' name='<?=$pluginName?>[sizeAttrName]' placeholder='size' value='<?=(empty($options["sizeAttrName"]) ? "" : $options["sizeAttrName"])?>'/></label>
+            </p>
             <pre><code><?php var_dump($options)?></code></pre>
         </div>
     </div>
+    </form>
 </div>

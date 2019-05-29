@@ -140,6 +140,9 @@ class Jzs_homeplayer_Public
          */
 
         wp_enqueue_style($this->plugin_name . "global", plugin_dir_url(__FILE__) . 'css/jzs-global.css', array(), $this->version, 'all');
+
+        // add Font Awesome
+        wp_enqueue_style('font-awesome', '//use.fontawesome.com/releases/v5.8.2/css/all.css');
     }
 
     /**

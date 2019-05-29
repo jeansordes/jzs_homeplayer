@@ -26,7 +26,7 @@
         bottom: 0;
         height: $player-height;
         overflow: hidden;
-        background-color: #d0cfd0;
+        background-color: $homeplayer-bg-color;
 
         @media (max-width: $tablet-width) {
             & {
@@ -40,7 +40,7 @@
             background-repeat: no-repeat;
             background-position: center;
             opacity: 0;
-            transition: opacity .3s;
+            transition: opacity 0.3s;
             /* video behaves like a cover */
             object-fit: cover;
             height: 100%;
@@ -68,16 +68,15 @@
     max-width: 100%;
     /* display: inline-block; */
     text-align: center;
-    font-family: 'Times New Roman', serif;
+    font-family: "Times New Roman", serif;
 
-    &>*:not(style) {
+    & > *:not(style) {
         vertical-align: middle;
         color: $white !important;
         display: inline-block;
         max-width: 100%;
     }
 }
-
 
 .jzs-player-action-btns {
     display: inline-block;
@@ -102,4 +101,12 @@
 
 .jzs-player-txt {
     color: $white;
+    img {
+        margin: 0;
+        width: 40px;
+    }
+    @media (max-width: 1200px) {
+        opacity: 0;
+        display: block;
+    }
 }

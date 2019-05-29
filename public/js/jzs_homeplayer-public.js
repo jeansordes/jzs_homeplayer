@@ -99,6 +99,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // handle product page
     if (document.getElementById("jzs-product")) {
         console.log("jzs product page detected");
+
+        // hover the correct badge
+        let key = Object.keys(jzs_shop_stock_status).filter((productID) => jzs_product_data.product.productID == "product_" + productID)[0];
+        updateHeaderProductStatus(jzs_shop_stock_status, key);
+
+        // hover the product slug in the "SELECT PRODUCT" section
+        [...document.querySelectorAll(".all-rainbow-btns .rainbow-btn span")].filter(el => el.innerHTML == jzs_product_data.product.slug)[0].parentElement.classList.add("hover");
+
         let container = document.getElementById("jzs-product");
         let currentColorBtn = document.getElementsByClassName("swatch-" + document.getElementById("jzs-color-btns").getElementsByClassName("btn hover")[0].getAttribute("data-target"))[0];
 
@@ -170,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (sizeData.slug == btn.getAttribute("data-target")) {
                         document.getElementById("jzs-height").innerText = sizeData.description;
                         document.getElementById("jzs-wearing").innerText = sizeData.name.toUpperCase();
-
+    
                         j = jzs_product_data.sizes.length;
                     }
                 }

@@ -9,7 +9,7 @@
         .imgs {
             height: $player-height;
             width: 100%;
-            background: $product-page-bg;
+            background: $product-page-bg-color;
 
             img {
                 height: 100%;
@@ -43,7 +43,7 @@
             }
 
             .gap {
-                flex: 1;
+                flex: 2;
             }
 
             @import 'left-ctrls';
