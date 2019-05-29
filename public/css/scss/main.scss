@@ -254,8 +254,9 @@ a.jzs-title-framed:hover {
 // header, cart et nombre d'articles dans le cart
 #et-top-navigation {
     @media (max-width: 980px) {
-        height: 4rem;
-        padding-top: 14px !important;
+        height: 2rem;
+        padding-top: 0 !important;
+        margin: 10px 0;
     }
 
     & > a > span {
@@ -282,7 +283,7 @@ a.jzs-title-framed:hover {
 
 @media (max-width: 980px) {
     #page-container {
-        padding-top: 64px !important;
+        padding-top: 50px !important;
     }
 }
 
@@ -394,6 +395,7 @@ a.jzs-title-framed:hover {
         }
 
         .title {
+            font-family: $framed-font;
             line-height: 1rem;
             margin-right: 1rem;
             font-size: 1rem;

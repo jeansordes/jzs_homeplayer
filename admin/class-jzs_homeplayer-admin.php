@@ -140,7 +140,7 @@ class Jzs_homeplayer_Admin
         foreach ($input["products"] as $product) {
             if ($product["mustDisplay"] == 1) {
                 $productsLoopOutput["players"] .= '<div class="player' . ($i == 1 ? ' focused' : '') . '"><div class="videos">' . "\n\n" . '<!-- variations loop -->' . "\n";
-                $productsLoopOutput["rainbow_btns"] .= '<a class="rainbow-btn uppercase gr-' . $i . '" href="#jzs-homeplayer"><span>' . $product["name"] . '</span></a>';
+                $productsLoopOutput["rainbow_btns"] .= '<a class="rainbow-btn uppercase gr-' . $i . '" href="' . $product["permalink"] . '"><span>' . $product["name"] . '</span></a>';
 
                 $variationsLoopOutput = ["videos" => '', "color_selectors" => ''];
                 foreach ($product["variations"] as $key => $variation) {
@@ -157,7 +157,9 @@ class Jzs_homeplayer_Admin
             }
         }
 
-        $output .= $productsLoopOutput["players"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</div><div class="jzs-other-products"><div class="btns"><span class="jzs-title-font">SELECT PRODUCT</span><span class="all-rainbow-btns">' . "\n\n" . '<!-- products loop -->' . "\n" . $productsLoopOutput["rainbow_btns"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.93187"><path d="M0 .00297063C47.881188-.43604815 7.0065567 47.931871 87.170305 47.931871H0z" fill="currentColor" paint-order="stroke fill markers"/></svg></div></div>';
+        $select_product_section = '<div class="jzs-other-products"><div class="btns"><span class="jzs-title-font">SELECT PRODUCT</span><span class="all-rainbow-btns">' . "\n\n" . '<!-- products loop -->' . "\n" . $productsLoopOutput["rainbow_btns"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.93187"><path d="M0 .00297063C47.881188-.43604815 7.0065567 47.931871 87.170305 47.931871H0z" fill="currentColor" paint-order="stroke fill markers"/></svg></div>';
+
+        $output .= $productsLoopOutput["players"] . "\n" . '<!-- end products loop -->' . "\n\n" . '</div>' . $select_product_section . '</div>';
 
         $output .= "<script>let jzs_collection_name = '" . $input["collection"] . "'</script>";
 
@@ -193,19 +195,10 @@ class Jzs_homeplayer_Admin
             foreach ($input["sizes"] as $k => $size) {
                 $output .= '<strong class="btn' . ($k == 0 ? ' hover' : '') . '" data-target="' . $size["slug"] . '"></strong>';
             }
-
             $output .= '</div></div><div class="buy-section"><strong class="price"></strong><strong class="btn buy-btn">ADD TO CART</strong></div></div></div></div>';
 
-            // other products
-            $output .= '<div class="jzs-other-products"><div class="btns"><span class="jzs-title-font">SELECT PRODUCT</span><span class="all-rainbow-btns">';
-            $tmp_i = 1;
-            foreach ($input["products"] as $otherProduct) {
-                $output .= '<a href="' . $otherProduct["permalink"] . '"class="btn rainbow-btn uppercase gr-' . $tmp_i . '"><span>' . $otherProduct["slug"] . '</span></a>';
-                $tmp_i++;
-            }
             $product["productID"] = $productID;
-            $output .= '</span></div><svg class="jzs-after-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.170302 47.93187"><path d="M0 .00297063C47.881188-.43604815 7.0065567 47.931871 87.170305 47.931871H0z" fill="currentColor" paint-order="stroke fill markers"/></svg></div></div>';
-            $output .= "<script>let jzs_product_data = " . json_encode(["sizes" => $input["sizes"], "product" => $product]) . "; let jzs_collection_name = '" . $input["collection"] . "'</script>";
+            $output .= $select_product_section . "</div><script>let jzs_product_data = " . json_encode(["sizes" => $input["sizes"], "product" => $product]) . "; let jzs_collection_name = '" . $input["collection"] . "'</script>";
 
             $fp = realpath(__DIR__ . "/../public/partials") . "/" . $productID . ".html";
             file_put_contents($fp, $output);
